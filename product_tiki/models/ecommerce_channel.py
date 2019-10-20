@@ -1,6 +1,6 @@
 from django.db import models
 
-from common.utils import *
+from common.constants import *
 
 import requests
 import re
@@ -13,14 +13,13 @@ _logger = logging.getLogger(__name__)
 class Tiki(models.Model):
     class Meta:
         abstract = True
-        app_label = 'productdb'
 
-    def tiki_get_data(self):
+    def tiki_get_data(self, max_records=250):
 
         products = []
 
         page, limit = 1, 250
-        while True:
+        while True and len(products) < max_records:
             endpoint = 'https://tiki.vn/api/v2/products?category=1789&page=%s&limit=%s' % (page, limit)
             print("Processing: %s" % endpoint)
             try:

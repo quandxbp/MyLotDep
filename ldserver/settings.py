@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from common.credentials import DATABASE_CRE
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -42,7 +43,8 @@ INSTALLED_APPS = [
     # Custom App
     'product.apps.ProductConfig',
     'product_tiki.apps.ProductTikiConfig',
-    'product_adayroi.apps.ProductAdayroiConfig'
+    'product_adayroi.apps.ProductAdayroiConfig',
+    'timeseries.apps.TimeseriesConfig'
 ]
 
 MIDDLEWARE = [
@@ -79,30 +81,25 @@ WSGI_APPLICATION = 'ldserver.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 # DATABASE_ROUTERS = ['manager.router.DatabaseAppsRouter']
-DATABASE_APPS_MAPPING = {'productdb': 'productdb',
-                         'timeseriesdb': 'timeseriesdb'}
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'djongo',
+    #     'NAME': 'lotdep-timeseries',
+    #     'AUTH_SOURCE': 'lotdep-timeseries',
+    #     'HOST': 'mongodb://quandxbp:Hungvuong12@ds333248.mlab.com:33248/lotdep-timeseries',
+    #     'USER': 'quandxbp',
+    #     'PASSWORD': 'Hungvuong12',
+    #     'PORT': 33248
+    # },
     'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'lotdep-timeseries',
-        'AUTH_SOURCE': 'lotdep-timeseries',
-        'HOST': 'mongodb://quandxbp:Hungvuong12@ds333248.mlab.com:33248/lotdep-timeseries',
-        'USER': 'quandxbp',
-        'PASSWORD': 'Hungvuong12',
-        'PORT': 33248
-    },
-    'productdb': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'recommender',
-        'USER': 'root',
-        'PASSWORD': 'Hungvuong12',
-        'HOST': '127.0.0.1',
-        'PORT': '3306'
+        'NAME': DATABASE_CRE['DB_NAME'],
+        'USER': DATABASE_CRE['USER'],
+        'PASSWORD': DATABASE_CRE['PASSWORD'],
+        'HOST': DATABASE_CRE['HOST'],
+        'PORT': DATABASE_CRE['PORT'],
     },
-    'timeseriesdb': {
-
-    }
 }
 
 

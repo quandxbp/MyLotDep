@@ -3,8 +3,6 @@ from .product import Product
 
 
 class Image(models.Model):
-    class Meta:
-        app_label = 'productdb'
 
     name = models.CharField(max_length=255, blank=True)
     url = models.URLField()

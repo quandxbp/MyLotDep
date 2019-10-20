@@ -21,7 +21,7 @@ def sync_product_view(request):
     if request.method == 'POST':
         form = SyncChannelForm(request.POST)
         if form.is_valid():
-            print('aihhi')
+            print('Form is valid')
     else:
         form = SyncChannelForm()
 

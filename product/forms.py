@@ -5,4 +5,4 @@ from .models.ecommerce_channel import EcommerceChannel
 
 
 class SyncChannelForm(forms.Form):
-    channel = forms.ModelChoiceField(queryset=EcommerceChannel.objects.all())
+    channel = forms.ModelChoiceField(queryset=EcommerceChannel.objects.all(), required=True)

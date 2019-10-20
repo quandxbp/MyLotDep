@@ -7,8 +7,6 @@ import logging
 _logger = logging.getLogger(__name__)
 
 class AccessTrade(models.Model):
-    class Meta:
-        app_label = 'productdb'
 
     # TODO: Hashing the accesstrade key
     accesstrade_access_key = models.CharField(max_length=255, blank=True,

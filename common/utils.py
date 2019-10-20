@@ -1,20 +1,18 @@
-MERCHANT = {
-    'tiki': 'tikivn',
-    'adayroi': 'adayroi',
-    'lazada': 'lazada'
-}
+from bs4 import BeautifulSoup
+from urllib.request import urlopen, Request
+import requests
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-DOMAIN = {
-    'tiki': 'tiki.vn',
-    'lazada': 'lazada.vn',
-    'adayroi': 'adayroi.com'
-}
+def get_soup(url):
+    soup = False
+    headers = {'User-Agent': 'User-Agent:Mozilla/5.0'}
 
-CATEGORY = {
-    'tiki': {
-        '1795': 'Điện thoại Smartphone',
-    },
-    'adayroi': {
-        '322': ('Điện thoại - Máy tính bảng', 'https://dien-thoai-may-tinh-bang-c322'),
-    }
-}
+    try:
+        response = requests.get(url, headers=headers, verify=False, timeout=5)
+        raw = response.content
+        soup = BeautifulSoup(raw, 'lxml')
+    except Exception as error:
+        print("Error when requesting to %s" % url)
+        print(error)
+    return soup

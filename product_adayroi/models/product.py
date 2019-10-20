@@ -6,7 +6,6 @@ import requests
 class AdayroiProduct(models.Model):
     class Meta:
         abstract = True
-        app_label = 'productdb'
 
     def adayroi_standardize_data(self, product_data):
         url = 'https://adayroi.com/%s' % product_data.get('url')

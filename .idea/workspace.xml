@@ -1,7 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7ba35252-ea97-4da7-a9be-43ea22e2335e" name="Default Changelist" comment="" />
+    <list default="true" id="7ba35252-ea97-4da7-a9be-43ea22e2335e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/quand.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/quand.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/constants.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ldserver/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ldserver/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ldserver/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/ldserver/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/models/accesstrade.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models/accesstrade.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/models/brand.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models/brand.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/models/category.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models/category.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/models/ecommerce_channel.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models/ecommerce_channel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/models/image.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models/image.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/models/related_product.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models/related_product.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product_adayroi/models/ecommerce_channel.py" beforeDir="false" afterPath="$PROJECT_DIR$/product_adayroi/models/ecommerce_channel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product_adayroi/models/product.py" beforeDir="false" afterPath="$PROJECT_DIR$/product_adayroi/models/product.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product_tiki/models/ecommerce_channel.py" beforeDir="false" afterPath="$PROJECT_DIR$/product_tiki/models/ecommerce_channel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product_tiki/models/product.py" beforeDir="false" afterPath="$PROJECT_DIR$/product_tiki/models/product.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/timeseries/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/timeseries/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/timeseries/models/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timeseries/models/product.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timeseries/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/timeseries/views.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,9 +58,16 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1RBb5Wnz3gD3Ju8pRrezeF1awrj" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
@@ -118,11 +150,29 @@
       <workItem from="1570896834436" duration="55000" />
       <workItem from="1571149875461" duration="6109000" />
       <workItem from="1571157464546" duration="2911000" />
+      <workItem from="1571235530234" duration="2214000" />
+      <workItem from="1571303131809" duration="16839000" />
+      <workItem from="1571496243334" duration="9006000" />
+      <workItem from="1571535553529" duration="6507000" />
+      <workItem from="1571552321214" duration="2466000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -136,7 +186,8 @@
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Python.DjangoServer">
-        <watch expression="request.POST" language="Python" />
+        <watch expression="script.text" language="Python" />
+        <watch expression="datasets.group(0)" language="Python" />
       </configuration>
     </watches-manager>
   </component>

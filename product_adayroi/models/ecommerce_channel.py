@@ -6,7 +6,6 @@ import requests
 class Adayroi(models.Model):
     class Meta:
         abstract = True
-        app_label = 'productdb'
 
     def adayroi_get_data(self):
         products = []

@@ -3,19 +3,8 @@ from product_tiki.models.product import *
 
 from .accesstrade import AccessTrade
 
-from bs4 import BeautifulSoup
-
 from product_tiki.models.ecommerce_channel import Tiki
 from product_adayroi.models.ecommerce_channel import Adayroi
-
-import logging
-from urllib.request import urlopen, Request
-
-import requests
-
-
-_logger = logging.getLogger(__name__)
-
 
 class EcommerceChannel(Tiki, Adayroi):
     name = models.CharField(max_length=255)
@@ -32,7 +21,7 @@ class EcommerceChannel(Tiki, Adayroi):
         return self.name
 
     def sync_channel_product(self):
-        _logger.info("Start syncing Product Data in %s" % self.platform)
+        print("Start syncing Product Data in %s" % self.platform)
         cust_method_name = '%s_get_data' % self.platform
         if hasattr(self, cust_method_name):
             from .product import Product
@@ -46,21 +35,11 @@ class EcommerceChannel(Tiki, Adayroi):
         try:
             response = api_function(**kwargs)
         except Exception as err:
-            _logger.error("Error when requesting :%s" % api_function)
-            _logger.error(err)
+            print("Error when requesting :%s" % api_function)
+            print(err)
         return response
 
     def generate_accesstrade_headers(self):
         return {
             'Authorization': "Token %s" % self.access_trade_id.accesstrade_access_key
         }
-
-    def _get_soup(self, url):
-        print("Processing url %s" % url)
-        headers = {'User-Agent': 'User-Agent:Mozilla/5.0'}
-
-        response = Request(url, headers=headers)
-        data = urlopen(response).read()
-        soup = BeautifulSoup(data, "lxml")
-
-        return soup
