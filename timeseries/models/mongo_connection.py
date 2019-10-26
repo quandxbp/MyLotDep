@@ -21,9 +21,11 @@ def mongo_connect():
 
 class MongoDB:
     _connection = False
+    _collection = False
 
-    def __init__(self):
+    def __init__(self, collection):
         self._connection = mongo_connect()
+        self._collection = self._connection[collection]
 
     def create_collection(self, collection_name):
         if collection_name not in self._connection.list_collection_names():
@@ -34,24 +36,29 @@ class MongoDB:
             print("%s is already existed !" % collection_name)
         return True
 
-    def insert_one(self, col_name, data):
+    def insert_one(self, data):
         # Return an id of new record
-        collection = self._connection[col_name]
+        collection = self._collection
         new_record = collection.insert_one(data)
         return new_record
 
-    def insert_many(self, col_name, data_list):
+    def insert_many(self, data_list):
         # Return ids new records
         if not isinstance(data_list, list):
             print("data must list of new data")
-        collection = self._connection[col_name]
+        collection = self._collection
         new_records = collection.insert_many(data_list)
         return new_records.inserted_ids
 
-    def find_one(self, col_name, search_fields, filter_list=[]):
+    def find_one(self, search_fields, filter_list=[]):
         filter_fields = {x: 1 for x in filter_list}
-        collection = self._connection[col_name]
+        collection = self._collection
         data = collection.find_one(search_fields, filter_fields)
+        return data
+
+    def find_all(self, filter_fields={}):
+        collection = self._collection
+        data = collection.find({}, filter_fields)
         return data
 
 

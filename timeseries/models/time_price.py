@@ -9,11 +9,13 @@ from multiprocessing import Pool
 import datetime
 import re
 import json
+import ast
+import requests
 
 
 class TimePrice:
     _collection_name = 'time_price'
-    _conn = MongoDB()
+    _conn = MongoDB(_collection_name)
 
     def create_price(self):
         product = Product.objects.filter(pk=1)
@@ -34,68 +36,33 @@ class TimePrice:
             }
         }
 
-        self._conn.insert_one(self._collection_name, data)
+        self._conn.insert_one(data)
 
-    def _process_raw_url(self, raw_url):
-        if 'http' in raw_url:
-            raw_url = raw_url.split('/', 3)[-1]
-        if '.html' in raw_url:
-            raw_url = raw_url.split('.html')[0]
-
-        return raw_url
-
-    def initialize_data_time_price(self):
+    def initialize_data_time_price(self, get_price_func):
         res = []
         products = Product.objects.all()
-        for p in products:
+        existed_products = self._conn.find_all(filter_fields={'_id': 0, 'product_id': 1})
+        existed_products_ids = [p.get('product_id') for p in existed_products]
+        new_products = filter(lambda p: p.product_id not in existed_products_ids, products)
+
+        for p in new_products:
             print("Inserting %s" % p.url)
-            raw_url = self._process_raw_url(p.url)
-            prices = self.get_data_jajum(p.channel_id.platform, raw_url)
+            prices = get_price_func(p.channel_id.platform, p.url)
             if not prices:
                 continue
-            res.append({
+            data = {
                 'product_id': p.product_id,
-                'url': raw_url,
+                'url': p.url,
                 'platform': p.channel_id.platform,
                 'prices': prices,
-                'updated_date': datetime.datetime.now(),
-                'created_date': datetime.datetime.now()
-            })
+                'updated_date': str(datetime.datetime.now()),
+                'created_date': str(datetime.datetime.now()),
+            }
+            res.append(data)
+            self._conn.insert_one(data)
 
-        self._conn.insert_many(self._collection_name, res)
+        # self._conn.insert_many(res)
         return True
-
-    def get_data_jajum(self, platform, raw_url):
-        processed_url = self._process_raw_url(raw_url)
-        jajum_url = "https://jajum.com/products/{domain}/{product_url}". \
-            format(domain=DOMAIN[platform], product_url=processed_url)
-
-        soup = get_soup(jajum_url)
-        res = {}
-
-        if soup:
-            pattern = re.compile('datasets.*borderColor')
-            script = soup.find("script", text=pattern).text
-            datasets = re.search(r'\[{(.*?)}\]', script, re.MULTILINE | re.DOTALL)
-
-            if datasets:
-                datasets = datasets.group(0).strip()
-                datasets = datasets.split('\"data\":')[1]
-                data_list = json.loads(datasets)
-
-                for record in data_list:
-                    timestamp = record.get('x')
-                    price = record.get('y')
-                    date_time = datetime.datetime.fromtimestamp(float(timestamp) / 1e3)
-                    only_date = date_time.strftime("%d-%m-%Y")
-                    only_time = date_time.time()
-
-                    if res.get(only_date):
-                        res[only_date].update({only_time: price})
-                    else:
-                        res[only_date] = {only_time: price}
-
-        return res
 
 
 """

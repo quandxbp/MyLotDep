@@ -15,7 +15,6 @@ from urllib.parse import urlparse
 from django.core.files import File
 from io import BytesIO
 
-
 class Product(TikiProduct, AdayroiProduct):
     active = models.BooleanField(default=True)
     name = models.CharField(max_length=255, blank=True)
@@ -34,6 +33,8 @@ class Product(TikiProduct, AdayroiProduct):
 
     meta_description = models.TextField(blank=True, null=True)
     description = models.TextField(blank=True)
+    has_past_price = models.IntegerField(default=1)
+    sequence = models.IntegerField(default=0)
 
     channel_id = models.ForeignKey(EcommerceChannel,
                                    default=1,
@@ -52,9 +53,8 @@ class Product(TikiProduct, AdayroiProduct):
     def __str__(self):
         return "[%s] %s" % (self.sku, self.name) if self.sku else self.name
 
-    @classmethod
-    def sync_product_channel(cls, products_data):
-        print("Syncing data on channel")
+    def sync_product_channel(self, uid, products_data):
+        print("Running in Worker %s" % uid)
         product_fields = [f.name for f in Product._meta.fields]
 
         def get_brand(brand_data):
@@ -75,12 +75,13 @@ class Product(TikiProduct, AdayroiProduct):
 
         def get_category(categ_data):
             if not categ_data:
-                categ_data = {'name': 'General'}
+                categ_data = {'name': 'General', 'id_on_channel': '0'}
             try:
-                categ_id = Category.objects.get(name=categ_data.get('name'))
+                categ_id = Category.objects.get(name=categ_data.get('name'), id_on_channel=categ_data.get('id'))
             except Category.DoesNotExist:
                 categ_id = Category.objects.create(**{
                     'name': categ_data.get('name'),
+                    'id_on_channel': categ_data.get('id', "-1")
                 })
 
             return categ_id
@@ -97,9 +98,9 @@ class Product(TikiProduct, AdayroiProduct):
 
         for product in products_data:
             cust_method_name = '%s_standardize_data' % product.get('channel_id').platform
-            if hasattr(cls, cust_method_name):
-                method = getattr(cls, cust_method_name)
-                standardize_product = method(cls, product)
+            if hasattr(self, cust_method_name):
+                method = getattr(self, cust_method_name)
+                standardize_product = method(product)
 
                 standardize_product['brand_id'] = get_brand(standardize_product.get('brand', False))
                 standardize_product['category_id'] = get_category(standardize_product.get('category', False))

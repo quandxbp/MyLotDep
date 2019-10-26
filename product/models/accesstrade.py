@@ -35,3 +35,10 @@ class AccessTrade(models.Model):
         response = requests.get(url=endpoint, headers=headers).json()
 
         return response
+
+    def get_top_products(self, merchant):
+        headers = self.generate_accesstrade_headers()
+        endpoint = "https://api.accesstrade.vn/v1/top_products?merchant=%s" % merchant
+        response = requests.get(url=endpoint, headers=headers).json()
+
+        return response

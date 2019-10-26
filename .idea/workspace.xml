@@ -2,29 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ba35252-ea97-4da7-a9be-43ea22e2335e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dictionaries/quand.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/quand.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/constants.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/constants.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ldserver/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ldserver/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ldserver/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/ldserver/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/migrations/__init__.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/product/models/accesstrade.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models/accesstrade.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/models/brand.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models/brand.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product/models/category.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models/category.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product/models/ecommerce_channel.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models/ecommerce_channel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/models/image.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models/image.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/models/related_product.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models/related_product.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product_adayroi/models/ecommerce_channel.py" beforeDir="false" afterPath="$PROJECT_DIR$/product_adayroi/models/ecommerce_channel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product_adayroi/models/product.py" beforeDir="false" afterPath="$PROJECT_DIR$/product_adayroi/models/product.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/models/product.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models/product.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/templates/product/create_new_channel.html" beforeDir="false" afterPath="$PROJECT_DIR$/product/templates/product/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product_tiki/models/ecommerce_channel.py" beforeDir="false" afterPath="$PROJECT_DIR$/product_tiki/models/ecommerce_channel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product_tiki/models/product.py" beforeDir="false" afterPath="$PROJECT_DIR$/product_tiki/models/product.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/timeseries/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/timeseries/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/timeseries/models/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/timeseries/models/product.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timeseries/models/mongo_connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/timeseries/models/mongo_connection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/timeseries/models/time_price.py" beforeDir="false" afterPath="$PROJECT_DIR$/timeseries/models/time_price.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/timeseries/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/timeseries/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/timeseries/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/timeseries/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -53,6 +47,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="CSS File" />
+        <option value="JavaScript File" />
         <option value="HTML File" />
         <option value="Python Script" />
       </list>
@@ -69,11 +65,14 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../OdooProjectSkeleton" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Projects\Python\Thesis\ldserver\static\bootstrap\css" />
+      <recent name="D:\Projects\Python\Thesis\ldserver\static\bootstrap\js" />
       <recent name="D:\Projects\Python\Thesis\ldserver\common" />
       <recent name="D:\Projects\Python\Thesis\ldserver\polls\templates\polls" />
     </key>
@@ -154,7 +153,12 @@
       <workItem from="1571303131809" duration="16839000" />
       <workItem from="1571496243334" duration="9006000" />
       <workItem from="1571535553529" duration="6507000" />
-      <workItem from="1571552321214" duration="2466000" />
+      <workItem from="1571552321214" duration="13039000" />
+      <workItem from="1571755337320" duration="2844000" />
+      <workItem from="1571845974329" duration="827000" />
+      <workItem from="1571875541597" duration="5207000" />
+      <workItem from="1571923778849" duration="23068000" />
+      <workItem from="1572062449889" duration="5532000" />
     </task>
     <servers />
   </component>
@@ -186,8 +190,10 @@
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Python.DjangoServer">
-        <watch expression="script.text" language="Python" />
-        <watch expression="datasets.group(0)" language="Python" />
+        <watch expression="pattern = re.compile('.*Highcharts.*')" language="Python" />
+        <watch expression="soup.find(&quot;script&quot;, text=pattern).text" language="Python" />
+        <watch expression="soup.find(&quot;script&quot;, text=pattern)" language="Python" />
+        <watch expression="soup.find(&quot;script&quot;)" language="Python" />
       </configuration>
     </watches-manager>
   </component>

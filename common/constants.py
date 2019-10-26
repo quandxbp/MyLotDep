@@ -12,7 +12,8 @@ DOMAIN = {
 
 CATEGORY = {
     'tiki': {
-        '1795': 'Điện thoại Smartphone',
+        '1789': 'Điện Thoại - Máy Tính Bảng',
+        '1815': 'Thiết Bị Số - Phụ Kiện Số'
     },
     'adayroi': {
         '322': ('Điện thoại - Máy tính bảng', 'https://dien-thoai-may-tinh-bang-c322'),

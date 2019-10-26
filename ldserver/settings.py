@@ -78,9 +78,14 @@ TEMPLATES = [
 WSGI_APPLICATION = 'ldserver.wsgi.application'
 
 
+# STATICFILES_DIRS = (
+#     '/static/'
+# )
+
+STATIC_URL = '/static/'
+
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-# DATABASE_ROUTERS = ['manager.router.DatabaseAppsRouter']
 
 DATABASES = {
     # 'default': {
@@ -139,4 +144,3 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'

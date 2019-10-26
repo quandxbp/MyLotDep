@@ -55,8 +55,9 @@ def sync_product(request):
         data = request.POST
         if data:
             channel_id = data.get('channel', False)
+            is_top_product = data.get('is_top_product', False)
             channel = EcommerceChannel.objects.get(pk=channel_id)
-            channel.sync_channel_product()
+            channel.sync_channel_product(is_top_product)
             return HttpResponse("Is syncing")
     else:
         return HttpResponseNotFound("Error: Request methods")
