@@ -1,18 +1,15 @@
 from django.db import models
 
 import requests
+from common.credentials import ACCESSTRADE_CRE
 
-import logging
-
-_logger = logging.getLogger(__name__)
 
 class AccessTrade(models.Model):
-
     # TODO: Hashing the accesstrade key
     accesstrade_access_key = models.CharField(max_length=255, blank=True,
-                                              default='hIAO1n_PcfcRwUIKcpMqnJneuGQ-YrtC')
+                                              default=ACCESSTRADE_CRE['ACCESS_KEY'])
     accesstrade_secret_key = models.CharField(max_length=255, blank=True,
-                                              default='obzlw+lj@f5)orhvn95-(f@t2pg_srm0')
+                                              default=ACCESSTRADE_CRE['SECRET_KEY'])
 
     def __str__(self):
         return "AccessTrade-%s" % self.id

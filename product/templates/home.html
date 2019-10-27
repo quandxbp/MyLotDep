@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <section id="home-slider" class="home-slider ftco-degree-bg">
+        <div class="slider-item">
+            <div class="overlay"></div>
+                <div class="container">
+                    <div class="row slider-text align-items-center justify-content-center">
+                        <div class="col-md-14 ftco-animate text-center">
+                            <div class="subscribe-form mb-4">
+                                <div class="form-group">
+                                    <span class="icon icon-search"></span>
+                                    <input type="search" placeholder="Tìm theo dường dẫn hoặc tên sản phẩm ..." class="product-search form-control">
+                                </div>
+                            </div>
+                            <h5 class="mb-4">Từ khóa nổi bật:
+                                <strong>
+                                    <a>Galaxy Note 10</a>,
+                                    <a>iPhone 11</a>
+                                </strong>
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END slider -->
+
+    <!-- Display Top Products section -->
+    <section id="top-product" class="ftco-section testimony-section ftco-degree-bg">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-7 text-center heading-section ftco-animate">
+                    <h2>Sản phẩm nổi bật của Tiki.vn</h2>
+                </div>
+            </div>
+            <div class="row ftco-animate">
+                <div class="col-md-12">
+                    <div class="carousel-testimony owl-carousel ftco-owl">
+                        {% for product in top_products %}
+                            <div class="item">
+                                <div class="testimony-wrap p-4 pb-5">
+                                    <div class="product-image mb-4">
+                                        <img class="thumbnail" src="{{ product.thumbnail_url }}">
+                                    </div>
+                                    <div class="text">
+                                        <p class="product-name mb-2">{{ product.name }}</p>
+                                        <p>
+                                            <span class="sale-price">{{ product.list_price }}</span>
+                                            (<span class="list-price">{{ product.sale_price }}</span>)
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

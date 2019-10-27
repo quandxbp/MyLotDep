@@ -18,7 +18,10 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('polls/', include('polls.urls')),
-    path('product/', include('product.urls')),
-    path('timeseries/', include('timeseries.urls'))
+
+    # Main lot dep content
+    path('', include('product.urls')),
+
+    # Process timeseries and Mongo
+    path('mongo/', include('timeseries.urls'))
 ]

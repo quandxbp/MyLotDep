@@ -3,7 +3,14 @@ from django.urls import path
 from . import views
 app_name = 'product'
 urlpatterns = [
-    path('', views.index, name='index'),
+    # Homepage
+    path('', views.home, name='home'),
+    path('about', views.about, name='about'),
+    path('contact', views.contact, name='contact'),
+    path('404-not-found', views.page_not_found, name='page_not_found'),
+
+    # Display products
+    path('san-pham', views.products, name='products'),
 
     # Create Channels and Synchronize products on channels
     path('create_channel', views.create_new_channel, name='create_channel'),

@@ -25,11 +25,11 @@ class Product(TikiProduct, AdayroiProduct):
     quantity = models.IntegerField(default=0)
     url = models.URLField(max_length=500, blank=True)
     accesstrade_url = models.URLField(blank=True)
-    thumbnail = models.ImageField(upload_to="images/%Y/%m/%D/", default='images/%Y/%m/%D/no-img.jpg')
+    thumbnail_url = models.CharField(max_length=500, blank=True)
     # Pricing
-    price = models.DecimalField(max_digits=20, decimal_places=4, default=Decimal('0.0000'))
-    list_price = models.DecimalField(max_digits=20, decimal_places=4, default=Decimal('0.0000'))
-    discount = models.DecimalField(max_digits=20, decimal_places=4, default=Decimal('0.0000'))
+    sale_price = models.DecimalField(max_digits=20, decimal_places=0, default=Decimal('0'))
+    list_price = models.DecimalField(max_digits=20, decimal_places=0, default=Decimal('0'))
+    discount = models.DecimalField(max_digits=20, decimal_places=0, default=Decimal('0'))
 
     meta_description = models.TextField(blank=True, null=True)
     description = models.TextField(blank=True)
@@ -77,7 +77,7 @@ class Product(TikiProduct, AdayroiProduct):
             if not categ_data:
                 categ_data = {'name': 'General', 'id_on_channel': '0'}
             try:
-                categ_id = Category.objects.get(name=categ_data.get('name'), id_on_channel=categ_data.get('id'))
+                categ_id = Category.objects.get(name=categ_data.get('name'), id_on_channel=str(categ_data.get('id')))
             except Category.DoesNotExist:
                 categ_id = Category.objects.create(**{
                     'name': categ_data.get('name'),
@@ -85,16 +85,6 @@ class Product(TikiProduct, AdayroiProduct):
                 })
 
             return categ_id
-
-        def get_thumbnail(thumbnail_url, product):
-            try:
-                thumb_name = urlparse(thumbnail_url).path.split('/')[-1]
-                thumb_content = BytesIO(urlopen(thumbnail_url).read())
-            except Exception as err:
-                thumbnail_url = 'http://cdh.vnu.edu.vn/templates/not-found.png'
-                thumb_name = urlparse(thumbnail_url).path.split('/')[-1]
-                thumb_content = BytesIO(urlopen(thumbnail_url).read())
-            return thumb_name, File(thumb_content)
 
         for product in products_data:
             cust_method_name = '%s_standardize_data' % product.get('channel_id').platform
@@ -104,19 +94,17 @@ class Product(TikiProduct, AdayroiProduct):
 
                 standardize_product['brand_id'] = get_brand(standardize_product.get('brand', False))
                 standardize_product['category_id'] = get_category(standardize_product.get('category', False))
-                thumb_name, thumb_content = get_thumbnail(standardize_product['thumbnail_url'], standardize_product)
+                # thumb_name, thumb_content = get_thumbnail(standardize_product['thumbnail_url'], standardize_product)
 
                 for k, v in standardize_product.copy().items():
                     if k not in product_fields or k == 'id':
                         del standardize_product[k]
 
                 try:
-                    existed_product = Product.objects.get(product_id=standardize_product.get('product_id'))
+                    Product.objects.get(product_id=standardize_product.get('product_id'))
                 except Product.DoesNotExist:
                     print("Create product %s" % standardize_product.get('name'))
                     new_product = Product(**standardize_product)
-                    # Create thumbnail
-                    new_product.thumbnail.save(thumb_name, thumb_content)
                     new_product.save()
 
 

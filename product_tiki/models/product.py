@@ -16,10 +16,11 @@ class TikiProduct(models.Model):
             cur_seller = {}
         product_data.update({
             'product_id': product_data.get('id'),
+            'sale_price': product_data.get('price', 0),
             'seller_product_id': cur_seller.get('product_id', ' '),
             'seller_sku': cur_seller.get('sku', ' '),
             'url': url,
-            'thumbnail_url': product_data.get('thumbnail_url'),
+            'thumbnail_url': product_data.get('thumbnail_url', ' '),
             'brand': product_data.get('brand'),
             'category': product_data.get('categories')
         })

@@ -6,4 +6,4 @@ from .models.ecommerce_channel import EcommerceChannel
 
 class SyncChannelForm(forms.Form):
     channel = forms.ModelChoiceField(queryset=EcommerceChannel.objects.all(), required=True)
-    is_top_product = forms.BooleanField()
+    is_top_product = forms.BooleanField(required=False)

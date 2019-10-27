@@ -1,20 +1,42 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound, JsonResponse
 
-from .models.ecommerce_channel import EcommerceChannel
-from .models.accesstrade import AccessTrade
 from django.views.decorators.csrf import csrf_exempt
+from common.constants import CATEGORY
 
 from .models.product import Product
+from .models.category import Category
 from .models.ecommerce_channel import EcommerceChannel
-from .models.image import Image
+from .models.accesstrade import AccessTrade
 
 from .forms import SyncChannelForm
 import json
 
 
-def index(request):
-    return HttpResponse("<h1> Index Page </h1>")
+def home(request):
+    categ_ids = Category.objects.filter(id_on_channel__in=CATEGORY['tiki'])
+    top_products = Product.objects.filter(sequence=1, category_id__in=categ_ids)
+    context = {"top_products": top_products}
+    return render(request, "home.html", context=context)
+
+
+def products(request):
+    categ_ids = Category.objects.filter(id_on_channel__in=CATEGORY['tiki'])
+    products = Product.objects.filter(category_id__in=categ_ids).order_by('-id')[:50]
+    context = {'products': products}
+    return render(request, 'product/products.html', context=context)
+
+
+def contact(request):
+    return render(request, "contact.html")
+
+
+def about(request):
+    return render(request, "about.html")
+
+
+def page_not_found(request):
+    return render(request, "page_not_found.html")
 
 
 def sync_product_view(request):

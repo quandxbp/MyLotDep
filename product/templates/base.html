@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <title>Lót Dép</title>
+    {% load static %}
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="google-signin-client_id"
+    content="653044900311-7fqsduoba7mffuv4p1rvgt4t7b5ou0jp.apps.googleusercontent.com">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&subset=latin,latin-ext" rel="stylesheet">
+
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" />
+
+    <link href="{% static 'css/open-iconic-bootstrap.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/animate.css' %}" rel="stylesheet" />
+
+    <link href="{% static 'css/owl.carousel.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/owl.theme.default.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/magnific-popup.css' %}" rel="stylesheet" />
+
+    <link href="{% static 'css/aos.css' %}" rel="stylesheet" />
+
+    <link href="{% static 'css/ionicons.min.css' %}" rel="stylesheet" />
+
+    <link href="{% static 'css/bootstrap-datepicker.css' %}" rel="stylesheet" />
+
+    <link href="{% static 'css/flaticon.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/icomoon.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet" />
+
+</head>
+    <body>
+        {% include "partials/navbar.html" %}
+        {% block content %}
+        {% endblock %}
+        {% include "partials/footer.html" %}
+    </body>
+
+    <script src="{% static 'js/jquery.min.js' %}" ></script>
+    <script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}" ></script>
+    <script src="{% static 'js/popper.min.js' %}" ></script>
+    <script src="{% static 'js/bootstrap.min.js' %}" ></script>
+    <script src="{% static 'js/jquery.easing.1.3.js' %}" ></script>
+    <script src="{% static 'js/jquery.waypoints.min.js' %}" ></script>
+    <script src="{% static 'js/jquery.stellar.min.js' %}" ></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}" ></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}" ></script>
+    <script src="{% static 'js/aos.js' %}" ></script>
+    <script src="{% static 'js/jquery.animateNumber.min.js' %}" ></script>
+    <script src="{% static 'js/bootstrap-datepicker.js' %}" ></script>
+    <script src="{% static 'js/jquery.timepicker.min.js' %}" ></script>
+    <script src="{% static 'js/google-map.js' %}" ></script>
+    <script src="{% static 'js/main.js' %}" ></script>
+
+    <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false'></script>
+
+    {# Custom Javascript #}
+    <script src="{% static 'js/custom/price.js' %}" ></script>
+    <script src="{% static 'js/custom/image.js' %}" ></script>
+</html>

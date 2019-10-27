@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <section id="home-slider" class="home-slider ftco-degree-bg">
+        <div class="slider-item">
+            <div class="overlay"></div>
+                <div class="container">
+                    <div class="row slider-text align-items-center justify-content-center">
+                        <div class="col-md-14 ftco-animate text-center">
+                            <div class="subscribe-form mb-4">
+                                <div class="form-group">
+                                    <span class="icon icon-search"></span>
+                                    <input type="search" placeholder="Tìm theo dường dẫn hoặc tên sản phẩm ..." class="product-search form-control">
+                                </div>
+                            </div>
+                            <h5 class="mb-4">Từ khóa nổi bật:
+                                <strong>
+                                    <a>Galaxy Note 10</a>,
+                                    <a>iPhone 11</a>
+                                </strong>
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END slider -->
+
+    <section id="product-list" class="ftco-section ftco-degree-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h1>Ahii</h1>
+                </div>
+                <div class="col-md-9">
+                    <div class="row">
+                        {% for product in products %}
+                            <div class="col-md-3 ftco-animate">
+                                <div class="blog-entry">
+                                    <img class="thumbnail mt-2" src="{{ product.thumbnail_url }}">
+                                    <div class="text p-2 mt-2">
+                                        <p class="product-name mb-2">{{ product.name }}</p>
+                                    </div>
+                                    <div class="text d-block">
+                                        <div class="meta p-2 mb-3">
+                                            <p>
+                                                <span class="sale-price">{{ product.list_price }}</span>
+                                                (<span class="list-price">{{ product.sale_price }}</span>)
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+{% endblock %}
