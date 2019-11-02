@@ -11,6 +11,7 @@ urlpatterns = [
 
     # Display products
     path('san-pham', views.products, name='products'),
+    path('b', views.single_product),
 
     # Create Channels and Synchronize products on channels
     path('create_channel', views.create_new_channel, name='create_channel'),

@@ -4,28 +4,18 @@
     <list default="true" id="7ba35252-ea97-4da7-a9be-43ea22e2335e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/constants.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ldserver/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ldserver/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ldserver/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/ldserver/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/polls/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/polls/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/polls/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/polls/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/polls/static/polls/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/polls/templates/polls/detail.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/polls/templates/polls/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/polls/templates/polls/results.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/polls/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/polls/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/polls/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/models/accesstrade.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models/accesstrade.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/models/product.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models/product.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/migrations/0002_auto_20191027_1759.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/static/css/custom.css" beforeDir="false" afterPath="$PROJECT_DIR$/product/static/css/custom/custom.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/product/static/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/product/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/product/templates/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/templates/page_not_found.html" beforeDir="false" afterPath="$PROJECT_DIR$/product/templates/page-not-found.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/templates/product/products.html" beforeDir="false" afterPath="$PROJECT_DIR$/product/templates/product/products.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product_tiki/models/product.py" beforeDir="false" afterPath="$PROJECT_DIR$/product_tiki/models/product.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/bootstrap/css/bootstrap.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/bootstrap/js/bootstrap.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/bootstrap/js/jquery.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product_tiki/models/ecommerce_channel.py" beforeDir="false" afterPath="$PROJECT_DIR$/product_tiki/models/ecommerce_channel.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -71,22 +61,22 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/product/static" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Projects\Python\Thesis\ldserver\product\templates\partials" />
-      <recent name="D:\Projects\Python\Thesis\ldserver\product\templates" />
-      <recent name="D:\Projects\Python\Thesis\ldserver\static\bootstrap\css" />
-      <recent name="D:\Projects\Python\Thesis\ldserver\static\bootstrap\js" />
-      <recent name="D:\Projects\Python\Thesis\ldserver\common" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Projects\Python\Thesis\ldserver\product\static" />
       <recent name="D:\Projects\Python\Thesis\ldserver\product\static\js" />
       <recent name="D:\Projects\Python\Thesis\ldserver\product\static\css" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Projects\Python\Thesis\ldserver\product\static\images" />
+      <recent name="D:\Projects\Python\Thesis\ldserver\product\static\css\custom" />
+      <recent name="D:\Projects\Python\Thesis\ldserver\product\templates\partials" />
+      <recent name="D:\Projects\Python\Thesis\ldserver\product\templates" />
+      <recent name="D:\Projects\Python\Thesis\ldserver\static\bootstrap\css" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -175,6 +165,10 @@
       <workItem from="1571923778849" duration="23068000" />
       <workItem from="1572062449889" duration="16239000" />
       <workItem from="1572140639230" duration="29834000" />
+      <workItem from="1572225211441" duration="9343000" />
+      <workItem from="1572270484225" duration="59000" />
+      <workItem from="1572569463017" duration="2397000" />
+      <workItem from="1572663845807" duration="11586000" />
     </task>
     <servers />
   </component>

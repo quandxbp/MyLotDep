@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load  static %}
 {% block content %}
 
     <section id="home-slider" class="home-slider ftco-degree-bg">
@@ -36,21 +37,26 @@
                 <div class="col-md-9">
                     <div class="row">
                         {% for product in products %}
-                            <div class="col-md-3 ftco-animate">
-                                <div class="blog-entry">
-                                    <img class="thumbnail mt-2" src="{{ product.thumbnail_url }}">
-                                    <div class="text p-2 mt-2">
-                                        <p class="product-name mb-2">{{ product.name }}</p>
-                                    </div>
-                                    <div class="text d-block">
-                                        <div class="meta p-2 mb-3">
-                                            <p>
-                                                <span class="sale-price">{{ product.list_price }}</span>
-                                                (<span class="list-price">{{ product.sale_price }}</span>)
-                                            </p>
+                            <div class="product col-md-3 ftco-animate">
+                                <a href="#">
+                                    <div class="blog-entry">
+                                        <img class="platform-logo logo p-2" src="{% static 'images/tiki.png' %}" >
+                                        <img class="thumbnail mt-2" src="{{ product.thumbnail_url }}">
+                                        <div class="text p-2 mt-2">
+                                            <p class="product-name cust-tooltip mb-2">{{ product.name }}</p>
+                                            <span class="cust-tooltip-text">{{ product.name }}</span>
+                                        </div>
+                                        <div class="text d-block">
+                                            <div class="meta p-2 mb-3">
+                                                <p class="display-sale-price">
+                                                    <strong class="sale-price">{{ product.sale_price }}</strong>
+                                                    <span class="discount-percent ml-2">58%</span>
+                                                </p>
+                                                <span class="list-price">{{ product.list_price }}</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                         {% endfor %}
                     </div>

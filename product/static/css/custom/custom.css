@@ -1,0 +1,81 @@
+/*General - apply for all page*/
+.sale-price {
+    align-self: stretch;
+    font-size: 16px;
+    font-weight: 700;
+    color: rgb(36, 36, 36);
+    line-height: 1.6;
+
+}
+
+.list-price {
+    font-size: smaller;
+    text-decoration: line-through;
+    margin-top: -5px;
+    color: #6c757d;;
+}
+
+.discount-percent {
+    color: #6c757d;
+    font-size: smaller;
+}
+
+.platform-logo {
+    right: 5%;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+}
+
+.logo {
+    border-radius: 50%;
+}
+
+/* Tooltip*/
+.cust-tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.cust-tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    top: 75%;
+    left: 40%;
+    margin-left: -60px;
+    background-color: #8b8d91;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    font-size: 12px;
+    padding: 2px;
+
+  /* Position the tooltip */
+    position: absolute;
+    z-index: 1000;
+}
+
+.cust-tooltip:hover ~ .cust-tooltip-text {
+    visibility: visible;
+}
+
+/* /Tooltip*/
+/*General - apply for all page*/
+
+/*HOME PAGE*/
+/*Customer Home Slider*/
+#home-slider input{
+    min-width: 600px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+}
+
+#home-slider input::placeholder{
+    font-style: italic;
+}
+
+/*Top Products in home page*/
+
+
+

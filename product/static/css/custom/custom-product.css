@@ -1,0 +1,7 @@
+#product-list .product-name {
+    font-size: 13px;
+}
+
+#product-list .display-sale-price {
+    margin-bottom: -2%;
+}

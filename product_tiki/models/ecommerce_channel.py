@@ -17,9 +17,9 @@ class Tiki(models.Model):
 
         products = []
         for categ in CATEGORY['tiki']:
-            print(categ)
+            cur_product = []
             page = 1
-            while True and len(products) < max_records:
+            while True and len(cur_product) < max_records:
                 endpoint = 'https://tiki.vn/api/v2/products?category={categ}&page={page}&limit={limit}'.\
                     format(categ=categ, page=page, limit=limit)
                 print("Processing: %s" % endpoint)
@@ -32,12 +32,13 @@ class Tiki(models.Model):
                             break
                     else:
                         break
-                    products.extend(data)
+                    cur_product.extend(data)
                     page += 1
 
                 except Exception as err:
                     print("Error when getting Tiki products ")
                     print(err)
+            products.extend(cur_product)
 
 
         product_ids = [product.get('id') for product in products]

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound, JsonResponse
 
 from django.views.decorators.csrf import csrf_exempt
-from common.constants import CATEGORY
+from common.constants import DISPLAY_CATEGORY
 
 from .models.product import Product
 from .models.category import Category
@@ -14,17 +14,21 @@ import json
 
 
 def home(request):
-    categ_ids = Category.objects.filter(id_on_channel__in=CATEGORY['tiki'])
+    categ_ids = Category.objects.filter(id_on_channel__in=DISPLAY_CATEGORY['tiki'])
     top_products = Product.objects.filter(sequence=1, category_id__in=categ_ids)
     context = {"top_products": top_products}
     return render(request, "home.html", context=context)
 
 
 def products(request):
-    categ_ids = Category.objects.filter(id_on_channel__in=CATEGORY['tiki'])
+    categ_ids = Category.objects.filter(id_on_channel__in=DISPLAY_CATEGORY['tiki'])
     products = Product.objects.filter(category_id__in=categ_ids).order_by('-id')[:50]
     context = {'products': products}
     return render(request, 'product/products.html', context=context)
+
+
+def single_product(request):
+    return render(request, "product/product-single.html")
 
 
 def contact(request):
@@ -36,7 +40,7 @@ def about(request):
 
 
 def page_not_found(request):
-    return render(request, "page_not_found.html")
+    return render(request, "page-not-found.html")
 
 
 def sync_product_view(request):

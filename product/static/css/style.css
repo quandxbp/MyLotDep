@@ -140,12 +140,12 @@ sup {
   top: -.5em; }
 
 a {
-  color: #78d5ef;
+  color: #343a40;
   text-decoration: none;
   background-color: transparent;
   -webkit-text-decoration-skip: objects; }
   a:hover {
-    color: #34c0e7;
+    color: #6c757d;
     text-decoration: underline; }
 
 a:not([href]):not([tabindex]) {
@@ -7294,10 +7294,12 @@ a {
   -webkit-transition: .3s all ease;
   -o-transition: .3s all ease;
   transition: .3s all ease;
-  color: #78d5ef; }
+  /*color: #78d5ef; */
+}
   a:hover {
     text-decoration: none;
-    color: #78d5ef; }
+    /*color: #78d5ef;*/
+  }
 
 h1, h2, h3, h4, h5,
 .h1, .h2, .h3, .h4, .h5 {
@@ -8343,10 +8345,16 @@ textarea.form-control {
   border: 1px solid #f7f7f7; }
   @media (min-width: 768px) {
     .blog-entry {
-      margin-bottom: 30px; } }
+      min-height: 362px;
+      min-width: 206px;
+      margin-bottom: 30px; }
+  }
   @media (max-width: 767.98px) {
     .blog-entry {
-      margin-bottom: 30px; } }
+      min-height: 362px;
+      min-width: 206px;
+      margin-bottom: 30px; }
+  }
   .blog-entry .text {
     position: relative;
     border-top: 0;
