@@ -1,20 +1,197 @@
 {% extends "base.html" %}
 {% load  static %}
-{% block content %}
 
-    <section class="ftco-section ftco-degree-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div>
-                        <img class="product-thumbnail" src="https://salt.tikicdn.com/cache/300x300/media/catalog/product/o/p/oppo f1s_rose gold (1).u504.d20160829.t100133.583711.jpg">
+{% block content %}
+    <section id="home-slider" class="home-slider">
+        <div class="slider-item">
+            <div class="overlay"></div>
+                <div class="container">
+                    <div class="row slider-text align-items-center justify-content-center">
+                        <div class="col-md-14 ftco-animate text-center">
+                            <div class="subscribe-form mb-4">
+                                <div class="form-group">
+                                    <span class="icon icon-search"></span>
+                                    <input type="search" placeholder="Tìm theo dường dẫn hoặc tên sản phẩm ..." class="product-search form-control">
+                                </div>
+                            </div>
+                            <h5 class="mb-4">Từ khóa nổi bật:
+                                <strong>
+                                    <a>Galaxy Note 10</a>,
+                                    <a>iPhone 11</a>
+                                </strong>
+                            </h5>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+            </div>
+        </div>
+    </section>
+    <!-- END slider -->
 
+    <section id="single-product" class="ftco-section cust-border-top">
+        <div class="container">
+            <div class="row">
+                <div id="display-thumbnail" class="cust-border-right col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <img id="product-thumbnail" class="product-thumbnail"
+                             src="{{ product.thumbnail_url }}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="text-center">
+                                <small >
+                                    <i class="fa fa-search-plus"></i> Rê chuột lên hình để phóng to
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-9 col-lg-8 col-md-6 col-sm-12">
+                    <div id="product-thumbnail-zoom" class="img-zoom-result"></div>
+                    <div class="row p-2">
+                        <div class="col-md-12">
+                            <div class="text display-product-main-info cust-border-bottom">
+                                <div class="row">
+                                    <h2 id="product-name pl-3">{{ product.name }}
+                                    </h2>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 p-2">
+                                        <label class="product-vendor-label">Nhà cung cấp: &nbsp;</label>
+                                        <a href="#">
+                                            <span id="product-vendor">Tiki Trading</span>
+                                        </a>
+                                        <label class="ml-4 product-brand-label">Thương hiệu: &nbsp;</label>
+                                        <a href="#">
+                                            <span id="product-brand">{{ product.brand_id.name }}</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row p-2 display-price">
+                        <div class="col-md-12">
+                            <div class="row p-2">
+                                <h3>
+                                    <strong class="sale-price" id="sale-price" >{{ product.sale_price }}</strong>
+                                    <img class="logo ml-4" src="{% static 'images/tiki.png' %}" >
+                                    <a id="product-link" class="ml-4 p-2" href="#">
+                                        Đến ngay nơi bán &nbsp;<i class="fa fa-arrow-right fa-lg"></i>
+                                    </a>
+                                </h3>
+                            </div>
+                            <div class="row pl-2">
+                                <label class="discount-label">Giảm giá: &nbsp;</label>
+                                <span id="discount-percent"> 56%</span>
+                                <span id="discount-amount pl-2">(100.000 đ)</span>
+                            </div>
+                            <div class="row pl-2">
+                                <label class="list-price-label">Giá gốc: &nbsp;</label>
+                                <span id="list-price" class="list-price">{{ product.list_price }}</span>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <section id="price-history" class="ftco-section">
+        <div class="container cust-border-top">
+            <div class="row" style="height: 400px;">
+                <canvas id="canvas" ></canvas>
+            </div>
+        </div>
+    </section>
+
+    <section id="price-history" class="ftco-section">
+        <div class="container cust-border-top">
+            <div class="row" style="height: 400px;">
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function formatPriceValue(price) {
+            let newPrice = price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') + " ₫";
+            return newPrice
+        }
+
+		var labels = [{% for label in labels %} new Date("{{ label }}").toLocaleDateString('en-GB'),{% endfor %}];
+        var config = {
+			type: 'line',
+			data: {
+				labels: labels,
+				datasets: [{
+					label: 'Giá biến động theo thời gian',
+					backgroundColor: window.chartColors.red,
+					borderColor: window.chartColors.red,
+					data: [{% for price in prices %}{{ price }}, {% endfor %}],
+					fill: false,
+				}]
+			},
+			options: {
+				responsive: true,
+				title: {
+					display: true,
+					text: 'Lịch sử giá',
+                    fontSize: 35,
+                    fontColor: "#111",
+				},
+				tooltips: {
+				    enabled: true,
+					mode: 'single',
+					intersect: false,
+                    callbacks: {
+                    label: function(tooltipItems, data) {
+                        var multistringText = [];
+                            multistringText.push("Giá: " + formatPriceValue(tooltipItems.yLabel));
+                        return multistringText;
+                    }
+                }
+				},
+				hover: {
+					mode: 'nearest',
+					intersect: true
+				},
+				scales: {
+					xAxes: [{
+						display: true,
+						scaleLabel: {
+							display: true,
+                            fontSize: 16,
+							labelString: 'Thời điểm'
+						}
+					}],
+					yAxes: [{
+						display: true,
+                        ticks: {
+                            callback: function(label, index, labels) {
+                                return label.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') + " ₫";
+                            }
+                        },
+						scaleLabel: {
+							display: true,
+                            fontSize: 16,
+							labelString: 'Giá tại thời điểm'
+						}
+					}]
+				}
+			}
+		};
+
+		window.onload = function() {
+			var ctx = document.getElementById('canvas').getContext('2d');
+			window.myLine = new Chart(ctx, config);
+		};
+
+	</script>
 {% endblock %}
+
+
+
+

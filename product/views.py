@@ -8,6 +8,7 @@ from .models.product import Product
 from .models.category import Category
 from .models.ecommerce_channel import EcommerceChannel
 from .models.accesstrade import AccessTrade
+from timeseries.models.time_price import TimePrice
 
 from .forms import SyncChannelForm
 import json
@@ -28,7 +29,17 @@ def products(request):
 
 
 def single_product(request):
-    return render(request, "product/product-single.html")
+    product_id = "23590831"
+    product = Product.objects.filter(product_id=product_id)[0]
+    time_price = TimePrice()
+    labels, prices = time_price.get_price_by_id(product_id)
+
+    context = {
+        'product': product,
+        'labels': labels,
+        'prices': prices
+    }
+    return render(request, "product/product-single.html", context=context)
 
 
 def contact(request):

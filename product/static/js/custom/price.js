@@ -7,7 +7,6 @@ function formatPrice(price_tag) {
         let newPrice = price.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') + " ₫";
         $(this).text(newPrice)
     });
-
 }
 
 $(function() {

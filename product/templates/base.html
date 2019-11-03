@@ -13,6 +13,7 @@
 
     <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" />
 
+    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" />
     <link href="{% static 'css/open-iconic-bootstrap.min.css' %}" rel="stylesheet" />
     <link href="{% static 'css/animate.css' %}" rel="stylesheet" />
 
@@ -26,11 +27,16 @@
 
     <link href="{% static 'css/bootstrap-datepicker.css' %}" rel="stylesheet" />
 
+    {# Chart JS#}
+    <link href="{% static 'chart/Chart.css' %}" rel="stylesheet" />
+    <link href="{% static 'chart/Chart.min.css' %}" rel="stylesheet" />
+
     <link href="{% static 'css/flaticon.css' %}" rel="stylesheet" />
     <link href="{% static 'css/icomoon.css' %}" rel="stylesheet" />
     <link href="{% static 'css/style.css' %}" rel="stylesheet" />
     <link href="{% static 'css/custom/custom.css' %}" rel="stylesheet" />
     <link href="{% static 'css/custom/custom-product.css' %}" rel="stylesheet" />
+    <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
 
 </head>
     <body>
@@ -54,9 +60,17 @@
     <script src="{% static 'js/bootstrap-datepicker.js' %}" ></script>
     <script src="{% static 'js/jquery.timepicker.min.js' %}" ></script>
     <script src="{% static 'js/google-map.js' %}" ></script>
-    <script src="{% static 'js/main.js' %}" ></script>
+{#    <script src="{% static 'js/main.js' %}" ></script>#}
+    <script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js"
+    integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous">
+    </script>
 
-    <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false'></script>
+{#     Chart js#}
+    <script src="{% static 'chart/Chart.bundle.min.js' %}" ></script>
+    <script src="{% static 'chart/Chart.js' %}" ></script>
+    <script src="{% static 'chart/Chart.min.js' %}" ></script>
+
+    {#    <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false'></script>#}
 
     {# Custom Javascript #}
     <script src="{% static 'js/custom/products.js' %}" ></script>

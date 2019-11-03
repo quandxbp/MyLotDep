@@ -1,3 +1,54 @@
+* {box-sizing: border-box;}
+
+canvas{
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    width:400px;
+    height: 400px;
+}
+
+.img-zoom-container {
+    position: absolute;
+}
+
+.img-zoom-lens {
+    cursor: zoom-in;
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    opacity: 0.4;
+    background-color:white;
+    /*set the size of the lens:*/
+    width: 80px;
+    height: 80px;
+    margin-left:13px;
+}
+
+.img-zoom-result {
+    position: absolute;
+    border: 1px solid #1c7de6;
+    /*set the size of the result div:*/
+    width: 500px;
+    height: 500px;
+    z-index: 500;
+}
+
+.cust-border-top {
+    border-top: 2px solid #f7f7f7;
+}
+
+.cust-border-left {
+    border-left: 2px solid #f7f7f7;
+}
+
+.cust-border-right {
+    border-right: 2px solid #f7f7f7;
+}
+
+.cust-border-bottom {
+    border-bottom: 2px solid #f7f7f7;
+}
+
 #product-list .product-name {
     font-size: 13px;
 }
@@ -5,3 +56,64 @@
 #product-list .display-sale-price {
     margin-bottom: -2%;
 }
+
+/*Single product Page*/
+
+#single-product #product-thumbnail:hover {
+    cursor: zoom-in;
+}
+
+#single-product #product-thumbnail:hover {
+    cursor: zoom-in;
+}
+
+#single-product .logo {
+    margin-bottom: 1%;
+}
+
+#single-product #product-link{
+    border: 1px solid #29bae4;
+    font-size: 13px;
+    color: #29bae4;
+    border-radius: 5px;
+}
+
+#single-product .display-price #sale-price {
+    color: #ff3425;
+}
+
+#single-product .product-vendor-label{
+    font-size: smaller;
+    color: #9ea7bc;
+}
+
+#single-product #product-vendor {
+    color: #29bae4;
+}
+
+#single-product #product-vendor:hover {
+    color: #3667bc;
+}
+
+#single-product .product-brand-label{
+    font-size: smaller;
+    color: #9ea7bc;
+}
+
+#single-product #product-brand {
+    color: #29bae4;
+}
+
+#single-product #product-brand:hover {
+    color: #3667bc;
+}
+
+#single-product .discount-label{
+    color: #9ea7bc;
+}
+
+#single-product .list-price-label{
+    color: #9ea7bc;
+}
+/*Single product Page*/
+

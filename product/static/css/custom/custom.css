@@ -1,17 +1,12 @@
 /*General - apply for all page*/
 .sale-price {
     align-self: stretch;
-    font-size: 16px;
     font-weight: 700;
     color: rgb(36, 36, 36);
     line-height: 1.6;
-
 }
 
 .list-price {
-    font-size: smaller;
-    text-decoration: line-through;
-    margin-top: -5px;
     color: #6c757d;;
 }
 
@@ -23,11 +18,11 @@
 .platform-logo {
     right: 5%;
     position: absolute;
-    width: 50px;
-    height: 50px;
 }
 
 .logo {
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
 }
 
@@ -74,6 +69,69 @@
 #home-slider input::placeholder{
     font-style: italic;
 }
+
+@media (min-width: 576px) {
+    nav .product-search{
+        margin-top:5%;
+        min-width: 300px;
+        border-radius: 50%;
+
+        -webkit-border-radius: 50px;
+        -moz-border-radius: 50px;
+    }
+
+    nav .product-search::placeholder{
+        font-style: italic;
+    }
+}
+
+@media (min-width: 768px) {
+    nav .product-search{
+        margin-top:5%;
+        margin-left: 15%;
+        min-width: 300px;
+        border-radius: 50%;
+
+        -webkit-border-radius: 50px;
+        -moz-border-radius: 50px;
+    }
+
+    nav .product-search::placeholder{
+        font-style: italic;
+    }
+}
+
+@media (min-width: 992px) {
+    nav .product-search{
+        margin-top:3%;
+        min-width: 400px;
+        border-radius: 50%;
+
+        -webkit-border-radius: 50px;
+        -moz-border-radius: 50px;
+    }
+
+    nav .product-search::placeholder{
+        font-style: italic;
+    }
+}
+
+@media (min-width: 1200px) {
+    nav .product-search{
+        margin-top:3%;
+        min-width: 600px;
+        border-radius: 50%;
+        z-index: 1000;
+
+        -webkit-border-radius: 50px;
+        -moz-border-radius: 50px;
+    }
+
+    nav .product-search::placeholder{
+        font-style: italic;
+    }
+}
+
 
 /*Top Products in home page*/
 
