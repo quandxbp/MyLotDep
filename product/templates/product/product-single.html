@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base-no-main.html" %}
 {% load  static %}
 
 {% block content %}
@@ -48,7 +48,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-9 col-lg-8 col-md-6 col-sm-12">
+                {# Main content #}
+                <div id="product-detail" class="col-xl-9 col-lg-8 col-md-6 col-sm-12 ">
                     <div id="product-thumbnail-zoom" class="img-zoom-result"></div>
                     <div class="row p-2">
                         <div class="col-md-12">
@@ -58,14 +59,14 @@
                                     </h2>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-12 p-2">
+                                    <div class="col-md-5 p-2">
                                         <label class="product-vendor-label">Nhà cung cấp: &nbsp;</label>
                                         <a href="#">
-                                            <span id="product-vendor">Tiki Trading</span>
+                                            <span class="blue-color" id="product-vendor">Tiki Trading</span>
                                         </a>
                                         <label class="ml-4 product-brand-label">Thương hiệu: &nbsp;</label>
                                         <a href="#">
-                                            <span id="product-brand">{{ product.brand_id.name }}</span>
+                                            <span class="blue-color" id="product-brand">{{ product.brand_id.name }}</span>
                                         </a>
                                     </div>
                                 </div>
@@ -73,42 +74,119 @@
                         </div>
                     </div>
                     <div class="row p-2 display-price">
-                        <div class="col-md-12">
+                        {# Price #}
+                        <div class="col-md-5">
                             <div class="row p-2">
                                 <h3>
-                                    <strong class="sale-price" id="sale-price" >{{ product.sale_price }}</strong>
+                                    <strong class="price red-color sale-price" id="sale-price" >{{ product.sale_price }}</strong>
                                     <img class="logo ml-4" src="{% static 'images/tiki.png' %}" >
-                                    <a id="product-link" class="ml-4 p-2" href="#">
-                                        Đến ngay nơi bán &nbsp;<i class="fa fa-arrow-right fa-lg"></i>
-                                    </a>
                                 </h3>
                             </div>
                             <div class="row pl-2">
                                 <label class="discount-label">Giảm giá: &nbsp;</label>
-                                <span id="discount-percent"> 56%</span>
-                                <span id="discount-amount pl-2">(100.000 đ)</span>
+                                <span class="red-color" id="discount-percent"> {{ product.discount_rate }}% &nbsp;</span>
+                                (<span class="price" id="discount-amount pl-2">{{ product.discount }}</span>)
                             </div>
-                            <div class="row pl-2">
+                            <div class="row pl-2 cust-border-bottom">
                                 <label class="list-price-label">Giá gốc: &nbsp;</label>
-                                <span id="list-price" class="list-price">{{ product.list_price }}</span>
+                                <span id="list-price" class="price list-price">{{ product.list_price }}</span>
+                            </div>
+                            <div class="row p-2 pt-4">
+                                <a id="product-link" class="solid-btn p-2 pr-3" href="#">
+                                    <i class="fa fa-shopping-cart fa-2x"></i>&nbsp; ĐẾN NGAY NƠI BÁN
+                                </a>
                             </div>
                         </div>
-
+                        {# /Price #}
+                        <div class="col-md-7">
+                            <div id="other-seller" class="row">
+                                <div id="seller-list">
+                                    <h5 class="pt-3 pl-3">NHÀ CUNG CẤP KHÁC</h5>
+                                    <ul>
+                                        <li class="small">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <a class="seller-name" href="#">VinPro - Thuộc tập đoàn Vingroup</a>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <p><span class="price red-color">22.900.000</span></p>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <a class="solid-btn detail-btn ml-4 pt-1 pb-1 pl-2 pr-2" href="#">
+                                                        Chi tiết
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="pl-5 row">
+                                                <p><i class="fa fa-star"></i> Rẻ hơn <span class="price pink-color">130.000</span></p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                {# /Main content #}
+
             </div>
         </div>
     </section>
 
-    <section id="price-history" class="ftco-section">
+    <section id="middle-page" class="ftco-section">
         <div class="container cust-border-top">
-            <div class="row" style="height: 400px;">
-                <canvas id="canvas" ></canvas>
+            <div class="row">
+                <div class="col-md-8" id="price-history">
+                    <canvas id="canvas"></canvas>
+                </div>
+                {# Specification #}
+                <div class="col-md-4" id="specification">
+                    <div class="row cust-border-left">
+                        <div id="spec-detail" class="col-md-12">
+                            <h5 class="text-center pt-3 pl-3">THÔNG SỐ KỸ THUẬT</h5>
+                            <ul>
+                                {% for sp in specifications %}
+                                    {% if forloop.counter0|divisibleby:2 == 0 %}
+                                        <li>
+                                            <div class="row pt-1 pb-1 background-grey">
+                                                <div class="sp-name blue-color col-md-6">
+                                                    {{ sp.name }}
+                                                </div>
+                                                 <div class="sp-value col-md-6">
+                                                     {{ sp.value }}
+                                                 </div>
+                                            </div>
+                                        </li>
+                                    {% else %}
+                                        <li>
+                                            <div class="row pt-1 pb-1">
+                                                <div class="sp-name blue-color col-md-6">
+                                                    {{ sp.name }}
+                                                </div>
+                                                 <div class="sp-value col-md-6">
+                                                     {{ sp.value }}
+                                                 </div>
+                                            </div>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="text-center">
+                                <a class="empty-btn detail-btn pt-1 pb-1 pl-3 pr-3" href="#">
+                                    Xem thêm
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {# /Specification #}
             </div>
         </div>
     </section>
 
-    <section id="price-history" class="ftco-section">
+    <section id="product-description" class="ftco-section">
         <div class="container cust-border-top">
             <div class="row" style="height: 400px;">
             </div>
@@ -122,6 +200,19 @@
         }
 
 		var labels = [{% for label in labels %} new Date("{{ label }}").toLocaleDateString('en-GB'),{% endfor %}];
+        var predict_labels = [
+        new Date("10-05-2019").toLocaleDateString('en-GB'),
+        new Date("10-06-2019").toLocaleDateString('en-GB'),
+        new Date("10-07-2019").toLocaleDateString('en-GB'),
+        new Date("10-08-2019").toLocaleDateString('en-GB'),
+        new Date("10-09-2019").toLocaleDateString('en-GB'),
+        new Date("10-10-2019").toLocaleDateString('en-GB')];
+        labels = labels.concat(predict_labels);
+
+        var prices = [{% for price in prices %}{{ price }}, {% endfor %}];
+        var predict = [1970977, 1973498, 1975594, 1977028, 1976441, 1974869];
+        var predict_prices = prices.concat(predict);
+
         var config = {
 			type: 'line',
 			data: {
@@ -130,7 +221,13 @@
 					label: 'Giá biến động theo thời gian',
 					backgroundColor: window.chartColors.red,
 					borderColor: window.chartColors.red,
-					data: [{% for price in prices %}{{ price }}, {% endfor %}],
+					data: prices,
+					fill: false,
+				},{
+					label: 'Giá dự đoán',
+					backgroundColor: window.chartColors.blue,
+					borderColor: window.chartColors.blue,
+					data: predict_prices,
 					fill: false,
 				}]
 			},
@@ -138,8 +235,8 @@
 				responsive: true,
 				title: {
 					display: true,
-					text: 'Lịch sử giá',
-                    fontSize: 35,
+					text: 'LỊCH SỬ GIÁ',
+                    fontSize: 25,
                     fontColor: "#111",
 				},
 				tooltips: {

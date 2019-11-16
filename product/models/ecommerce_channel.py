@@ -44,14 +44,25 @@ class EcommerceChannel(Tiki, Adayroi):
             step = int(len(products_data) / NUMBER_OF_WORKERS)
             while start < len(products_data):
                 print("UID %s" % uid)
-                ProductObj = Product()
+                PO = Product()
                 end = start + step
                 pattern = products_data[start:end]
                 start = end
 
-                queue.put(ProductObj.sync_product_channel(uid, pattern))
+                queue.put(PO.sync_product_channel(uid, pattern))
                 uid += 1
             time.sleep(0.1)
+
+    def update_data_channel(self):
+        print("Updating product data in %s" % self.platform)
+        cust_method_name = '%s_update_data' % self.platform
+        if hasattr(self, cust_method_name):
+            from .product import Product
+            PO = Product()
+
+            products_data = getattr(self, cust_method_name)()
+            PO.update_data_product_channel(products_data, update_mongo=True)
+
 
     def _send_request(self, api_function, **kwargs):
         response = None

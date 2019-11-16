@@ -12,7 +12,23 @@ class Tiki(models.Model):
     class Meta:
         abstract = True
 
-    def tiki_get_data(self, max_records=10000, limit=250):
+    def get_detail_data(self, product_id, spid=False):
+        endpoint = "https://tiki.vn/api/v2/products/%s" % product_id
+        if spid:
+            endpoint = "https://tiki.vn/api/v2/products/%s?spid=%s" % (product_id, spid)
+        print("Processing url %s " % endpoint)
+
+        data = []
+        try:
+            response = requests.get(endpoint)
+            if response.ok:
+                data = response.json()
+        except Exception as err:
+            print("Error when getting Tiki product %s detail " % product_id)
+            print(err)
+        return data
+
+    def tiki_get_data(self, max_records=20, limit=20, get_related_flag=True):
         from product.models.product import Product
 
         products = []
@@ -20,7 +36,7 @@ class Tiki(models.Model):
             cur_product = []
             page = 1
             while True and len(cur_product) < max_records:
-                endpoint = 'https://tiki.vn/api/v2/products?category={categ}&page={page}&limit={limit}'.\
+                endpoint = 'https://tiki.vn/api/v2/products?category={categ}&page={page}&limit={limit}'. \
                     format(categ=categ, page=page, limit=limit)
                 print("Processing: %s" % endpoint)
                 try:
@@ -40,24 +56,23 @@ class Tiki(models.Model):
                     print(err)
             products.extend(cur_product)
 
-
         product_ids = [product.get('id') for product in products]
         existed_product_ids = Product.objects.filter(product_id__in=product_ids)
         new_products = list(filter(lambda p: p.get('id') not in existed_product_ids, products))
         # Get detail data of a product
         for product in new_products:
-            product_id = product.get('id')
-            endpoint = "https://tiki.vn/api/v2/products/%s" % product_id
-            print("Processing url %s " % endpoint)
-            try:
-                data = []
-                response = requests.get(endpoint)
-                if response.ok:
-                    data = response.json()
-                product.update(data)
-            except Exception as err:
-                print("Error when getting Tiki product %s detail " % product_id)
-                print(err)
+            data = self.get_detail_data(product.get('id'))
+            product.update(data)
+
+        if get_related_flag:
+            related_products = []
+            for product in new_products:
+                if product.get('other_sellers'):
+                    for rlp in product.get('other_sellers'):
+                        spid = rlp.get('product_id')
+                        data = self.get_detail_data(product.get('id'), spid)
+                        related_products.append(data)
+            new_products += related_products
 
         return new_products
 
@@ -85,23 +100,23 @@ class Tiki(models.Model):
                 existed_product_ids.update(sequence=1)
 
             for product in new_products:
-                product_id = product.get('id')
-                endpoint = "https://tiki.vn/api/v2/products/%s" % product_id
-                print("Processing url %s " % endpoint)
-                try:
-                    data = []
-                    response = requests.get(endpoint)
-                    if response.ok:
-                        data = response.json()
-                    product.update(data)
-                except Exception as err:
-                    print("Error when getting Tiki product %s detail " % product_id)
-                    print(err)
+                data = self.get_detail_data(product.get('id'))
+                product.update(data)
+
             return new_products
 
         return top_products
 
+    def tiki_update_data(self):
+        from product.models.product import Product
 
+        products = Product.objects.filter(channel_id=self.id)
 
+        update_products = [{'id': p.product_id,
+                            'channel_id': p.channel_id} for p in products]
 
+        for product in update_products[:10]:
+            data = self.get_detail_data(product.get('id'))
+            product.update(data)
 
+        return update_products

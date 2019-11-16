@@ -13,8 +13,12 @@ urlpatterns = [
     path('san-pham', views.products, name='products'),
     path('p', views.single_product),
 
+    # Cron job
+    path('cron', views.cron, name='cron'),
+
     # Create Channels and Synchronize products on channels
-    path('create_channel', views.create_new_channel, name='create_channel'),
-    path('sync_product_view', views.sync_product_view, name='sync_product_view'),
-    path('sync_product', views.sync_product, name='sync_product')
+    path('sync-product-view', views.sync_product_view, name='sync product view'),
+    path('sync-product', views.sync_product, name='sync product'),
+    path('update-product-view', views.update_product_view, name='update product view'),
+    path('update-product', views.update_product, name='update product')
 ]

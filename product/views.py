@@ -7,11 +7,21 @@ from common.constants import DISPLAY_CATEGORY
 from .models.product import Product
 from .models.category import Category
 from .models.ecommerce_channel import EcommerceChannel
+from .models.specification import Specification
 from .models.accesstrade import AccessTrade
 from timeseries.models.time_price import TimePrice
+from .models.cron import run_job
 
 from .forms import SyncChannelForm
-import json
+
+def test():
+    print('ahihi')
+
+def cron(request):
+    EC = EcommerceChannel()
+    run_job(period='second', func=EC.update_data_channel, amount=1)
+
+    return HttpResponse("Run job")
 
 
 def home(request):
@@ -29,15 +39,17 @@ def products(request):
 
 
 def single_product(request):
-    product_id = "23590831"
+    product_id = "32033730"
     product = Product.objects.filter(product_id=product_id)[0]
-    time_price = TimePrice()
-    labels, prices = time_price.get_price_by_id(product_id)
+    specifications = Specification.objects.filter(product_id=product.id)
+    # time_price = TimePrice()
+    # labels, prices = time_price.get_price_by_id(product_id)
 
     context = {
         'product': product,
-        'labels': labels,
-        'prices': prices
+        'specifications': specifications,
+        # 'labels': labels,
+        # 'prices': prices
     }
     return render(request, "product/product-single.html", context=context)
 
@@ -62,29 +74,7 @@ def sync_product_view(request):
     else:
         form = SyncChannelForm()
 
-    return render(request, 'product/sync_product_channel_view.html', {'form': form})
-
-
-@csrf_exempt
-def create_new_channel(request):
-    payload = json.loads(request.body)
-    if payload:
-        channel_name = payload.get('name', False)
-        channel_platform = payload.get('platform', False)
-        if False not in [channel_name, channel_platform]:
-            access_trade = AccessTrade()
-            access_trade.save()
-            new_channel = EcommerceChannel(name=channel_name,
-                                           platform=channel_platform,
-                                           access_trade_id=access_trade)
-            new_channel.save()
-        else:
-            return HttpResponseNotFound("Error: Request parameters")
-        return JsonResponse(
-            {'channel_id': new_channel.id}
-        )
-    else:
-        return HttpResponseNotFound("Error: Request method")
+    return render(request, 'product/sync-product-view.html', {'form': form})
 
 
 def sync_product(request):
@@ -95,6 +85,29 @@ def sync_product(request):
             is_top_product = data.get('is_top_product', False)
             channel = EcommerceChannel.objects.get(pk=channel_id)
             channel.sync_channel_product(is_top_product)
+            return HttpResponse("Is syncing")
+    else:
+        return HttpResponseNotFound("Error: Request methods")
+
+
+def update_product_view(request):
+    if request.method == 'POST':
+        form = SyncChannelForm(request.POST)
+        if form.is_valid():
+            print('Form is valid')
+    else:
+        form = SyncChannelForm()
+
+    return render(request, 'product/update-product-view.html', {'form': form})
+
+
+def update_product(request):
+    if request.method == 'POST':
+        data = request.POST
+        if data:
+            channel_id = data.get('channel', False)
+            channel = EcommerceChannel.objects.get(pk=channel_id)
+            channel.update_data_channel()
             return HttpResponse("Is syncing")
     else:
         return HttpResponseNotFound("Error: Request methods")

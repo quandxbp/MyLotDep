@@ -10,6 +10,5 @@ function formatPrice(price_tag) {
 }
 
 $(function() {
-    formatPrice('.list-price');
-    formatPrice('.sale-price')
+    formatPrice('.price');
 });

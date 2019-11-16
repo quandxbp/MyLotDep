@@ -5,7 +5,7 @@
     <title>Sync Product Channel</title>
 </head>
 <body>
-    <form action="{% url "product:sync_product" %}" method="post">
+    <form action="{% url "product:sync product" %}" method="post">
         {% csrf_token %}
         {{ form }}
         <input type="submit" value="Sync Product Data ">

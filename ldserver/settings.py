@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'product.apps.ProductConfig',
     'product_tiki.apps.ProductTikiConfig',
     'product_adayroi.apps.ProductAdayroiConfig',
-    'timeseries.apps.TimeseriesConfig'
+    'timeseries.apps.TimeseriesConfig',
+    'price_forecast.apps.PriceForecastConfig'
 ]
 
 MIDDLEWARE = [

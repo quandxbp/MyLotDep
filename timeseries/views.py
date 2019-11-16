@@ -6,12 +6,14 @@ from .models.price_source import PriceSource
 
 from .forms import SyncPriceForm
 
+
 def test(request):
-    time_price = TimePrice()
+    TP = TimePrice()
     # time_price.initialize_data_time_price(time_price.get_data_jajum)
-    time_price.get_data_beetracker('tiki',
-                                   "https://tiki.vn/tai-nghe-bluetooth-apple-airpods-2-true-wireless-mv7n2-hop-sac-thuong-hang-nhap-khau-p12706787.html?src=recently-viewed&spid=23239506")
+    TP.get_data_beetracker('tiki',
+                           "https://tiki.vn/tai-nghe-bluetooth-apple-airpods-2-true-wireless-mv7n2-hop-sac-thuong-hang-nhap-khau-p12706787.html?src=recently-viewed&spid=23239506")
     return HttpResponse("AHIHI")
+
 
 def sync_price_view(request):
     if request.method == 'POST':
@@ -23,6 +25,7 @@ def sync_price_view(request):
         form = SyncPriceForm()
 
     return render(request, 'timeseries/sync_price_view.html', {'form': form})
+
 
 def import_price_data(request):
     if request.method == 'POST':

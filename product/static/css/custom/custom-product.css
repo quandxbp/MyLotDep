@@ -4,8 +4,6 @@ canvas{
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
-    width:400px;
-    height: 400px;
 }
 
 .img-zoom-container {
@@ -72,23 +70,13 @@ canvas{
 }
 
 #single-product #product-link{
-    border: 1px solid #29bae4;
     font-size: 13px;
-    color: #29bae4;
-    border-radius: 5px;
-}
-
-#single-product .display-price #sale-price {
-    color: #ff3425;
+    color: white;
 }
 
 #single-product .product-vendor-label{
     font-size: smaller;
     color: #9ea7bc;
-}
-
-#single-product #product-vendor {
-    color: #29bae4;
 }
 
 #single-product #product-vendor:hover {
@@ -98,10 +86,6 @@ canvas{
 #single-product .product-brand-label{
     font-size: smaller;
     color: #9ea7bc;
-}
-
-#single-product #product-brand {
-    color: #29bae4;
 }
 
 #single-product #product-brand:hover {
@@ -115,5 +99,56 @@ canvas{
 #single-product .list-price-label{
     color: #9ea7bc;
 }
+
+    /* Other seller*/
+#single-product #other-seller {
+    width: 100%;
+    border: 1px solid #9ea7bc;
+    border-radius: 20px;
+}
+
+#single-product #other-seller #seller-list{
+    width: 100%;
+}
+
+#single-product #other-seller #seller-list h5{
+    color: #333;
+}
+
+#single-product #other-seller #seller-list li{
+    position: relative;
+    margin-bottom: 5px;
+    list-style: none;
+}
+
+#single-product #other-seller #seller-list .seller-name{
+    color: #29bae4;
+}
+
+#single-product #other-seller #seller-list .detail-btn{
+    color: white;
+}
+    /* /Other Seller*/
+
 /*Single product Page*/
 
+/* Middle page  */
+.background-grey {
+    background: #e4ebff;
+}
+    /*Price history*/
+    /*Price history*/
+
+    /*Specification*/
+#middle-page #specification li {
+    list-style: none;
+}
+
+#middle-page #specification #spec-detail {
+    max-height: 450px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+    /*Specification*/
+/* /Middle page  */

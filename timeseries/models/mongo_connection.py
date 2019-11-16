@@ -51,15 +51,31 @@ class MongoDB:
         return new_records.inserted_ids
 
     def find_one(self, search_fields, filter_list=[]):
-        filter_fields = {x: 1 for x in filter_list}
         collection = self._collection
-        data = collection.find_one(search_fields, filter_fields)
+        if filter_list:
+            filter_fields = {x: 1 for x in filter_list}
+            data = collection.find_one(search_fields, filter_fields)
+        else:
+            data = collection.find_one(search_fields)
         return data
 
     def find_all(self, filter_fields={}):
         collection = self._collection
-        data = collection.find({}, filter_fields)
+        if filter_fields:
+            data = collection.find({}, filter_fields)
+        else:
+            data = collection.find({})
+
         return data
+
+    def update_one(self, search_field, update_fields):
+        collection = self._collection
+        collection.update_one(filter=search_field, update={'$set': update_fields}, upsert=True)
+
+    def update(self, search_field, update_fields):
+        collection = self._collection
+        collection.update(search_field, {'$set': update_fields}, upsert=True)
+
 
 
 

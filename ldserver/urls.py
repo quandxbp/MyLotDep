@@ -23,5 +23,7 @@ urlpatterns = [
     path('', include('product.urls')),
 
     # Process timeseries and Mongo
-    path('mongo/', include('timeseries.urls'))
+    path('mongo/', include('timeseries.urls')),
+
+    path('pf', include('price_forecast.urls')),
 ]
