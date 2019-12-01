@@ -1,14 +1,51 @@
 from timeseries.models.time_price import TimePrice
 
-# import pandas as pd
-# import numpy as np
+import pandas as pd
+from fbprophet import Prophet
 
-#importing required libraries
-# from sklearn.preprocessing import MinMaxScaler
-# from keras.models import Sequential
-# from keras.layers import Dense, Dropout, LSTM
+import datetime
 
-# class PriceForecast:
+class PriceForecast:
+
+    def prophet_forecast(self, product_id):
+        tp = TimePrice()
+        data = tp.get_price_list_by_id(product_id)
+        df = pd.DataFrame(data)
+
+        df['Date'] = pd.DatetimeIndex(df['Date'])
+        df = df.rename(columns={'Date': 'ds', 'Price': 'y'})
+        my_model = Prophet(interval_width=0.8, daily_seasonality=True)
+        my_model.fit(df)
+        future_dates = my_model.make_future_dataframe(periods=5, freq='D')
+        forecast = my_model.predict(future_dates)
+
+        datetime_stamp = forecast['ds'].tail(5).tolist()
+        yhat = forecast['yhat'].tail(5).tolist()
+        trend = forecast['trend'].tail(10).tolist()
+
+        labels = []
+        for dt in datetime_stamp:
+            format_date = datetime.datetime.strftime(dt, '%d/%m/%Y')
+            labels.append(format_date)
+
+        prices = []
+        for price in yhat:
+            prices.append(self._round_price(price))
+
+        return labels, prices
+
+    def _round_price(self, price):
+        price = round(price)
+        del_value = abs(price) % 10000
+
+        if del_value < 5000:
+            price -= del_value
+        else:
+            price += 10000 - del_value
+
+        return price
+
+
 
     # def train_data(self):
     #     tp = TimePrice()

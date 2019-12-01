@@ -8,6 +8,8 @@ from .models.product import Product
 from .models.category import Category
 from .models.ecommerce_channel import EcommerceChannel
 from .models.specification import Specification
+from .models.provider import Provider
+from .models.related_product import RelatedProduct
 from .models.accesstrade import AccessTrade
 from timeseries.models.time_price import TimePrice
 from .models.cron import run_job
@@ -39,17 +41,34 @@ def products(request):
 
 
 def single_product(request):
-    product_id = "32033730"
+    product_id = "1733317"
     product = Product.objects.filter(product_id=product_id)[0]
     specifications = Specification.objects.filter(product_id=product.id)
-    # time_price = TimePrice()
-    # labels, prices = time_price.get_price_by_id(product_id)
+
+    # Get all related product data
+    related_products = RelatedProduct.objects.filter(related_product_id=product.id)
+    related_product_data = []
+    if related_products:
+        url_paths = [p.url_path for p in related_products]
+        related_product_data = Product.objects.filter(url_path__in=url_paths)
+        for rlp in related_product_data:
+            diff_val = product.sale_price - rlp.sale_price
+            if diff_val >= 0:
+                rlp.is_gt = True
+                rlp.diff_val = diff_val
+            else:
+                rlp.is_gt = False
+                rlp.diff_val = -diff_val
+
+    time_price = TimePrice()
+    labels, prices = time_price.get_price_by_id(product_id)
 
     context = {
         'product': product,
         'specifications': specifications,
-        # 'labels': labels,
-        # 'prices': prices
+        'related_product_data': related_product_data,
+        'labels': labels,
+        'prices': prices
     }
     return render(request, "product/product-single.html", context=context)
 

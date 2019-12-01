@@ -3,17 +3,18 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 
 from .models.time_price import TimePrice
 from .models.price_source import PriceSource
+from common.utils import write_to_csv
 
 from .forms import SyncPriceForm
 
 
 def test(request):
     TP = TimePrice()
-    # time_price.initialize_data_time_price(time_price.get_data_jajum)
-    TP.get_data_beetracker('tiki',
-                           "https://tiki.vn/tai-nghe-bluetooth-apple-airpods-2-true-wireless-mv7n2-hop-sac-thuong-hang-nhap-khau-p12706787.html?src=recently-viewed&spid=23239506")
-    return HttpResponse("AHIHI")
+    price_list = TP.get_price_list_by_id(product_id="12206668")
+    print(price_list)
+    write_to_csv(price_list)
 
+    return HttpResponse("Done")
 
 def sync_price_view(request):
     if request.method == 'POST':

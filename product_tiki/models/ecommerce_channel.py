@@ -28,7 +28,7 @@ class Tiki(models.Model):
             print(err)
         return data
 
-    def tiki_get_data(self, max_records=20, limit=20, get_related_flag=True):
+    def tiki_get_data(self, max_records=80, limit=80, get_related_flag=True):
         from product.models.product import Product
 
         products = []
@@ -115,7 +115,7 @@ class Tiki(models.Model):
         update_products = [{'id': p.product_id,
                             'channel_id': p.channel_id} for p in products]
 
-        for product in update_products[:10]:
+        for product in update_products:
             data = self.get_detail_data(product.get('id'))
             product.update(data)
 

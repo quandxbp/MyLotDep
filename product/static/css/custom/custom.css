@@ -1,5 +1,9 @@
 /*General - apply for all page*/
 
+.my-wrap {
+    background: #f4f4f4;
+}
+
 .sale-price {
     align-self: stretch;
     color: rgb(36, 36, 36);
@@ -24,6 +28,15 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
+}
+
+.loading {
+    background: url('/static/images/spinner.gif') no-repeat center center;
+    position: absolute;
+    top:50px;
+    height: 100%;
+    width: 100%;
+    z-index: 10000;
 }
 
 /* Tooltip*/
@@ -61,27 +74,58 @@
     border: 1px solid #29bae4;
     background: #29bae4;
     border-radius: 5px;
+    cursor: pointer;
+}
+
+.solid-btn:hover {
+    cursor: pointer;
+    color: #29bae4 !important;
+    border: 1px solid #29bae4 !important;
+    background:none;
 }
 
 .empty-btn {
     border: 1px solid #29bae4;
     color: #29bae4;
     border-radius: 5px;
+    cursor: pointer;
+}
+
+.empty-btn:hover {
+    cursor: pointer;
+    background: #29bae4 !important;
+    color: white !important;
 }
 /*/Button*/
 
 /*My Color*/
 
 .red-color {
-    color:#ff3425;
+    color:#ff3425 !important;
+}
+
+.yellow-color {
+    color:#fed700; !important;
 }
 
 .blue-color {
-    color:#29bae4;
+    color:#29bae4 !important;
 }
 
 .pink-color {
-    color:#e83e8c;
+    color:#e83e8c !important;
+}
+
+.white-color {
+    color:white !important;
+}
+
+.background-white{
+    background: white !important;
+}
+
+.background-grey {
+    background: #e4ebff !important;
 }
 
 /*/My Color*/

@@ -18,7 +18,6 @@ class TimePrice:
 
     # def update_price_cron_job(self):
 
-
     def update_price(self, product, price):
         today = datetime.date.today().strftime("%d-%m-%Y")
         cur_time = datetime.datetime.now().time().strftime("%H:%M:%S")
@@ -49,8 +48,6 @@ class TimePrice:
                     old_price = price
                     count = 0
         # Reverse two list because data returned in wrong side
-        labels.reverse()
-        prices.reverse()
         return labels, prices
 
     def get_price_list_by_id(self, product_id):
@@ -59,9 +56,13 @@ class TimePrice:
         res = []
         if data.get('prices'):
             for date, time_n_price in data.get('prices').items():
+                if '1970' in date:
+                    continue
                 for time, price in time_n_price.items():
-                    format_date = "%s %s" % (date, time)
-                    res.append({"Date": format_date,
+                    dt_str = "%s %s" % (date, time)
+                    format_dt = datetime.datetime.strptime(dt_str, "%d-%m-%Y %H:%M:%S")
+                    reformat_dt = datetime.datetime.strftime(format_dt, "%m-%d-%Y %H:%M:%S")
+                    res.append({"Date": str(reformat_dt),
                                 "Price": price})
         res.reverse()
         return res

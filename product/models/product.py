@@ -22,6 +22,7 @@ class Product(TikiProduct, AdayroiProduct):
     seller_sku = models.CharField(max_length=255, blank=True)
     quantity = models.IntegerField(default=0)
     url = models.URLField(max_length=500, blank=True)
+    url_path = models.URLField(max_length=500, blank=True)
     accesstrade_url = models.URLField(blank=True)
     thumbnail_url = models.CharField(max_length=500, blank=True)
     # Pricing
@@ -142,12 +143,10 @@ class Product(TikiProduct, AdayroiProduct):
         def get_related_products(related_products, new_product):
             from .related_product import RelatedProduct
             for rlp in related_products:
-                new_related_product = RelatedProduct(product_id=rlp.get('id'),
-                                                     name=rlp.get('name'),
-                                                     url_key=rlp.get('url_key'),
+                new_related_product = RelatedProduct(product_id=rlp.get('product_id'),
                                                      main_product_id=rlp.get('main_product_id'),
-                                                     price=rlp.get('price', 0),
-                                                     platform=rlp.get('platfomr'),
+                                                     url_path=rlp.get('url_path'),
+                                                     platform=rlp.get('platform'),
                                                      related_product_id=new_product)
                 new_related_product.save()
 
@@ -186,7 +185,7 @@ class Product(TikiProduct, AdayroiProduct):
         from timeseries.models.time_price import TimePrice
         TP = TimePrice()
 
-        for product in products_data[:10]:
+        for product in products_data:
             cust_method_name = '%s_standardize_data' % product.get('channel_id').platform
             if hasattr(self, cust_method_name):
                 method = getattr(self, cust_method_name)

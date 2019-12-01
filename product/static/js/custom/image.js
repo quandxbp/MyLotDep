@@ -28,7 +28,7 @@ function imageZoom(imgID, resultID) {
     lens.addEventListener("touchmove", moveLens);
     img.addEventListener("touchmove", moveLens);
     function moveLens(e) {
-        var pos, x, y;
+        let pos, x, y;
         /* Prevent any other actions that may occur when moving over the image */
         e.preventDefault();
         /* Get the cursor's x and y positions: */
@@ -78,4 +78,4 @@ $(function() {
     });
 
 });
-// imageZoom("product-thumbnail", "product-thumbnail-zoom");
+imageZoom("product-thumbnail", "product-thumbnail-zoom");

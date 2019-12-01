@@ -12,32 +12,33 @@ class TikiProduct(models.Model):
     def _get_specification(self, specification):
         spec_dict = {}
         attributes_list = []
-        for spec in specification:
-            attributes_list.extend(spec.get('attributes', []))
+        if specification:
+            for spec in specification:
+                attributes_list.extend(spec.get('attributes', []))
 
-        for attr in attributes_list:
-            if attr.get('name') == "Camera trước":
-                spec_dict['front_camera'] = attr.get('value')
-            elif attr.get('name') == "Camera sau":
-                spec_dict['rear_camera'] = attr.get('value')
-            elif attr.get('name') == "Quay phim":
-                spec_dict['recording'] = attr.get('value')
-            elif attr.get('name') == "Loại / Công nghệ màn hình":
-                spec_dict['screen_technology'] = attr.get('value')
-            elif attr.get('name') == "Bộ nhớ RAM":
-                spec_dict['ram_memory'] = attr.get('value')
-            elif attr.get('name') == "Bộ nhớ trong (ROM)":
-                spec_dict['rom_memory'] = attr.get('value')
-            elif attr.get('name') == "Trọng lượng":
-                spec_dict['weight'] = attr.get('value')
-            elif attr.get('name') == "Kích thước":
-                spec_dict['dimension'] = attr.get('value')
-            elif attr.get('name') == "Tên chip":
-                spec_dict['chip'] = attr.get('value')
-            elif attr.get('name') == "Chip đồ họa (GPU)":
-                spec_dict['gpu'] = attr.get('value')
-            elif attr.get('name') == "Dung lượng pin (mAh)":
-                spec_dict['pin_capacity'] = attr.get('value')
+            for attr in attributes_list:
+                if attr.get('name') == "Camera trước":
+                    spec_dict['front_camera'] = attr.get('value')
+                elif attr.get('name') == "Camera sau":
+                    spec_dict['rear_camera'] = attr.get('value')
+                elif attr.get('name') == "Quay phim":
+                    spec_dict['recording'] = attr.get('value')
+                elif attr.get('name') == "Loại / Công nghệ màn hình":
+                    spec_dict['screen_technology'] = attr.get('value')
+                elif attr.get('name') == "Bộ nhớ RAM":
+                    spec_dict['ram_memory'] = attr.get('value')
+                elif attr.get('name') == "Bộ nhớ trong (ROM)":
+                    spec_dict['rom_memory'] = attr.get('value')
+                elif attr.get('name') == "Trọng lượng":
+                    spec_dict['weight'] = attr.get('value')
+                elif attr.get('name') == "Kích thước":
+                    spec_dict['dimension'] = attr.get('value')
+                elif attr.get('name') == "Tên chip":
+                    spec_dict['chip'] = attr.get('value')
+                elif attr.get('name') == "Chip đồ họa (GPU)":
+                    spec_dict['gpu'] = attr.get('value')
+                elif attr.get('name') == "Dung lượng pin (mAh)":
+                    spec_dict['pin_capacity'] = attr.get('value')
 
         return spec_dict, attributes_list
 
@@ -51,12 +52,18 @@ class TikiProduct(models.Model):
 
     def _get_related_product(self, product_data, related_products):
         for product in related_products:
-            product['name'] = product_data.get('name')
-            product['url_key'] = "%s.html?spid=%s" % (product_data.get('url_key'), product.get('product_id'))
             product['main_product_id'] = product_data.get('id')
+            product['url_path'] = "%s.html?spid=%s" % (product_data.get('url_key'), product.get('product_id'))
             product['platform'] = 'tiki'
             product['product_id'] = product.get('product_id')
         return related_products
+
+    def _get_images(self, variants):
+        images = []
+        for v in variants:
+            if v.get('images'):
+                images.extend(img.get('medium_url') for img in v.get('images'))
+        return images
 
     def tiki_standardize_data(self, product_data):
         url = 'https://tiki.vn/%s' % product_data.get('url_path')
@@ -73,6 +80,7 @@ class TikiProduct(models.Model):
             'seller_sku': cur_seller.get('sku', ' '),
             'url': url,
             'thumbnail_url': product_data.get('thumbnail_url', ' '),
+            'quantity': product_data.get('stock_item', {}).get('qty', 0),
             # Specifications
             'screen_technology': spec_dict.get('screen_technology', ' '),
             'ram_memory': spec_dict.get('ram_memory', ' '),
@@ -85,12 +93,12 @@ class TikiProduct(models.Model):
             'chip': spec_dict.get('chip', ' '),
             'gpu': spec_dict.get('gpu', ' '),
             'pin_capacity': spec_dict.get('pin_capacity', ' '),
-
             'specification': attributes_list,
 
             'brand': product_data.get('brand'),
             'category': product_data.get('categories'),
             'provider': self._get_provider(product_data.get('current_seller')),
+            'images': self._get_images(product_data.get('configurable_products')),
             'related_products': self._get_related_product(product_data=product_data,
                                                           related_products=product_data.get('other_sellers'))
         })

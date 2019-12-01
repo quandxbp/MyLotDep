@@ -25,5 +25,5 @@ urlpatterns = [
     # Process timeseries and Mongo
     path('mongo/', include('timeseries.urls')),
 
-    path('pf', include('price_forecast.urls')),
+    path('forecast/', include('price_forecast.urls')),
 ]

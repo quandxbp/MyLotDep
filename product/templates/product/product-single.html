@@ -2,9 +2,10 @@
 {% load  static %}
 
 {% block content %}
+
     <section id="home-slider" class="home-slider">
         <div class="slider-item">
-            <div class="overlay"></div>
+            <div class="overlay">
                 <div class="container">
                     <div class="row slider-text align-items-center justify-content-center">
                         <div class="col-md-14 ftco-animate text-center">
@@ -27,171 +28,319 @@
         </div>
     </section>
     <!-- END slider -->
-
-    <section id="single-product" class="ftco-section cust-border-top">
+    <div class="my-wrap">
         <div class="container">
-            <div class="row">
-                <div id="display-thumbnail" class="cust-border-right col-xl-3 col-lg-4 col-md-6 col-sm-12">
+            <section id="single-product" class="ftco-section background-white cust-border-top">
+                <div class="container">
                     <div class="row">
-                        <div class="col-md-12 text-center">
-                            <img id="product-thumbnail" class="product-thumbnail"
-                             src="{{ product.thumbnail_url }}">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="text-center">
-                                <small >
-                                    <i class="fa fa-search-plus"></i> Rê chuột lên hình để phóng to
-                                </small>
+                        <div id="display-thumbnail" class="cust-border-right col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <img id="product-thumbnail" class="product-thumbnail"
+                                     src="{{ product.thumbnail_url }}">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="text-center cust-border-bottom">
+                                        <small >
+                                            <i class="fa fa-search-plus"></i> Rê chuột lên hình để phóng to
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="text-center pt-3 blue-color">
+                                        <small>
+                                            NHIỀU HÌNH ẢNH HƠN NỮA &nbsp; <i class="fa fa-images fa-lg"></i>
+                                        </small>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        {# Main content #}
+                        <div id="product-detail" class="col-xl-9 col-lg-8 col-md-6 col-sm-12 ">
+                            <div id="product-thumbnail-zoom" class="img-zoom-result"></div>
+                            <div class="row p-2">
+                                <div class="col-md-12">
+                                    <div class="text display-product-main-info cust-border-bottom">
+                                        <div class="row">
+                                            <h2 id="product-name pl-3">{{ product.name }}
+                                            </h2>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 p-2">
+                                                <label class="product-vendor-label">Nhà cung cấp: &nbsp;</label>
+                                                <a href="{{ product.provider_id.url }}">
+                                                    <span class="blue-color" id="product-vendor">{{ product.provider_id.name }}</span>
+                                                </a>
+                                                {% if product.provider_id.is_best_store %}
+                                                    <span id="best-seller" data-toggle="tooltip" title="Cửa hàng bán chạy nhất!">
+                                                        <i class="fa fa-star yellow-color"></i>
+                                                    </span>
+                                                {% endif %}
+                                                <label class="ml-4 product-brand-label">Thương hiệu: &nbsp;</label>
+                                                <a href="#">
+                                                    <span class="blue-color" id="product-brand">{{ product.brand_id.name }}</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row p-2 display-price">
+                                {# Price #}
+                                <div class="col-md-5">
+                                    <div class="row p-2">
+                                        <h3>
+                                            <span class="price red-color sale-price" id="sale-price" >{{ product.sale_price }}</span>
+                                        </h3>
+                                        <img class="logo ml-4" src="{% static 'images/tiki.png' %}" >
+                                    </div>
+                                    <div class="row pl-2">
+                                        <label class="discount-label">Giảm giá: &nbsp;</label>
+                                        <span class="red-color" id="discount-percent"> {{ product.discount_rate }}% &nbsp;</span>
+                                        (<span class="price" id="discount-amount pl-2">{{ product.discount }}</span>)
+                                    </div>
+                                    <div class="row pl-2 ">
+                                        <label class="list-price-label">Giá gốc: &nbsp;</label>
+                                        <span id="list-price" class="price list-price">{{ product.list_price }}</span>
+                                    </div>
+                                    <div class="row pl-2">
+                                        <label>Số lượng trên kho {{ product.channel_id.platform }}: &nbsp;</label>
+                                        <span id="quantity" >{{ product.quantity }} (sản phẩm)</span>
+                                    </div>
+                                    <div class="row p-2 pt-4 cust-border-top">
+                                        <a id="product-link" class="solid-btn p-2 pr-3" href="{{ product.url }}" target="_blank">
+                                            <i class="fa fa-shopping-cart fa-2x"></i>&nbsp; ĐẾN NGAY NƠI BÁN
+                                        </a>
+                                    </div>
+                                </div>
+                                {# /Price #}
+
+                                {# Other Sellers #}
+                                {% if related_product_data %}
+                                <div class="col-md-7" >
+                                    <div id="other-seller" class="row ml-1">
+                                        <div id="seller-list">
+                                            <h5 class="pt-3 pl-3">NHÀ CUNG CẤP KHÁC</h5>
+                                            <ul>
+                                                {% for rlp in related_product_data %}
+                                                    <li class="small">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <a class="seller-name" href="{{ rlp.provider_id.url }}">{{ rlp.provider_id.name }}</a>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <p><span class="price red-color">{{ rlp.sale_price }}</span></p>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <a class="solid-btn detail-btn ml-4 pt-1 pb-1 pl-2 pr-2"
+                                                                   href="#">
+                                                                    Chi tiết
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pl-5 row">
+                                                            <p><i class="fa fa-star"></i>
+                                                                {% if rlp.is_gt %}
+                                                                Rẻ hơn <span class="price pink-color">{{ rlp.diff_val }}</span>
+                                                                {% else %}
+                                                                Đắt hơn <span class="price pink-color">{{ rlp.diff_val }}</span>
+                                                                {% endif %}
+                                                            </p>
+                                                        </div>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-12 p-2">
+                                            <div class="text-center">
+                                                <a href="javascript:void(0)"
+                                                   class="empty-btn detail-btn blue-color pt-1 pb-1 pl-2 pr-2">
+                                                    Xem Thêm
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {# /Other Sellers #}
+                                 {% endif %}
+                            </div>
+                        </div>
+                        {# /Main content #}
+
                     </div>
                 </div>
-                {# Main content #}
-                <div id="product-detail" class="col-xl-9 col-lg-8 col-md-6 col-sm-12 ">
-                    <div id="product-thumbnail-zoom" class="img-zoom-result"></div>
-                    <div class="row p-2">
-                        <div class="col-md-12">
-                            <div class="text display-product-main-info cust-border-bottom">
-                                <div class="row">
-                                    <h2 id="product-name pl-3">{{ product.name }}
-                                    </h2>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-5 p-2">
-                                        <label class="product-vendor-label">Nhà cung cấp: &nbsp;</label>
-                                        <a href="#">
-                                            <span class="blue-color" id="product-vendor">Tiki Trading</span>
-                                        </a>
-                                        <label class="ml-4 product-brand-label">Thương hiệu: &nbsp;</label>
-                                        <a href="#">
-                                            <span class="blue-color" id="product-brand">{{ product.brand_id.name }}</span>
-                                        </a>
+            </section>
+
+            <section id="middle-page" class="ftco-section background-white">
+                <div class="container cust-border-top">
+                    <div class="row">
+                        <div class="col-md-8 " id="price-history">
+                            <canvas class="pt-3 pl-3" id="canvas"></canvas>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="row cust-border-left">
+                                <div class="col-md-12" id="price-forecast">
+                                    <h5 class="text-center pt-3 pl-3">DỰ ĐOÁN GIÁ</h5>
+                                    <div class="row p-2">
+                                        <table class="table text-center ml-4">
+                                            <thead>
+                                                <tr>
+                                                    <th>Thời điểm</th>
+                                                    <th>Giá dự đoán</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="forecast-data">
+                                                <span class="loading"></span>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="row p-2 pt-4 pl-4">
+                                        <p>*Lưu ý: <em>Giá trên chỉ mang tính chất tham khảo</em></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row p-2 display-price">
-                        {# Price #}
-                        <div class="col-md-5">
+                </div>
+            </section>
+
+            <section id="product-description" class="ftco-section background-white">
+                <div class="container cust-border-top">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h4 class="text-center pt-3 pl-3">MÔ TẢ VÀ BÀI VIẾT LIÊN QUAN</h4>
+
                             <div class="row p-2">
-                                <h3>
-                                    <strong class="price red-color sale-price" id="sale-price" >{{ product.sale_price }}</strong>
-                                    <img class="logo ml-4" src="{% static 'images/tiki.png' %}" >
-                                </h3>
+                                <div id="description-source" class="col-md-12 text-center pb-2">
+                                    <a href="javascript:void(0)" class="solid-btn detail-btn white-color pt-2 pb-2 pl-2 pr-2">
+                                        TIKI
+                                    </a>
+                                </div>
                             </div>
-                            <div class="row pl-2">
-                                <label class="discount-label">Giảm giá: &nbsp;</label>
-                                <span class="red-color" id="discount-percent"> {{ product.discount_rate }}% &nbsp;</span>
-                                (<span class="price" id="discount-amount pl-2">{{ product.discount }}</span>)
+                            <div id="description-content" class="row pl-4 pr-4 pt-2 pb-2">
+                                 {% autoescape off %}
+                                     {{ product.description }}
+                                 {% endautoescape %}
                             </div>
-                            <div class="row pl-2 cust-border-bottom">
-                                <label class="list-price-label">Giá gốc: &nbsp;</label>
-                                <span id="list-price" class="price list-price">{{ product.list_price }}</span>
-                            </div>
-                            <div class="row p-2 pt-4">
-                                <a id="product-link" class="solid-btn p-2 pr-3" href="#">
-                                    <i class="fa fa-shopping-cart fa-2x"></i>&nbsp; ĐẾN NGAY NƠI BÁN
-                                </a>
+                            <div id="detail-btn" class="row text-center mt-3">
+                                <div class="col-md-12">
+                                    <a href="javascript:void(0)"
+                                       id="description-expand-btn"
+                                       class="empty-btn detail-btn blue-color pt-2 pb-2 pl-5 pr-5">
+                                        Xem Thêm
+                                    </a>
+                                </div>
+                                <div class="col-md-12">
+                                    <a href="javascript:void(0)"
+                                       id="description-reduce-btn"
+                                       class="empty-btn detail-btn blue-color pt-2 pb-2 pl-5 pr-5">
+                                        Ẩn Bớt
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                        {# /Price #}
-                        <div class="col-md-7">
-                            <div id="other-seller" class="row">
-                                <div id="seller-list">
-                                    <h5 class="pt-3 pl-3">NHÀ CUNG CẤP KHÁC</h5>
+                        <div class="col-md-4 cust-border-left" id="specification">
+                            <div id="spec-detail" class="col-md-12">
+                                <h5 class="text-center pt-3 pl-3">THÔNG SỐ KỸ THUẬT</h5>
+                                {% autoescape off %}
                                     <ul>
-                                        <li class="small">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <a class="seller-name" href="#">VinPro - Thuộc tập đoàn Vingroup</a>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <p><span class="price red-color">22.900.000</span></p>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <a class="solid-btn detail-btn ml-4 pt-1 pb-1 pl-2 pr-2" href="#">
-                                                        Chi tiết
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="pl-5 row">
-                                                <p><i class="fa fa-star"></i> Rẻ hơn <span class="price pink-color">130.000</span></p>
-                                            </div>
-                                        </li>
+                                        {% for sp in specifications %}
+                                            {% if forloop.counter0|divisibleby:2 == 0 %}
+                                                <li>
+                                                    <div class="row pt-1 pb-1 background-grey">
+                                                        <div class="sp-name blue-color col-md-6">
+                                                            {{ sp.name }}
+                                                        </div>
+                                                         <div class="sp-value col-md-6">
+                                                             {{ sp.value }}
+                                                         </div>
+                                                    </div>
+                                                </li>
+                                            {% else %}
+                                                <li>
+                                                    <div class="row pt-1 pb-1">
+                                                        <div class="sp-name blue-color col-md-6">
+                                                            {{ sp.name }}
+                                                        </div>
+                                                         <div class="sp-value col-md-6">
+                                                             {{ sp.value }}
+                                                         </div>
+                                                    </div>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
                                     </ul>
+                                {% endautoescape %}
+                            </div>
+                            <div class="col-md-12">
+                                <div class="text-center">
+                                    <a href="javascript:void(0)" class="empty-btn detail-btn pt-2 pb-2 pl-5 pr-5"
+                                       data-toggle="modal" data-target="#specification-modal">
+                                        Xem thêm
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                {# /Main content #}
 
-            </div>
+
+                </div>
+            </section>
+
+            <section id="product-description" class="ftco-section background-white">
+                <div class="container cust-border-top">
+                    <div class="row" style="height: 400px;">
+                    </div>
+                </div>
+            </section>
         </div>
-    </section>
+    </div>
 
-    <section id="middle-page" class="ftco-section">
-        <div class="container cust-border-top">
-            <div class="row">
-                <div class="col-md-8" id="price-history">
-                    <canvas id="canvas"></canvas>
+    <!-- The Specification Modal -->
+    <div class="modal fade" id="specification-modal">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Cấu hình chi tiết</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
-                {# Specification #}
-                <div class="col-md-4" id="specification">
-                    <div class="row cust-border-left">
-                        <div id="spec-detail" class="col-md-12">
-                            <h5 class="text-center pt-3 pl-3">THÔNG SỐ KỸ THUẬT</h5>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
                             <ul>
                                 {% for sp in specifications %}
-                                    {% if forloop.counter0|divisibleby:2 == 0 %}
-                                        <li>
-                                            <div class="row pt-1 pb-1 background-grey">
-                                                <div class="sp-name blue-color col-md-6">
-                                                    {{ sp.name }}
-                                                </div>
-                                                 <div class="sp-value col-md-6">
-                                                     {{ sp.value }}
-                                                 </div>
+                                    <li class="cust-border-bottom">
+                                        <div class="row pt-1 pb-1">
+                                            {% autoescape off %}
+
+                                            <div class="sp-name blue-color col-md-6">
+                                                {{ sp.name }}
                                             </div>
-                                        </li>
-                                    {% else %}
-                                        <li>
-                                            <div class="row pt-1 pb-1">
-                                                <div class="sp-name blue-color col-md-6">
-                                                    {{ sp.name }}
-                                                </div>
-                                                 <div class="sp-value col-md-6">
-                                                     {{ sp.value }}
-                                                 </div>
-                                            </div>
-                                        </li>
-                                    {% endif %}
+                                             <div class="sp-value cust-border-left col-md-6">
+                                                 {{ sp.value }}
+                                             </div>
+                                            {% endautoescape %}
+                                        </div>
+                                    </li>
                                 {% endfor %}
                             </ul>
                         </div>
-                        <div class="col-md-12">
-                            <div class="text-center">
-                                <a class="empty-btn detail-btn pt-1 pb-1 pl-3 pr-3" href="#">
-                                    Xem thêm
-                                </a>
-                            </div>
-                        </div>
                     </div>
                 </div>
-                {# /Specification #}
-            </div>
-        </div>
-    </section>
 
-    <section id="product-description" class="ftco-section">
-        <div class="container cust-border-top">
-            <div class="row" style="height: 400px;">
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                </div>
             </div>
         </div>
-    </section>
+    </div>
 
     <script>
         function formatPriceValue(price) {
@@ -199,19 +348,42 @@
             return newPrice
         }
 
-		var labels = [{% for label in labels %} new Date("{{ label }}").toLocaleDateString('en-GB'),{% endfor %}];
-        var predict_labels = [
-        new Date("10-05-2019").toLocaleDateString('en-GB'),
-        new Date("10-06-2019").toLocaleDateString('en-GB'),
-        new Date("10-07-2019").toLocaleDateString('en-GB'),
-        new Date("10-08-2019").toLocaleDateString('en-GB'),
-        new Date("10-09-2019").toLocaleDateString('en-GB'),
-        new Date("10-10-2019").toLocaleDateString('en-GB')];
-        labels = labels.concat(predict_labels);
+        $.ajax({
+            url: "/forecast/prophet",
+            data: {"product_id": {{product.product_id}}},
+            method: "POST",
+            success: function (result) {
+                let data = JSON.parse(result);
+                let labels = data['labels'];
+                let prices = data['prices'];
 
-        var prices = [{% for price in prices %}{{ price }}, {% endfor %}];
-        var predict = [1970977, 1973498, 1975594, 1977028, 1976441, 1974869];
-        var predict_prices = prices.concat(predict);
+                let price_forecast_html = "";
+                for (let i=0; i< prices.length; i++) {
+                    let price = formatPriceValue(prices[i]);
+                    price_forecast_html += `
+                        <tr>
+                            <td class="date-time">` + labels[i] + `</td>
+                            <td class="forecast-price red-color">` + price + `</td>
+                        </tr>
+                    `;
+                }
+                formatPrice(".forecast-price");
+                $("#forecast-data").append(price_forecast_html);
+            },
+            error: function (err) {
+                console.log("Error: " + err);
+                $("#forecast-data").append("<p>Không có giá dự đoán cho sản phẩm này</p>");
+            },
+            complete:function () {
+                $(".loading").hide();
+            }
+        });
+    </script>
+
+    <script>
+
+		let labels = [{% for label in labels %} new Date("{{ label }}").toLocaleDateString('en-GB'),{% endfor %}];
+        let prices = [{% for price in prices %}{{ price }}, {% endfor %}];
 
         var config = {
 			type: 'line',
@@ -227,7 +399,7 @@
 					label: 'Giá dự đoán',
 					backgroundColor: window.chartColors.blue,
 					borderColor: window.chartColors.blue,
-					data: predict_prices,
+					data: prices,
 					fill: false,
 				}]
 			},
@@ -243,13 +415,15 @@
 				    enabled: true,
 					mode: 'single',
 					intersect: false,
+                    title: "ahihi",
+                    afterTitle: "ahiih",
                     callbacks: {
-                    label: function(tooltipItems, data) {
-                        var multistringText = [];
+                        label: function(tooltipItems, data) {
+                            var multistringText = [];
                             multistringText.push("Giá: " + formatPriceValue(tooltipItems.yLabel));
-                        return multistringText;
+                            return multistringText;
+                        }
                     }
-                }
 				},
 				hover: {
 					mode: 'nearest',
@@ -257,12 +431,18 @@
 				},
 				scales: {
 					xAxes: [{
+                        interval: 10,
 						display: true,
 						scaleLabel: {
 							display: true,
                             fontSize: 16,
 							labelString: 'Thời điểm'
-						}
+						},
+                        ticks:{
+                            display: true,
+                            autoSkip: true,
+                            maxTicksLimit: 20
+                        }
 					}],
 					yAxes: [{
 						display: true,
@@ -287,6 +467,7 @@
 		};
 
 	</script>
+
 {% endblock %}
 
 

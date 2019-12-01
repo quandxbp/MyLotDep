@@ -109,6 +109,8 @@ canvas{
 
 #single-product #other-seller #seller-list{
     width: 100%;
+    max-height: 250px;
+    overflow: hidden;
 }
 
 #single-product #other-seller #seller-list h5{
@@ -133,22 +135,91 @@ canvas{
 /*Single product Page*/
 
 /* Middle page  */
-.background-grey {
-    background: #e4ebff;
+    /*Price Forecast*/
+#price-forecast {
+    width: 100%;
 }
-    /*Price history*/
-    /*Price history*/
+
+#price-forecast .date-time{
+    padding: 2px;
+}
+
+#price-forecast .forecast-price{
+    margin-right: -5px;
+    padding: 2px;
+}
+    /*Price Forecast*/
 
     /*Specification*/
-#middle-page #specification li {
+#specification ul {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#specification li {
     list-style: none;
 }
 
-#middle-page #specification #spec-detail {
-    max-height: 450px;
+#specification #spec-detail {
+    max-height: 710px;
     overflow: hidden;
     margin-bottom: 20px;
+    font-size: 13px;
 }
-
     /*Specification*/
 /* /Middle page  */
+
+/* DESCRIPTION PAGE*/
+#product-description #description-reduce-btn{
+    display: none;
+}
+
+#product-description #description-content {
+    color: #242424;
+    max-height: 600px;
+    overflow: hidden;
+    font-size: 13px;
+}
+
+#product-description #description-content p {
+    font-size: 13px;
+    width:100%;
+}
+
+#product-description #description-content img{
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+#product-description #description-content iframe {
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+#product-description #description-content h1,h2,h3,h4,h5 {
+    font-weight: bold;
+    margin-top: 5px;
+    display: block;
+}
+
+#product-description #description-source {
+    border-bottom: 1px solid #f8f9fa;
+}
+
+/* /DESCRIPTION PAGE*/
+
+/* MODAL*/
+#specification-modal ul{
+    border: 1px solid #9ea7bc;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#specification-modal li{
+    list-style: none;
+    font-size: 13px;
+}
+/* /MODAL*/
