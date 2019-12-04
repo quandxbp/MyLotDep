@@ -3,19 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="7ba35252-ea97-4da7-a9be-43ea22e2335e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ldserver/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ldserver/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/models/cron.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models/cron.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/models/ecommerce_channel.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models/ecommerce_channel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/models/product.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models/product.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product_tiki/models/ecommerce_channel.py" beforeDir="false" afterPath="$PROJECT_DIR$/product_tiki/models/ecommerce_channel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product_tiki/models/product.py" beforeDir="false" afterPath="$PROJECT_DIR$/product_tiki/models/product.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/timeseries/models/mongo_connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/timeseries/models/mongo_connection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/timeseries/models/time_price.py" beforeDir="false" afterPath="$PROJECT_DIR$/timeseries/models/time_price.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -199,7 +187,7 @@
       <workItem from="1575190053439" duration="5143000" />
       <workItem from="1575214080215" duration="5365000" />
       <workItem from="1575292923156" duration="7584000" />
-      <workItem from="1575468029628" duration="9442000" />
+      <workItem from="1575468029628" duration="10254000" />
     </task>
     <servers />
   </component>
