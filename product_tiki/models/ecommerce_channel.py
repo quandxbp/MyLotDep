@@ -14,9 +14,7 @@ class Tiki(models.Model):
 
     def get_detail_data(self, product_id, spid=False):
         endpoint = "https://tiki.vn/api/v2/products/%s" % product_id
-        if spid:
-            endpoint = "https://tiki.vn/api/v2/products/%s?spid=%s" % (product_id, spid)
-        print("Processing url %s " % endpoint)
+        logging.info("Processing url in get detail data %s " % endpoint)
 
         data = []
         try:
@@ -24,11 +22,11 @@ class Tiki(models.Model):
             if response.ok:
                 data = response.json()
         except Exception as err:
-            print("Error when getting Tiki product %s detail " % product_id)
-            print(err)
+            logging.error("Error when getting Tiki product %s detail " % product_id)
+            logging.error(err)
         return data
 
-    def tiki_get_data(self, max_records=80, limit=80, get_related_flag=True):
+    def tiki_get_data(self, max_records=5, limit=5, get_related_flag=True):
         from product.models.product import Product
 
         products = []
@@ -107,16 +105,32 @@ class Tiki(models.Model):
 
         return top_products
 
-    def tiki_update_data(self):
+    def tiki_update_data(self, limit=False):
         from product.models.product import Product
 
         products = Product.objects.filter(channel_id=self.id)
 
+        if limit:
+            products = products[:limit]
         update_products = [{'id': p.product_id,
-                            'channel_id': p.channel_id} for p in products]
+                            'platform': self.platform} for p in products]
 
         for product in update_products:
             data = self.get_detail_data(product.get('id'))
             product.update(data)
 
         return update_products
+
+    def tiki_update_data_mongo(self, limit=False):
+        from timeseries.models.time_price import TimePrice
+        TP = TimePrice()
+
+        products = TP.get_all_by_platform(self.platform)
+        update_products = [{'id': p.get('product_id'),
+                            'platform': self.platform} for p in products]
+        for product in update_products:
+            data = self.get_detail_data(product.get('id'))
+            product.update(data)
+
+        return update_products
+

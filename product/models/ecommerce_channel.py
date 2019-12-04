@@ -9,6 +9,7 @@ from product_adayroi.models.ecommerce_channel import Adayroi
 from multiprocessing import Queue, Process
 
 import time
+import logging
 
 class EcommerceChannel(Tiki, Adayroi):
     name = models.CharField(max_length=255)
@@ -54,7 +55,7 @@ class EcommerceChannel(Tiki, Adayroi):
             time.sleep(0.1)
 
     def update_data_channel(self):
-        print("Updating product data in %s" % self.platform)
+        logging.info("Updating product data in %s" % self.platform)
         cust_method_name = '%s_update_data' % self.platform
         if hasattr(self, cust_method_name):
             from .product import Product
@@ -63,15 +64,15 @@ class EcommerceChannel(Tiki, Adayroi):
             products_data = getattr(self, cust_method_name)()
             PO.update_data_product_channel(products_data, update_mongo=True)
 
+    def update_data_channel_mongo(self):
+        logging.info("Updating product data from Mongo in %s" % self.platform)
+        cust_method_name = '%s_update_data_mongo' % self.platform
+        if hasattr(self, cust_method_name):
+            from .product import Product
+            PO = Product()
 
-    def _send_request(self, api_function, **kwargs):
-        response = None
-        try:
-            response = api_function(**kwargs)
-        except Exception as err:
-            print("Error when requesting :%s" % api_function)
-            print(err)
-        return response
+            products_data = getattr(self, cust_method_name)()
+            PO.update_data_product_channel_mongo(products_data, update_sql=False)
 
     def generate_accesstrade_headers(self):
         return {

@@ -15,6 +15,7 @@ urlpatterns = [
 
     # Cron job
     path('cron', views.cron, name='cron'),
+    path('cron_mongo', views.cron_mongo, name='cron_mongo'),
 
     # Create Channels and Synchronize products on channels
     path('sync-product-view', views.sync_product_view, name='sync product view'),

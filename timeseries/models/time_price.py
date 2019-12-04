@@ -16,14 +16,18 @@ class TimePrice:
             new_prices.append(price)
         return new_prices
 
-    # def update_price_cron_job(self):
+    def get_all_by_platform(self, platform):
+        search_fields = {'platform': platform}
+        records = self.conn.find_all_by(search_fields=search_fields)
+
+        return records
 
     def update_price(self, product, price):
         today = datetime.date.today().strftime("%d-%m-%Y")
         cur_time = datetime.datetime.now().time().strftime("%H:%M:%S")
         search_field = {'product_id': product.get('product_id')}
         update_fields = {
-            'platform': product.get('channel_id').platform,
+            'platform': product.get('platform'),
             'url': product.get('url'),
             "updated_date": str(datetime.datetime.now()),
             'prices.{today}.{cur_time}'.format(today=str(today), cur_time=str(cur_time)): price
@@ -110,12 +114,8 @@ class TimePrice:
             res.append(data)
             self.conn.insert_one(data)
 
-        # self._conn.insert_many(res)
         return True
 
-    # def update_product_price(self, products_data):
-    #     for product in products_data:
-    #         cust_method_name = '%s_standardize_data' % product.get('channel_id').platform
 """
     "_id" : ObjectId,
     "product_id": string (unique),

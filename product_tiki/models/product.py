@@ -51,6 +51,8 @@ class TikiProduct(models.Model):
         return provider_data
 
     def _get_related_product(self, product_data, related_products):
+        if not related_products:
+            return {}
         for product in related_products:
             product['main_product_id'] = product_data.get('id')
             product['url_path'] = "%s.html?spid=%s" % (product_data.get('url_key'), product.get('product_id'))
@@ -73,8 +75,12 @@ class TikiProduct(models.Model):
 
         spec_dict, attributes_list = self._get_specification(product_data.get('specifications'))
 
+        if isinstance(product_data.get('id'), int):
+            product_id = "%s?spid=%s" % (product_data.get('id'), cur_seller.get('product_id', ' '))
+        else:
+            product_id = product_data.get('id')
         product_data.update({
-            'product_id': product_data.get('id'),
+            'product_id': product_id,
             'sale_price': product_data.get('price', 0),
             'seller_product_id': cur_seller.get('product_id', ' '),
             'seller_sku': cur_seller.get('sku', ' '),
@@ -98,7 +104,7 @@ class TikiProduct(models.Model):
             'brand': product_data.get('brand'),
             'category': product_data.get('categories'),
             'provider': self._get_provider(product_data.get('current_seller')),
-            'images': self._get_images(product_data.get('configurable_products')),
+            'images': self._get_images(product_data.get('configurable_products', [])),
             'related_products': self._get_related_product(product_data=product_data,
                                                           related_products=product_data.get('other_sellers'))
         })

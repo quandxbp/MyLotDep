@@ -12,6 +12,8 @@ from product_adayroi.models.product import AdayroiProduct
 
 from decimal import Decimal
 
+import logging
+
 
 class Product(TikiProduct, AdayroiProduct):
     active = models.BooleanField(default=True)
@@ -173,13 +175,13 @@ class Product(TikiProduct, AdayroiProduct):
                     try:
                         exsted_product = Product.objects.get(seller_product_id=standardize_product.get('seller_product_id'))
                     except Product.DoesNotExist:
-                        print("Create product %s" % standardize_product.get('name'))
+                        logging.info("Create product %s" % standardize_product.get('name'))
                         new_product = Product(**standardize_product)
                         new_product.save()
                         get_specification(specification, new_product)
                         get_related_products(related_products, new_product)
                 except Exception as err:
-                    print("ERROR: %s" % err)
+                    logging.error("ERROR: %s" % err)
 
     def update_data_product_channel(self, products_data, update_mongo=False):
         from timeseries.models.time_price import TimePrice
@@ -199,12 +201,39 @@ class Product(TikiProduct, AdayroiProduct):
 
                     if update_mongo:
                         try:
-                            print("Updating data in Mongo: %s" % p.get('product_id'))
+                            logging.info("Updating data in Mongo: %s" % p.get('product_id'))
                             TP.update_price(product=p, price=p.get('sale_price'))
                         except Exception as err:
-                            print('Error when updating product price in mongo')
-                            print(err)
+                            logging.error('Error when updating product price in mongo')
+                            logging.error(err)
 
                 except Exception as err:
-                    print('Error when updating product price')
-                    print(err)
+                    logging.error('Error when updating product price')
+                    logging.error(err)
+
+    def update_data_product_channel_mongo(self, products_data, update_sql=False):
+        from timeseries.models.time_price import TimePrice
+        TP = TimePrice()
+
+        for product in products_data:
+            cust_method_name = '%s_standardize_data' % product.get('platform')
+            if hasattr(self, cust_method_name):
+                method = getattr(self, cust_method_name)
+                p = method(product)
+
+                try:
+                    logging.info("Updating data in Mongo: %s" % p.get('product_id'))
+                    TP.update_price(product=p, price=p.get('sale_price'))
+
+                    if update_sql:
+                        try:
+                            Product.objects.filter(pk=p.get('id')).update(sale_price=p.get('sale_price'),
+                                                                          list_price=p.get('list_price'),
+                                                                          discount=p.get('discount'),
+                                                                          discount_rate=p.get('discount_rate'))
+                        except Exception as err:
+                            logging.error('Error when updating product price SQL')
+                            logging.error(err)
+                except Exception as err:
+                    logging.error('Error when updating product price in mongo')
+                    logging.error(err)

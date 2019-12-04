@@ -12,19 +12,34 @@ from .models.provider import Provider
 from .models.related_product import RelatedProduct
 from .models.accesstrade import AccessTrade
 from timeseries.models.time_price import TimePrice
-from .models.cron import run_job
+from .models.cron import run_scheduler
 
 from .forms import SyncChannelForm
+import logging
 
-def test():
-    print('ahihi')
 
 def cron(request):
-    EC = EcommerceChannel()
-    run_job(period='second', func=EC.update_data_channel, amount=1)
+    all_ecommerce_channels = EcommerceChannel.objects.all()
+    for ec in all_ecommerce_channels:
+        try:
+            run_scheduler(period='hour', func=ec.update_data_channel, amount=3)
+        except Exception as err:
+            logging.error("Error when running scheduler")
+            logging.error(err)
 
     return HttpResponse("Run job")
 
+
+def cron_mongo(request):
+    all_ecommerce_channels = EcommerceChannel.objects.all()
+    for ec in all_ecommerce_channels:
+        try:
+            run_scheduler(period='hour', func=ec.update_data_channel_mongo, amount=3)
+        except Exception as err:
+            logging.error("Error when running scheduler")
+            logging.error(err)
+
+    return HttpResponse("Done test")
 
 def home(request):
     categ_ids = Category.objects.filter(id_on_channel__in=DISPLAY_CATEGORY['tiki'])

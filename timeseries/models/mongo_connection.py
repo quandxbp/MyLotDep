@@ -65,7 +65,14 @@ class MongoDB:
             data = collection.find({}, filter_fields)
         else:
             data = collection.find({})
+        return data
 
+    def find_all_by(self, search_fields={}, filter_fields={}):
+        collection = self._collection
+        if filter_fields:
+            data = collection.find(search_fields, filter_fields)
+        else:
+            data = collection.find(search_fields)
         return data
 
     def update_one(self, search_field, update_fields):
