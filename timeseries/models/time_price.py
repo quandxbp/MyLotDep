@@ -25,9 +25,10 @@ class TimePrice:
     def update_price(self, product, price):
         today = datetime.date.today().strftime("%d-%m-%Y")
         cur_time = datetime.datetime.now().time().strftime("%H:%M:%S")
-        search_field = {'product_id': product.get('product_id')}
+        search_field = {'spid': product.get('spid')}
         update_fields = {
             'platform': product.get('platform'),
+            'product_id': product.get('product_id'),
             'url': product.get('url'),
             "updated_date": str(datetime.datetime.now()),
             'prices.{today}.{cur_time}'.format(today=str(today), cur_time=str(cur_time)): price
@@ -71,22 +72,21 @@ class TimePrice:
         res.reverse()
         return res
 
-    def create_price(self):
-        product = Product.objects.filter(pk=1)
-        product = product[0]
+    def create_price(self, product):
         today = datetime.date.today().strftime("%d-%m-%Y")
         cur_time = datetime.datetime.now().time()
         data = {
             'product_id': product.product_id,
+            'spid': product.spid,
             'url': product.url,
             'platform': product.channel_id.platform,
             'prices': {
-                today: [
-                    {
-                        str(cur_time): float(product.price),
-                    }
-                ]
-            }
+                today: [{
+                    str(cur_time): float(product.price),
+                }]
+            },
+            'updated_date': str(datetime.datetime.now()),
+            'created_date': str(datetime.datetime.now()),
         }
 
         self.conn.insert_one(data)
@@ -105,6 +105,7 @@ class TimePrice:
                 continue
             data = {
                 'product_id': p.product_id,
+                'spid': p.spid,
                 'url': p.url,
                 'platform': p.channel_id.platform,
                 'prices': prices,

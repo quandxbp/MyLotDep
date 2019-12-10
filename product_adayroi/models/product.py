@@ -29,13 +29,14 @@ class AdayroiProduct(models.Model):
 
     def _adayroi_get_images(self, image_data):
         images = []
-        for img in image_data:
-            if img.get('url'):
-                url = img.get('url').replace('80_80', '550_550')
-                images.extend({
-                    'alter_text': img.get('altText'),
-                    'url': url
-                })
+        if image_data:
+            for img in image_data:
+                if img.get('url'):
+                    url = img.get('url').replace('80_80', '550_550')
+                    images.extend({
+                        'alter_text': img.get('altText'),
+                        'url': url
+                    })
         return images
 
     def _adayroi_get_specification(self, specification):
@@ -65,7 +66,7 @@ class AdayroiProduct(models.Model):
         return category
 
     def adayroi_standardize_data(self, product_data):
-        url = 'https://adayroi.com/%s' % product_data.get('url')
+        url = 'https://adayroi.com%s' % product_data.get('url')
 
         brand = {
             'name': product_data.get('brandName'),

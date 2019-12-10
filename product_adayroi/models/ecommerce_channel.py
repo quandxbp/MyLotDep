@@ -23,7 +23,7 @@ class Adayroi(models.Model):
             logging.error(err)
         return data
 
-    def adayroi_get_data(self, max_records=3, limit=250, get_related_flag=True, pagination_flag=True):
+    def adayroi_get_data(self, max_records=4, limit=250, get_related_flag=True, pagination_flag=True):
         from product.models.product import Product
         products = []
 
@@ -72,3 +72,20 @@ class Adayroi(models.Model):
                         related_products.append(data)
             new_products += related_products
         return new_products
+
+    def adayroi_update_data(self, limit=False):
+        from product.models.product import Product
+
+        products = Product.objects.filter(channel_id=self.id)
+
+        if limit:
+            products = products[:limit]
+        update_products = [{'id': p.product_id,
+                            'spid': p.spid,
+                            'platform': self.platform} for p in products]
+
+        for product in update_products:
+            data = self.adayroi_get_detail_data(product.get('id'), product.get('spid'))
+            product.update(data)
+
+        return update_products

@@ -5,6 +5,8 @@ import datetime
 import re
 import ast
 import requests
+import json
+import logging
 
 
 class PriceSource:
@@ -92,6 +94,6 @@ class PriceSource:
                                         res[only_date] = {only_time: price}
                                 print("Requesting %s:" % beetracker_url)
         except Exception as err:
-            print("Error requesting to BeeTracker")
-            print(err)
+            logging.error("Error requesting to BeeTracker")
+            logging.error(err)
         return res

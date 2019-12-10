@@ -192,28 +192,26 @@ class Product(TikiProduct, AdayroiProduct):
         TP = TimePrice()
 
         for product in products_data:
-            cust_method_name = '%s_standardize_data' % product.get('channel_id').platform
+            cust_method_name = '%s_standardize_data' % product.get('platform')
             if hasattr(self, cust_method_name):
                 method = getattr(self, cust_method_name)
                 p = method(product)
-
                 try:
                     Product.objects.filter(pk=p.get('id')).update(sale_price=p.get('sale_price'),
                                                                   list_price=p.get('list_price'),
                                                                   discount=p.get('discount'),
                                                                   discount_rate=p.get('discount_rate'))
-
-                    if update_mongo:
-                        try:
-                            logging.info("Updating data in Mongo: %s" % p.get('product_id'))
-                            TP.update_price(product=p, price=p.get('sale_price'))
-                        except Exception as err:
-                            logging.error('Error when updating product price in mongo')
-                            logging.error(err)
-
                 except Exception as err:
                     logging.error('Error when updating product price')
                     logging.error(err)
+
+                if update_mongo:
+                    try:
+                        logging.info("Updating data in Mongo: %s" % p.get('spid'))
+                        TP.update_price(product=p, price=p.get('sale_price'))
+                    except Exception as err:
+                        logging.error('Error when updating product price in mongo')
+                        logging.error(err)
 
     def update_data_product_channel_mongo(self, products_data, update_sql=False):
         from timeseries.models.time_price import TimePrice
@@ -228,16 +226,16 @@ class Product(TikiProduct, AdayroiProduct):
                 try:
                     logging.info("Updating data in Mongo: %s" % p.get('product_id'))
                     TP.update_price(product=p, price=p.get('sale_price'))
-
-                    if update_sql:
-                        try:
-                            Product.objects.filter(pk=p.get('id')).update(sale_price=p.get('sale_price'),
-                                                                          list_price=p.get('list_price'),
-                                                                          discount=p.get('discount'),
-                                                                          discount_rate=p.get('discount_rate'))
-                        except Exception as err:
-                            logging.error('Error when updating product price SQL')
-                            logging.error(err)
                 except Exception as err:
                     logging.error('Error when updating product price in mongo')
                     logging.error(err)
+
+                if update_sql:
+                    try:
+                        Product.objects.filter(pk=p.get('id')).update(sale_price=p.get('sale_price'),
+                                                                      list_price=p.get('list_price'),
+                                                                      discount=p.get('discount'),
+                                                                      discount_rate=p.get('discount_rate'))
+                    except Exception as err:
+                        logging.error('Error when updating product price SQL')
+                        logging.error(err)

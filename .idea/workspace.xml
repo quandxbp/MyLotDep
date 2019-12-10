@@ -4,19 +4,10 @@
     <list default="true" id="7ba35252-ea97-4da7-a9be-43ea22e2335e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/dictionaries/quand.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/quand.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ldserver/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ldserver/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/models/ecommerce_channel.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models/ecommerce_channel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/models/image.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models/image.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product/models/product.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models/product.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/models/provider.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models/provider.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/models/related_product.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models/related_product.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product_adayroi/models/ecommerce_channel.py" beforeDir="false" afterPath="$PROJECT_DIR$/product_adayroi/models/ecommerce_channel.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product_adayroi/models/product.py" beforeDir="false" afterPath="$PROJECT_DIR$/product_adayroi/models/product.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product_tiki/models/ecommerce_channel.py" beforeDir="false" afterPath="$PROJECT_DIR$/product_tiki/models/ecommerce_channel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product_tiki/models/product.py" beforeDir="false" afterPath="$PROJECT_DIR$/product_tiki/models/product.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/timeseries/models/price_source.py" beforeDir="false" afterPath="$PROJECT_DIR$/timeseries/models/price_source.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/timeseries/models/time_price.py" beforeDir="false" afterPath="$PROJECT_DIR$/timeseries/models/time_price.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -207,7 +198,7 @@
       <workItem from="1575775769685" duration="2726000" />
       <workItem from="1575813218468" duration="959000" />
       <workItem from="1575874544458" duration="19532000" />
-      <workItem from="1575948410101" duration="6604000" />
+      <workItem from="1575948410101" duration="16450000" />
     </task>
     <servers />
   </component>
@@ -237,5 +228,10 @@
         </breakpoint>
       </default-breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Python.DjangoServer">
+        <watch expression="[p.get('platform') for p in update_products]" language="Python" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
