@@ -89,3 +89,17 @@ class Adayroi(models.Model):
             product.update(data)
 
         return update_products
+
+    def adayroi_update_data_mongo(self, limit=False):
+        from timeseries.models.time_price import TimePrice
+        TP = TimePrice()
+
+        products = TP.get_all_by_platform(self.platform)
+        update_products = [{'id': p.get('product_id'),
+                            'spid': p.get('spid'),
+                            'platform': self.platform} for p in products]
+        for product in update_products:
+            data = self.adayroi_get_detail_data(product.get('id'), product.get('spid'))
+            product.update(data)
+
+        return update_products

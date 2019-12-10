@@ -41,6 +41,7 @@ def cron_mongo(request):
 
     return HttpResponse("Done test")
 
+
 def home(request):
     categ_ids = Category.objects.filter(id_on_channel__in=DISPLAY_CATEGORY['tiki'])
     top_products = Product.objects.filter(sequence=1, category_id__in=categ_ids)
