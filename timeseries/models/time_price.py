@@ -38,7 +38,7 @@ class TimePrice:
         data = self.conn.find_one({'product_id': product_id}, ['prices'])
 
         labels, prices = [], []
-        if data.get('prices'):
+        if data.get('prices', False):
             old_price, count = 0, 0
             for date, time_n_price in data.get('prices').items():
                 for time, price in time_n_price.items():

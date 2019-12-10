@@ -56,8 +56,7 @@ def products(request):
 
 
 def single_product(request):
-    product_id = "1733317"
-    product = Product.objects.filter(product_id=product_id)[0]
+    product = Product.objects.get(pk=1)
     specifications = Specification.objects.filter(product_id=product.id)
 
     # Get all related product data
@@ -76,7 +75,7 @@ def single_product(request):
                 rlp.diff_val = -diff_val
 
     time_price = TimePrice()
-    labels, prices = time_price.get_price_by_id(product_id)
+    labels, prices = time_price.get_price_by_id(product.product_id)
 
     context = {
         'product': product,

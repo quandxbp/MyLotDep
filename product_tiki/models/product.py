@@ -9,7 +9,7 @@ class TikiProduct(models.Model):
     class Meta:
         abstract = True
 
-    def _get_specification(self, specification):
+    def _tiki_get_specification(self, specification):
         spec_dict = {}
         attributes_list = []
         if specification:
@@ -42,29 +42,33 @@ class TikiProduct(models.Model):
 
         return spec_dict, attributes_list
 
-    def _get_provider(self, provider_data):
+    def _tiki_get_provider(self, provider_data):
         if not provider_data:
-            return []
+            return {}
         provider_data['is_best_store'] = False if provider_data.get('is_best_store', False) in ['false',
                                                                                                 False] else True
         provider_data['url'] = ' ' if not provider_data.get('link') else provider_data.get('link').replace('api.', '')
         return provider_data
 
-    def _get_related_product(self, product_data, related_products):
+    def _tiki_get_related_product(self, product_data, related_products):
         if not related_products:
             return {}
         for product in related_products:
-            product['main_product_id'] = product_data.get('id')
+            product['base_product_id'] = product_data.get('id')
             product['url_path'] = "%s.html?spid=%s" % (product_data.get('url_key'), product.get('product_id'))
             product['platform'] = 'tiki'
             product['product_id'] = product.get('product_id')
         return related_products
 
-    def _get_images(self, variants):
+    def _tiki_get_images(self, variants):
         images = []
         for v in variants:
             if v.get('images'):
-                images.extend(img.get('medium_url') for img in v.get('images'))
+                for img in v.get('images'):
+                    images.extend({
+                        'alter_text': v.get('name'),
+                        'url': img.get('medium_url')
+                    })
         return images
 
     def tiki_standardize_data(self, product_data):
@@ -73,17 +77,13 @@ class TikiProduct(models.Model):
         if not cur_seller:
             cur_seller = {}
 
-        spec_dict, attributes_list = self._get_specification(product_data.get('specifications'))
+        spec_dict, attributes_list = self._tiki_get_specification(product_data.get('specifications'))
 
-        if isinstance(product_data.get('id'), int):
-            product_id = "%s?spid=%s" % (product_data.get('id'), cur_seller.get('product_id', ' '))
-        else:
-            product_id = product_data.get('id')
         product_data.update({
-            'product_id': product_id,
+            'product_id': product_data.get('id'),
             'sale_price': product_data.get('price', 0),
-            'seller_product_id': cur_seller.get('product_id', ' '),
-            'seller_sku': cur_seller.get('sku', ' '),
+            'spid': cur_seller.get('product_id', '1'),
+            'seller_sku': cur_seller.get('sku', '1'),
             'url': url,
             'thumbnail_url': product_data.get('thumbnail_url', ' '),
             'quantity': product_data.get('stock_item', {}).get('qty', 0),
@@ -103,9 +103,9 @@ class TikiProduct(models.Model):
 
             'brand': product_data.get('brand'),
             'category': product_data.get('categories'),
-            'provider': self._get_provider(product_data.get('current_seller')),
-            'images': self._get_images(product_data.get('configurable_products', [])),
-            'related_products': self._get_related_product(product_data=product_data,
+            'provider': self._tiki_get_provider(product_data.get('current_seller')),
+            'images': self._tiki_get_images(product_data.get('configurable_products', [])),
+            'related_products': self._tiki_get_related_product(product_data=product_data,
                                                           related_products=product_data.get('other_sellers'))
         })
 

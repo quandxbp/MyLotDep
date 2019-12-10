@@ -19,7 +19,6 @@ from common.credentials import DATABASE_CRE
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 
 # Quick-start development settings - unsuitable for production
@@ -93,15 +92,6 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'djongo',
-    #     'NAME': 'lotdep-timeseries',
-    #     'AUTH_SOURCE': 'lotdep-timeseries',
-    #     'HOST': 'mongodb://quandxbp:Hungvuong12@ds333248.mlab.com:33248/lotdep-timeseries',
-    #     'USER': 'quandxbp',
-    #     'PASSWORD': 'Hungvuong12',
-    #     'PORT': 33248
-    # },
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': DATABASE_CRE['DB_NAME'],

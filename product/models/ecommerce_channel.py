@@ -11,6 +11,7 @@ from multiprocessing import Queue, Process
 import time
 import logging
 
+
 class EcommerceChannel(Tiki, Adayroi):
     name = models.CharField(max_length=255)
     platform = models.CharField(max_length=50,
@@ -27,7 +28,7 @@ class EcommerceChannel(Tiki, Adayroi):
         return self.name
 
     def sync_channel_product(self, top_product=False):
-        print("Start syncing Product Data in %s" % self.platform)
+        logging.info("Start syncing Product Data in %s" % self.platform)
         cust_method_name = '%s_get_data' % self.platform if not top_product else '%s_get_top_data' % self.platform
         if hasattr(self, cust_method_name):
             from .product import Product
@@ -35,22 +36,27 @@ class EcommerceChannel(Tiki, Adayroi):
             products_data = getattr(self, cust_method_name)()
             # Update channel id in each product
             sequence = 1 if top_product else 0
-            [product.update({'channel_id': self,
-                             'sequence': sequence}) for product in products_data]
+            for product in products_data:
+                if isinstance(product, list):
+                    products_data.remove(product)
+                    continue
+                product.update({'channel_id': self,
+                                'platform': self.platform,
+                                'sequence': sequence})
             # Synchronize products data
 
             NUMBER_OF_WORKERS = 4
             queue = Queue()
             start, uid = 0, 0
             step = int(len(products_data) / NUMBER_OF_WORKERS)
+            Product = Product()
             while start < len(products_data):
                 print("UID %s" % uid)
-                PO = Product()
                 end = start + step
                 pattern = products_data[start:end]
                 start = end
 
-                queue.put(PO.sync_product_channel(uid, pattern))
+                queue.put(Product.sync_product_channel(uid, pattern))
                 uid += 1
             time.sleep(0.1)
 

@@ -19,7 +19,7 @@ class Product(TikiProduct, AdayroiProduct):
     active = models.BooleanField(default=True)
     name = models.CharField(max_length=255, blank=True)
     product_id = models.CharField(max_length=255, blank=True)
-    seller_product_id = models.CharField(max_length=255, blank=True)
+    spid = models.CharField(max_length=255, blank=True)
     sku = models.CharField(max_length=255, blank=True)
     seller_sku = models.CharField(max_length=255, blank=True)
     quantity = models.IntegerField(default=0)
@@ -122,7 +122,8 @@ class Product(TikiProduct, AdayroiProduct):
                                  'logo': ' ',
                                  'is_best_store': False}
             try:
-                provider_id = Provider.objects.get(name=provider_data.get('name'), id_on_channel=str(provider_data.get('id')))
+                provider_id = Provider.objects.get(name=provider_data.get('name'),
+                                                   id_on_channel=str(provider_data.get('id')))
             except Provider.DoesNotExist:
                 provider_id = Provider.objects.create(**{
                     'name': provider_data.get('name'),
@@ -146,14 +147,17 @@ class Product(TikiProduct, AdayroiProduct):
             from .related_product import RelatedProduct
             for rlp in related_products:
                 new_related_product = RelatedProduct(product_id=rlp.get('product_id'),
-                                                     main_product_id=rlp.get('main_product_id'),
+                                                     base_product_id=rlp.get('base_product_id'),
                                                      url_path=rlp.get('url_path'),
                                                      platform=rlp.get('platform'),
                                                      related_product_id=new_product)
                 new_related_product.save()
 
         for product in products_data:
-            cust_method_name = '%s_standardize_data' % product.get('channel_id').platform
+            if not isinstance(product, dict):
+                products_data.remove(product)
+                continue
+            cust_method_name = '%s_standardize_data' % product.get('platform')
             if hasattr(self, cust_method_name):
                 method = getattr(self, cust_method_name)
                 standardize_product = method(product)
@@ -170,10 +174,9 @@ class Product(TikiProduct, AdayroiProduct):
                 for k, v in standardize_product.copy().items():
                     if k not in product_fields or k == 'id':
                         del standardize_product[k]
-
                 try:
                     try:
-                        exsted_product = Product.objects.get(seller_product_id=standardize_product.get('seller_product_id'))
+                        exsted_product = Product.objects.get(spid=standardize_product.get('spid'))
                     except Product.DoesNotExist:
                         logging.info("Create product %s" % standardize_product.get('name'))
                         new_product = Product(**standardize_product)
@@ -181,7 +184,8 @@ class Product(TikiProduct, AdayroiProduct):
                         get_specification(specification, new_product)
                         get_related_products(related_products, new_product)
                 except Exception as err:
-                    logging.error("ERROR: %s" % err)
+                    logging.error("Error when creating product: %s" % standardize_product.get('name'))
+                    logging.error(err)
 
     def update_data_product_channel(self, products_data, update_mongo=False):
         from timeseries.models.time_price import TimePrice

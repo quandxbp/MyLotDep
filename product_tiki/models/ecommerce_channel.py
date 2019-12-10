@@ -12,8 +12,11 @@ class Tiki(models.Model):
     class Meta:
         abstract = True
 
-    def get_detail_data(self, product_id, spid=False):
-        endpoint = "https://tiki.vn/api/v2/products/%s" % product_id
+    def tiki_get_detail_data(self, product_id, spid=False):
+        if spid:
+            endpoint = "https://tiki.vn/api/v2/products/%s?spid=%s" % (product_id, spid)
+        else:
+            endpoint = "https://tiki.vn/api/v2/products/%s" % product_id
         logging.info("Processing url in get detail data %s " % endpoint)
 
         data = []
@@ -26,7 +29,7 @@ class Tiki(models.Model):
             logging.error(err)
         return data
 
-    def tiki_get_data(self, max_records=5, limit=5, get_related_flag=True):
+    def tiki_get_data(self, max_records=1000, limit=250, get_related_flag=True):
         from product.models.product import Product
 
         products = []
@@ -45,7 +48,7 @@ class Tiki(models.Model):
                         if len(data) == 0:
                             break
                     else:
-                        break
+                        continue
                     cur_product.extend(data)
                     page += 1
 
@@ -54,12 +57,13 @@ class Tiki(models.Model):
                     print(err)
             products.extend(cur_product)
 
-        product_ids = [product.get('id') for product in products]
-        existed_product_ids = Product.objects.filter(product_id__in=product_ids)
-        new_products = list(filter(lambda p: p.get('id') not in existed_product_ids, products))
+        product_ids = [product.get('current_seller', {}).get('product_id') for product in products]
+        existed_product_ids = Product.objects.filter(spid__in=product_ids)
+        new_products = list(filter(lambda p: p.get('current_seller', {}).get('product_id') not in existed_product_ids,
+                                   products))
         # Get detail data of a product
         for product in new_products:
-            data = self.get_detail_data(product.get('id'))
+            data = self.tiki_get_detail_data(product.get('id'))
             product.update(data)
 
         if get_related_flag:
@@ -67,8 +71,7 @@ class Tiki(models.Model):
             for product in new_products:
                 if product.get('other_sellers'):
                     for rlp in product.get('other_sellers'):
-                        spid = rlp.get('product_id')
-                        data = self.get_detail_data(product.get('id'), spid)
+                        data = self.tiki_get_detail_data(product.get('id'), rlp.get('product_id'))
                         related_products.append(data)
             new_products += related_products
 
@@ -98,7 +101,7 @@ class Tiki(models.Model):
                 existed_product_ids.update(sequence=1)
 
             for product in new_products:
-                data = self.get_detail_data(product.get('id'))
+                data = self.tiki_get_detail_data(product.get('id'))
                 product.update(data)
 
             return new_products
@@ -116,7 +119,7 @@ class Tiki(models.Model):
                             'platform': self.platform} for p in products]
 
         for product in update_products:
-            data = self.get_detail_data(product.get('id'))
+            data = self.tiki_get_detail_data(product.get('id'))
             product.update(data)
 
         return update_products
@@ -129,7 +132,7 @@ class Tiki(models.Model):
         update_products = [{'id': p.get('product_id'),
                             'platform': self.platform} for p in products]
         for product in update_products:
-            data = self.get_detail_data(product.get('id'))
+            data = self.tiki_get_detail_data(product.get('id'))
             product.update(data)
 
         return update_products

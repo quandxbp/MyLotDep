@@ -1,52 +1,74 @@
 from django.db import models
 
 import requests
+import logging
 
 
 class Adayroi(models.Model):
     class Meta:
         abstract = True
 
-    def adayroi_get_data(self):
-        products = []
-        page, total_page, limit = 0, 1, 100
-        pagi_flag = True
+    def adayroi_get_detail_data(self, base_product_code, offer_code):
+        endpoint = "https://rest.adayroi.com/cxapi/v2/adayroi/product/detail?fields=FULL&productCode=%s&offerCode=%s" \
+                   % (base_product_code, offer_code)
+        logging.info("Processing url in getting detail data %s " % endpoint)
 
-        while page < total_page:
+        data = []
+        try:
+            response = requests.get(endpoint)
+            if response.ok:
+                data = response.json()
+        except Exception as err:
+            logging.error("Error when getting Adayroi product %s detail " % base_product_code)
+            logging.error(err)
+        return data
+
+    def adayroi_get_data(self, max_records=3, limit=250, get_related_flag=True, pagination_flag=True):
+        from product.models.product import Product
+        products = []
+
+        total_page, page = 1, 0
+        while page < max_records:
             endpoint = "https://rest.adayroi.com/cxapi/v2/adayroi/search?fields=FULL&q&categoryCode=322&pageSize=%s&currentPage=%s" % (
                 limit, page)
-            print("Processing: %s" % endpoint)
+            logging.info("Processing: %s" % endpoint)
             try:
                 data = []
                 response = requests.get(endpoint)
                 if response.ok:
                     json_data = response.json()
                     data = json_data.get('products')
-                    if pagi_flag:
+                    if pagination_flag:
                         total_page = json_data.get('pagination').get('totalPages')
-                        pagi_flag = False
-
+                        pagination_flag = False
+                        if max_records < total_page:
+                            max_records = total_page
                 products.extend(data)
 
             except Exception as err:
-                print("Error when getting Adayroi products ")
-                print(err)
+                logging.error("Error when getting Adayroi products ")
+                logging.error(err)
             page += 1
 
         # Get detail data of a product
         filter_products = [p for p in products if p.get('baseProductCode').isdigit()]
-        for product in filter_products:
-            product_id = product.get('baseProductCode')
-            endpoint = "https://rest.adayroi.com/cxapi/v2/adayroi/product/detail?fields=FULL&productCode=%s" % product_id
-            print("Processing url %s " % endpoint)
-            try:
-                data = []
-                response = requests.get(endpoint)
-                if response.ok:
-                    data = response.json()
-                product.update(data)
-            except Exception as err:
-                print("Error when getting Adayroi product %s detail " % product_id)
-                print(err)
+        product_codes = [product.get('code') for product in filter_products]
+        existed_product_ids = Product.objects.filter(spid__in=product_codes)
+        new_products = list(filter(lambda p: p.get('code') not in existed_product_ids, filter_products))
+        # Get detail data of a product
+        for product in new_products:
+            base_product_code = product.get('baseProductCode')
+            offer_code = product.get('code')
+            data = self.adayroi_get_detail_data(base_product_code, offer_code)
+            product.update(data)
 
-        return filter_products
+        if get_related_flag:
+            related_products = []
+            for product in new_products:
+                if product.get('offers'):
+                    for rlp in product.get('offers'):
+                        data = self.adayroi_get_detail_data(base_product_code=product.get('baseProduct'),
+                                                            offer_code=rlp.get('code'))
+                        related_products.append(data)
+            new_products += related_products
+        return new_products
