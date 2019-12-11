@@ -46,7 +46,8 @@ class AdayroiProduct(models.Model):
                 specification = specification[0]
                 features = specification.get('features')
                 for f in features:
-                    value = f.get('featureValues', {}).get('value')
+                    feature_values = f.get('featureValues', {})
+                    value = " ,".join(fv.get('value') for fv in feature_values)
                     if f.get('featureUnit'):
                         value = "%s %s" % (value, f.get('featureUnit', {}).get('name'))
                     attributes_list.extend({
@@ -79,8 +80,10 @@ class AdayroiProduct(models.Model):
         if product_data.get('images'):
             thumbnail = product_data.get('images')[0]
             thumbnail_url = thumbnail.get('url')
+            if '80_80' in thumbnail_url:
+                thumbnail_url = thumbnail_url.replace('80_80', '550_550')
 
-        attributes_list = self._adayroi_get_specification(product_data.get('specifications'))
+        attributes_list = self._adayroi_get_specification(product_data.get('classifications'))
 
         cur_offer = product_data.get('currentOffer', {})
 

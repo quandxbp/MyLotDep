@@ -10,10 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
-import sys, os
+import os
 import django_heroku
-
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'common'))
 
 from common.credentials import DATABASE_CRE
 
