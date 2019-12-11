@@ -39,19 +39,20 @@ class TimePrice:
         data = self.conn.find_one({'product_id': product_id}, ['prices'])
 
         labels, prices = [], []
-        if data.get('prices', False):
-            old_price, count = 0, 0
-            for date, time_n_price in data.get('prices').items():
-                for time, price in time_n_price.items():
-                    if price == old_price and count != 4:
-                        count += 1
-                        continue
-                    format_date = datetime.datetime.strptime(date, '%d-%m-%Y').strftime('%m-%d-%Y')
-                    label = "%s" % format_date
-                    labels.append(label)
-                    prices.append(price)
-                    old_price = price
-                    count = 0
+        if data:
+            if data.get('prices', False):
+                old_price, count = 0, 0
+                for date, time_n_price in data.get('prices').items():
+                    for time, price in time_n_price.items():
+                        if price == old_price and count != 4:
+                            count += 1
+                            continue
+                        format_date = datetime.datetime.strptime(date, '%d-%m-%Y').strftime('%m-%d-%Y')
+                        label = "%s" % format_date
+                        labels.append(label)
+                        prices.append(price)
+                        old_price = price
+                        count = 0
         # Reverse two list because data returned in wrong side
         return labels, prices
 
@@ -59,17 +60,18 @@ class TimePrice:
         data = self.conn.find_one({'product_id': product_id}, ['prices'])
 
         res = []
-        if data.get('prices'):
-            for date, time_n_price in data.get('prices').items():
-                if '1970' in date:
-                    continue
-                for time, price in time_n_price.items():
-                    dt_str = "%s %s" % (date, time)
-                    format_dt = datetime.datetime.strptime(dt_str, "%d-%m-%Y %H:%M:%S")
-                    reformat_dt = datetime.datetime.strftime(format_dt, "%m-%d-%Y %H:%M:%S")
-                    res.append({"Date": str(reformat_dt),
-                                "Price": price})
-        res.reverse()
+        if data:
+            if data.get('prices'):
+                for date, time_n_price in data.get('prices').items():
+                    if '1970' in date:
+                        continue
+                    for time, price in time_n_price.items():
+                        dt_str = "%s %s" % (date, time)
+                        format_dt = datetime.datetime.strptime(dt_str, "%d-%m-%Y %H:%M:%S")
+                        reformat_dt = datetime.datetime.strftime(format_dt, "%m-%d-%Y %H:%M:%S")
+                        res.append({"Date": str(reformat_dt),
+                                    "Price": price})
+            res.reverse()
         return res
 
     def create_price(self, product):

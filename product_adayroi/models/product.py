@@ -32,7 +32,7 @@ class AdayroiProduct(models.Model):
         if image_data:
             for img in image_data:
                 if img.get('url'):
-                    url = img.get('url').replace('80_80', '550_550')
+                    url = img.get('url').replace('80_80', '600_600')
                     images.extend({
                         'alter_text': img.get('altText'),
                         'url': url
@@ -50,7 +50,7 @@ class AdayroiProduct(models.Model):
                     value = " ,".join(fv.get('value') for fv in feature_values)
                     if f.get('featureUnit'):
                         value = "%s %s" % (value, f.get('featureUnit', {}).get('name'))
-                    attributes_list.extend({
+                    attributes_list.append({
                         'name': f.get('name'),
                         'value': value
                     })
@@ -69,10 +69,12 @@ class AdayroiProduct(models.Model):
     def adayroi_standardize_data(self, product_data):
         url = 'https://adayroi.com%s' % product_data.get('url')
 
-        brand = {
-            'name': product_data.get('brandName'),
-            'slug': product_data.get('brandName').lower()
-        }
+        brand = False
+        if product_data.get('brandName'):
+            brand = {
+                'name': product_data.get('brandName'),
+                'slug': ' '
+            }
 
         categories = self._adayroi_get_category(product_data.get('categoryImpression'))
 
@@ -81,7 +83,7 @@ class AdayroiProduct(models.Model):
             thumbnail = product_data.get('images')[0]
             thumbnail_url = thumbnail.get('url')
             if '80_80' in thumbnail_url:
-                thumbnail_url = thumbnail_url.replace('80_80', '550_550')
+                thumbnail_url = thumbnail_url.replace('80_80', '600_600')
 
         attributes_list = self._adayroi_get_specification(product_data.get('classifications'))
 
@@ -97,7 +99,7 @@ class AdayroiProduct(models.Model):
             'sale_price': sale_price,
             'list_price': list_price,
             'discount': int(list_price) - int(sale_price),
-            'discount_rate': round((1 - int(sale_price)/int(list_price)) * 100, 0),
+            'discount_rate': round((1 - int(sale_price)/int(list_price)) * 100, 0) if int(list_price) != 0 else 0,
             'quantity': product_data.get('stock', {}).get('stockLevel', 0),
             'inventory_status': 'available' if product_data.get('purchasable') is True else False,
             'description': product_data.get('longDescription'),

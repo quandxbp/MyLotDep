@@ -12,11 +12,10 @@ class PriceForecast:
         tp = TimePrice()
         data = tp.get_price_list_by_id(product_id)
         df = pd.DataFrame(data)
-
-        df['Date'] = pd.DatetimeIndex(df['Date'])
-        df = df.rename(columns={'Date': 'ds', 'Price': 'y'})
-        my_model = Prophet(interval_width=0.8, daily_seasonality=True)
         try:
+            df['Date'] = pd.DatetimeIndex(df['Date'])
+            df = df.rename(columns={'Date': 'ds', 'Price': 'y'})
+            my_model = Prophet(interval_width=0.8, daily_seasonality=True)
             my_model.fit(df)
         except ValueError:
             logging.warning("Not enough data to predict")
