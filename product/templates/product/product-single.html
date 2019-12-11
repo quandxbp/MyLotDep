@@ -94,7 +94,11 @@
                                         <h3>
                                             <span class="price red-color sale-price" id="sale-price" >{{ product.sale_price }}</span>
                                         </h3>
-                                        <img class="logo ml-4" src="{% static 'images/tiki.png' %}" >
+                                        {% if product.channel_id.platform == 'tiki' %}
+                                            <img class="logo ml-4" src="{% static 'images/tiki.png' %}" >
+                                        {% elif product.channel_id.platform == 'adayroi' %}
+                                            <img class="logo ml-4" src="{% static 'images/adayroi.png' %}" >
+                                        {% endif %}
                                     </div>
                                     <div class="row pl-2">
                                         <label class="discount-label">Giảm giá: &nbsp;</label>
@@ -106,7 +110,7 @@
                                         <span id="list-price" class="price list-price">{{ product.list_price }}</span>
                                     </div>
                                     <div class="row pl-2">
-                                        <label>Số lượng trên kho {{ product.channel_id.platform }}: &nbsp;</label>
+                                        <label>Số lượng trên kho <strong class="text-uppercase">{{ product.channel_id.platform }}</strong>: &nbsp;</label>
                                         <span id="quantity" >{{ product.quantity }} (sản phẩm)</span>
                                     </div>
                                     <div class="row p-2 pt-4 cust-border-top">
@@ -192,13 +196,16 @@
                                                     <th>Giá dự đoán</th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="forecast-data">
+                                            <tbody class="text-center" id="forecast-data">
                                                 <span class="loading"></span>
                                             </tbody>
                                         </table>
                                     </div>
                                     <div class="row p-2 pt-4 pl-4">
-                                        <p>*Lưu ý: <em>Giá trên chỉ mang tính chất tham khảo</em></p>
+                                        <p>
+                                            <strong class="red-color"><i class="fa fa-circle fa-xs"></i>&nbsp; Lưu ý:</strong>
+                                            <em>Giá trên chỉ mang tính chất tham khảo</em>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -356,23 +363,26 @@
                 let data = JSON.parse(result);
                 let labels = data['labels'];
                 let prices = data['prices'];
-
-                let price_forecast_html = "";
-                for (let i=0; i< prices.length; i++) {
-                    let price = formatPriceValue(prices[i]);
-                    price_forecast_html += `
+                if (prices.length === 0) {
+                    $("#forecast-data").append("<tr><td colspan='2'><p>Dữ liệu không đủ để dự đoán cho sản phẩm này</p></td></tr>");
+                } else {
+                    let price_forecast_html = "";
+                    for (let i = 0; i < prices.length; i++) {
+                        let price = formatPriceValue(prices[i]);
+                        price_forecast_html += `
                         <tr>
                             <td class="date-time">` + labels[i] + `</td>
                             <td class="forecast-price red-color">` + price + `</td>
                         </tr>
                     `;
+                    }
+                    formatPrice(".forecast-price");
+                    $("#forecast-data").append(price_forecast_html);
                 }
-                formatPrice(".forecast-price");
-                $("#forecast-data").append(price_forecast_html);
             },
             error: function (err) {
                 console.log("Error: " + err);
-                $("#forecast-data").append("<p>Không có giá dự đoán cho sản phẩm này</p>");
+                $("#forecast-data").append("<tr><td colspan='2'><p>Dữ liệu không đủ để dự đoán cho sản phẩm này</p></td></tr>");
             },
             complete:function () {
                 $(".loading").hide();
@@ -395,12 +405,6 @@
 					borderColor: window.chartColors.red,
 					data: prices,
 					fill: false,
-				},{
-					label: 'Giá dự đoán',
-					backgroundColor: window.chartColors.blue,
-					borderColor: window.chartColors.blue,
-					data: prices,
-					fill: false,
 				}]
 			},
 			options: {
@@ -415,8 +419,6 @@
 				    enabled: true,
 					mode: 'single',
 					intersect: false,
-                    title: "ahihi",
-                    afterTitle: "ahiih",
                     callbacks: {
                         label: function(tooltipItems, data) {
                             var multistringText = [];

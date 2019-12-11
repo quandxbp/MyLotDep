@@ -4,6 +4,7 @@ import pandas as pd
 from fbprophet import Prophet
 
 import datetime
+import logging
 
 class PriceForecast:
 
@@ -15,7 +16,11 @@ class PriceForecast:
         df['Date'] = pd.DatetimeIndex(df['Date'])
         df = df.rename(columns={'Date': 'ds', 'Price': 'y'})
         my_model = Prophet(interval_width=0.8, daily_seasonality=True)
-        my_model.fit(df)
+        try:
+            my_model.fit(df)
+        except ValueError:
+            logging.warning("Not enough data to predict")
+            return [], []
         future_dates = my_model.make_future_dataframe(periods=5, freq='D')
         forecast = my_model.predict(future_dates)
 
