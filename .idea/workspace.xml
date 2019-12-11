@@ -3,10 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="7ba35252-ea97-4da7-a9be-43ea22e2335e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/templates/base-no-main.html" beforeDir="false" afterPath="$PROJECT_DIR$/product/templates/base-no-main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/product/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ldserver/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ldserver/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/migrations/__init__.py" beforeDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -46,6 +46,11 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -69,18 +74,6 @@
       <recent name="D:\Projects\Python\Thesis\ldserver\product\static" />
       <recent name="D:\Projects\Python\Thesis\ldserver\product\static\js" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager">
     <configuration name="ldserver" type="Python.DjangoServer" factoryName="Django server">
@@ -109,6 +102,16 @@
     </configuration>
   </component>
   <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
     <option name="showServicesTree" value="false" />
   </component>
   <component name="SvnConfiguration">
@@ -196,6 +199,7 @@
       <workItem from="1575874544458" duration="19532000" />
       <workItem from="1575948410101" duration="20046000" />
       <workItem from="1576033294473" duration="5194000" />
+      <workItem from="1576039577684" duration="1075000" />
     </task>
     <servers />
   </component>
@@ -214,6 +218,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="657" y="138" width="662" height="828" key="#ldserver" timestamp="1576040471972">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="657" y="138" width="662" height="828" key="#ldserver/67.27.1853.1053@67.27.1853.1053" timestamp="1576040471972" />
+    <state x="648" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1576039579539">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="648" y="380" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1576039579539" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
