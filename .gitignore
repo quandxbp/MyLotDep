@@ -32,5 +32,4 @@ nosetests.xml
 coverage.xml
 
 # My Lotdep
-common/credentials.py
 images
