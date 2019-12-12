@@ -57,7 +57,7 @@ def products(request):
 
 
 def single_product(request):
-    product = Product.objects.get(pk=1)
+    product = Product.objects.get(pk=3)
     specifications = Specification.objects.filter(product_id=product.id)
 
     # Get all related product data
