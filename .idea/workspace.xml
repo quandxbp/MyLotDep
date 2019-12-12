@@ -3,13 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="7ba35252-ea97-4da7-a9be-43ea22e2335e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/price_forecast/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/price_forecast/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/models/product.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models/product.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product_adayroi/models/ecommerce_channel.py" beforeDir="false" afterPath="$PROJECT_DIR$/product_adayroi/models/ecommerce_channel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product_adayroi/models/product.py" beforeDir="false" afterPath="$PROJECT_DIR$/product_adayroi/models/product.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/timeseries/models/time_price.py" beforeDir="false" afterPath="$PROJECT_DIR$/timeseries/models/time_price.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -55,7 +51,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/staticfiles" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../chatbot_service/to_tho" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
@@ -200,7 +196,9 @@
       <workItem from="1575813218468" duration="959000" />
       <workItem from="1575874544458" duration="19532000" />
       <workItem from="1575948410101" duration="20046000" />
-      <workItem from="1576033294473" duration="20311000" />
+      <workItem from="1576033294473" duration="21785000" />
+      <workItem from="1576082956997" duration="1089000" />
+      <workItem from="1576112788057" duration="3560000" />
     </task>
     <servers />
   </component>

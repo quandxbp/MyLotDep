@@ -224,10 +224,11 @@ class Product(TikiProduct, AdayroiProduct):
                 p = method(product)
 
                 try:
-                    logging.info("Updating data in Mongo: %s" % p.get('product_id'))
+                    logging.info("Updating %s with product id %s and spid %s" % (p.get('platform'), p.get('product_id'),
+                                                                                 p.get('spid')))
                     TP.update_price(product=p, price=p.get('sale_price'))
                 except Exception as err:
-                    logging.error('Error when updating product price in mongo')
+                    logging.error('Error when updating %s in mongo' % p.get('url'))
                     logging.error(err)
 
                 if update_sql:

@@ -7,7 +7,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('about', views.about, name='about'),
     path('contact', views.contact, name='contact'),
-    path('404-not-found', views.page_not_found, name='page_not_found'),
+    path('404-not-found', views.page_not_found, name='page-not-found'),
 
     # Display products
     path('san-pham', views.products, name='products'),
@@ -15,7 +15,9 @@ urlpatterns = [
 
     # Cron job
     path('cron', views.cron, name='cron'),
-    path('cron_mongo', views.cron_mongo, name='cron_mongo'),
+    path('cron_mongo', views.cron_mongo, name='cron mongo'),
+    path('tiki_scheduler', views.tiki_scheduler, name='tiki_scheduler'),
+    path('adayroi_scheduler', views.adayroi_scheduler, name='adayroi_scheduler'),
 
     # Create Channels and Synchronize products on channels
     path('sync-product-view', views.sync_product_view, name='sync product view'),
