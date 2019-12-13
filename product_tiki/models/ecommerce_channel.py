@@ -29,7 +29,7 @@ class Tiki(models.Model):
             logging.error(err)
         return data
 
-    def tiki_get_data(self, max_records=1000, limit=250, get_related_flag=True):
+    def tiki_get_data(self, max_records=50, limit=50, get_related_flag=True):
         from product.models.product import Product
 
         products = []

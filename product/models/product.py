@@ -5,14 +5,18 @@ from .ecommerce_channel import EcommerceChannel
 from .category import Category
 from .brand import Brand
 from .provider import Provider
+from .product_template import ProductTemplate
 
 # Import model in Each Channel
 from product_tiki.models.product import TikiProduct
 from product_adayroi.models.product import AdayroiProduct
+from name_entity_recognizer.app.ner import NERTAG
 
 from decimal import Decimal
 
 import logging
+
+ner_model = NERTAG()
 
 
 class Product(TikiProduct, AdayroiProduct):
@@ -77,6 +81,10 @@ class Product(TikiProduct, AdayroiProduct):
                                     default=1,
                                     verbose_name="Provider",
                                     on_delete=models.CASCADE)
+    product_tmpl_id = models.ForeignKey(ProductTemplate,
+                                        default=1,
+                                        verbose_name="Product Template",
+                                        on_delete=models.CASCADE)
 
     def __str__(self):
         return "[%s] %s" % (self.sku, self.name) if self.sku else self.name
@@ -135,6 +143,18 @@ class Product(TikiProduct, AdayroiProduct):
 
             return provider_id
 
+        def get_product_tmpl(name):
+            if not name:
+                name = "Blank"
+            tmpl_name = ner_model.predict_product(name)
+            try:
+                product_tmpl_id = ProductTemplate.objects.get(name=tmpl_name)
+            except ProductTemplate.DoesNotExist:
+                product_tmpl_id = ProductTemplate.objects.create(**{
+                    'name': tmpl_name
+                })
+            return product_tmpl_id
+
         def get_specification(specification, new_product):
             from .specification import Specification
             for spec in specification:
@@ -168,6 +188,7 @@ class Product(TikiProduct, AdayroiProduct):
                 standardize_product['brand_id'] = get_brand(standardize_product.get('brand', False))
                 standardize_product['category_id'] = get_category(standardize_product.get('category', False))
                 standardize_product['provider_id'] = get_provider(standardize_product.get('provider', False))
+                standardize_product['product_tmpl_id'] = get_product_tmpl(standardize_product.get('name', False))
                 specification = standardize_product.get('specification')
                 related_products = standardize_product.get('related_products')
 

@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-import django_heroku
+# import django_heroku
 
 from common.credentials import DATABASE_CRE
 
@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '+16m6_*vx4g71&y^bs&$-5r!eqefzo@s5du1)^*^trc#v^d7!b'
-CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = False
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'product_tiki.apps.ProductTikiConfig',
     'product_adayroi.apps.ProductAdayroiConfig',
     'timeseries.apps.TimeseriesConfig',
-    'price_forecast.apps.PriceForecastConfig'
+    'price_forecast.apps.PriceForecastConfig',
+    'name_entity_recognizer.apps.NameEntityRecognizerConfig'
 ]
 
 MIDDLEWARE = [
@@ -92,6 +93,7 @@ STATIC_URL = '/static/'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
+        'OPTIONS': {'charset': 'utf8mb4'},
         'NAME': DATABASE_CRE['DB_NAME'],
         'USER': DATABASE_CRE['USER'],
         'PASSWORD': DATABASE_CRE['PASSWORD'],
@@ -136,4 +138,4 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-django_heroku.settings(locals())
+# django_heroku.settings(locals())

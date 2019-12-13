@@ -6,37 +6,41 @@ from fbprophet import Prophet
 import datetime
 import logging
 
+
 class PriceForecast:
 
     def prophet_forecast(self, product_id):
         tp = TimePrice()
         data = tp.get_price_list_by_id(product_id)
-        df = pd.DataFrame(data)
-        try:
-            df['Date'] = pd.DatetimeIndex(df['Date'])
-            df = df.rename(columns={'Date': 'ds', 'Price': 'y'})
-            my_model = Prophet(interval_width=0.8, daily_seasonality=True)
-            my_model.fit(df)
-        except ValueError:
-            logging.warning("Not enough data to predict")
+        if data:
+            try:
+                df = pd.DataFrame(data)
+                df['Date'] = pd.DatetimeIndex(df['Date'])
+                df = df.rename(columns={'Date': 'ds', 'Price': 'y'})
+                my_model = Prophet(interval_width=0.8, daily_seasonality=True)
+                my_model.fit(df)
+            except ValueError:
+                logging.warning("Not enough data to predict")
+                return [], []
+            future_dates = my_model.make_future_dataframe(periods=5, freq='D')
+            forecast = my_model.predict(future_dates)
+
+            datetime_stamp = forecast['ds'].tail(5).tolist()
+            yhat = forecast['yhat'].tail(5).tolist()
+            trend = forecast['trend'].tail(10).tolist()
+
+            labels = []
+            for dt in datetime_stamp:
+                format_date = datetime.datetime.strftime(dt, '%d/%m/%Y')
+                labels.append(format_date)
+
+            prices = []
+            for price in yhat:
+                prices.append(self._round_price(price))
+
+            return labels, prices
+        else:
             return [], []
-        future_dates = my_model.make_future_dataframe(periods=5, freq='D')
-        forecast = my_model.predict(future_dates)
-
-        datetime_stamp = forecast['ds'].tail(5).tolist()
-        yhat = forecast['yhat'].tail(5).tolist()
-        trend = forecast['trend'].tail(10).tolist()
-
-        labels = []
-        for dt in datetime_stamp:
-            format_date = datetime.datetime.strftime(dt, '%d/%m/%Y')
-            labels.append(format_date)
-
-        prices = []
-        for price in yhat:
-            prices.append(self._round_price(price))
-
-        return labels, prices
 
     def _round_price(self, price):
         price = round(price)
@@ -48,8 +52,6 @@ class PriceForecast:
             price += 10000 - del_value
 
         return price
-
-
 
     # def train_data(self):
     #     tp = TimePrice()

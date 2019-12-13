@@ -33,3 +33,5 @@ coverage.xml
 
 # My Lotdep
 images
+venv
+name_entity_recognizer/models
