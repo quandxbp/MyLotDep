@@ -8,11 +8,47 @@
             <div id="search-box" class="subscribe-form mb-4">
                 <div  class="row form-group">
                     <div id="search-field" class="col-md-10 col-sm-10">
-                        <input type="search" placeholder="Tìm theo dường dẫn hoặc tên sản phẩm ..." class="product-search form-control">
+                        <input type="search" placeholder="Tìm theo dường dẫn hoặc tên sản phẩm ..." class="product-search form-control" />
                     </div>
                      <div id="search-icon" class="col-md-2 col-sm-2">
                          <button type="button" class="search-icon form-control"><i class="fa fa-search"></i></button>
                      </div>
+                    <div id="suggestion-box">
+                        <div id="suggestion-items">
+{#                            <a class="suggestion-item row">#}
+{#                                <div class="col-md-3 nav-thumb">#}
+{#                                    <img src="https://salt.tikicdn.com/cache/280x280/ts/product/bd/d0/ad/01847070ffbb46989f92c5188a9a30e1.jpg" height="100" width="100" />#}
+{#                                </div>#}
+{#                                <div class="col-md-7 nav-product-info">#}
+{#                                    <h6 class="nav-product-name">Samsung Galaxy A30s 4GB/64GB Đen (Hàng chính hãng)</h6>#}
+{#                                    <p class="nav-product-price price red-color">500000000</p>#}
+{#                                    <p class="font-14">#}
+{#                                        <span class="nav-product-price-stock muted-price price">100000000</span>#}
+{#                                        <span class="nav-product-discount">-30%</span>#}
+{#                                    </p>#}
+{#                                </div>#}
+{#                                <div class="col-md-2 nav-platform text-center">#}
+{#                                    <img src="https://salt.tikicdn.com/cache/280x280/ts/product/bd/d0/ad/01847070ffbb46989f92c5188a9a30e1.jpg" height="50" width="50" />#}
+{#                                </div>#}
+{#                            </a>#}
+{#                            <a class="suggestion-item row">#}
+{#                                <div class="col-md-3 nav-thumb">#}
+{#                                    <img src="https://salt.tikicdn.com/cache/280x280/ts/product/bd/d0/ad/01847070ffbb46989f92c5188a9a30e1.jpg" height="100" width="100" />#}
+{#                                </div>#}
+{#                                <div class="col-md-7 nav-product-info">#}
+{#                                    <h6 class="nav-product-name">Samsung Galaxy A30s 4GB/64GB Đen (Hàng chính hãng)</h6>#}
+{#                                    <p class="nav-product-price price red-color">500000000</p>#}
+{#                                    <p class="font-14">#}
+{#                                        <span class="nav-product-price-stock muted-price price">100000000</span>#}
+{#                                        <span class="nav-product-discount">-30%</span>#}
+{#                                    </p>#}
+{#                                </div>#}
+{#                                <div class="col-md-2 nav-platform text-center">#}
+{#                                    <img src="/static/images/tiki.png" height="50" width="50" />#}
+{#                                </div>#}
+{#                            </a>#}
+                        </div>
+                    </div>
                 </div>
             </div>
             <ul class="navbar-nav ml-auto">
@@ -20,6 +56,7 @@
                 <li class="nav-item"><a href="{% url 'product:about' %}" class="nav-link">Về chúng tôi</a></li>
                 <li class="nav-item"><a href="{% url 'product:contact' %}" class="nav-link">Liên hệ</a></li>
             </ul>
+
         </div>
     </div>
 </nav>

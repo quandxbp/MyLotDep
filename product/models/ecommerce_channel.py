@@ -45,20 +45,8 @@ class EcommerceChannel(Tiki, Adayroi):
                                 'sequence': sequence})
             # Synchronize products data
 
-            NUMBER_OF_WORKERS = 4
-            queue = Queue()
-            start, uid = 0, 0
-            step = int(len(products_data) / NUMBER_OF_WORKERS)
             Product = Product()
-            while start < len(products_data):
-                print("UID %s" % uid)
-                end = start + step
-                pattern = products_data[start:end]
-                start = end
-
-                queue.put(Product.sync_product_channel(uid, pattern))
-                uid += 1
-            time.sleep(0.1)
+            Product.sync_product_channel(1, products_data)
 
     def update_data_channel(self):
         logging.info("Updating product data in %s" % self.platform)

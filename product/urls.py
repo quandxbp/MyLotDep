@@ -1,6 +1,7 @@
 from django.urls import path
 
 from . import views
+from . import apis
 app_name = 'product'
 urlpatterns = [
     # Homepage
@@ -11,7 +12,8 @@ urlpatterns = [
 
     # Display products
     path('san-pham', views.products, name='products'),
-    path('p', views.single_product),
+    path('<int:product_id>', views.single_product, name='single product'),
+    path('demo-product', views.demo_product, name='demo product'),
 
     # Cron job
     path('cron', views.cron, name='cron'),
@@ -23,5 +25,8 @@ urlpatterns = [
     path('sync-product-view', views.sync_product_view, name='sync product view'),
     path('sync-product', views.sync_product, name='sync product'),
     path('update-product-view', views.update_product_view, name='update product view'),
-    path('update-product', views.update_product, name='update product')
+    path('update-product', views.update_product, name='update product'),
+
+    # Api
+    path('api/v1/search_product', apis.search_product, name='search product')
 ]

@@ -29,7 +29,7 @@ class Tiki(models.Model):
             logging.error(err)
         return data
 
-    def tiki_get_data(self, max_records=50, limit=50, get_related_flag=True):
+    def tiki_get_data(self, max_records=2, limit=2, get_related_flag=True):
         from product.models.product import Product
 
         products = []
@@ -61,8 +61,11 @@ class Tiki(models.Model):
         existed_product_ids = Product.objects.filter(spid__in=product_ids)
         new_products = list(filter(lambda p: p.get('current_seller', {}).get('product_id') not in existed_product_ids,
                                    products))
+
         # Get detail data of a product
+        # new_products = [{'id': 32028822, 'spid': 32028824}]
         for product in new_products:
+            # data = self.tiki_get_detail_data(product.get('id'), product.get('spid'))
             data = self.tiki_get_detail_data(product.get('id'))
             product.update(data)
 

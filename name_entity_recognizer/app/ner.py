@@ -114,10 +114,6 @@ class NERTAG(metaclass=Singleton):
                     break
         if product_name is "":
             product_name = "Sản phẩm chung"
-        print(product_name)
-        print(name_to_list)
-        print(res_sequence)
-        print('-----------------------')
         return product_name
 
 

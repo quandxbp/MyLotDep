@@ -100,7 +100,7 @@ class Product(TikiProduct, AdayroiProduct):
                     'slug': 'general'
                 }
             try:
-                brand_id = Brand.objects.get(name=brand_data.get('name'))
+                brand_id = Brand.objects.get(slug=brand_data.get('slug'))
             except Brand.DoesNotExist:
                 brand_id = Brand.objects.create(**{
                     'name': brand_data.get('name'),
