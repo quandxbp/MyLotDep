@@ -47,10 +47,6 @@ canvas{
     border-bottom: 2px solid #f7f7f7;
 }
 
-#product-list .product-name {
-    font-size: 13px;
-}
-
 #product-list .display-sale-price {
     margin-bottom: -2%;
 }
@@ -104,7 +100,6 @@ canvas{
 #single-product #other-seller {
     width: 100%;
     border: 1px solid #9ea7bc;
-    border-radius: 20px;
 }
 
 #single-product #other-seller #seller-list{

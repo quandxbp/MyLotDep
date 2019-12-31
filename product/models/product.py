@@ -6,6 +6,7 @@ from .category import Category
 from .brand import Brand
 from .provider import Provider
 from .product_template import ProductTemplate
+from .product_extra_func import ProductExtraFunc
 
 # Import model in Each Channel
 from product_tiki.models.product import TikiProduct
@@ -19,7 +20,7 @@ import logging
 ner_model = NERTAG()
 
 
-class Product(TikiProduct, AdayroiProduct):
+class Product(ProductExtraFunc, TikiProduct, AdayroiProduct):
     active = models.BooleanField(default=True)
     name = models.CharField(max_length=255, blank=True)
     product_id = models.CharField(max_length=255, blank=True)
@@ -174,39 +175,43 @@ class Product(TikiProduct, AdayroiProduct):
                 new_related_product.save()
 
         for product in products_data:
-            if not isinstance(product, dict):
-                products_data.remove(product)
-                continue
-            cust_method_name = '%s_standardize_data' % product.get('platform')
-            if hasattr(self, cust_method_name):
-                method = getattr(self, cust_method_name)
-                standardize_product = method(product)
-
-                if standardize_product.get('inventory_status') != 'available':
+            try:
+                if not isinstance(product, dict):
+                    products_data.remove(product)
                     continue
+                cust_method_name = '%s_standardize_data' % product.get('platform')
+                if hasattr(self, cust_method_name):
+                    method = getattr(self, cust_method_name)
+                    standardize_product = method(product)
 
-                standardize_product['brand_id'] = get_brand(standardize_product.get('brand', False))
-                standardize_product['category_id'] = get_category(standardize_product.get('category', False))
-                standardize_product['provider_id'] = get_provider(standardize_product.get('provider', False))
-                standardize_product['product_tmpl_id'] = get_product_tmpl(standardize_product.get('name', False))
-                specification = standardize_product.get('specification')
-                related_products = standardize_product.get('related_products')
+                    if standardize_product.get('inventory_status') != 'available':
+                        continue
 
-                for k, v in standardize_product.copy().items():
-                    if k not in product_fields or k == 'id':
-                        del standardize_product[k]
-                try:
+                    standardize_product['brand_id'] = get_brand(standardize_product.get('brand', False))
+                    standardize_product['category_id'] = get_category(standardize_product.get('category', False))
+                    standardize_product['provider_id'] = get_provider(standardize_product.get('provider', False))
+                    standardize_product['product_tmpl_id'] = get_product_tmpl(standardize_product.get('name', False))
+                    specification = standardize_product.get('specification')
+                    related_products = standardize_product.get('related_products')
+
+                    for k, v in standardize_product.copy().items():
+                        if k not in product_fields or k == 'id':
+                            del standardize_product[k]
                     try:
-                        exsted_product = Product.objects.get(spid=standardize_product.get('spid'))
-                    except Product.DoesNotExist:
-                        logging.info("Create product %s" % standardize_product.get('name'))
-                        new_product = Product(**standardize_product)
-                        new_product.save()
-                        get_specification(specification, new_product)
-                        get_related_products(related_products, new_product)
-                except Exception as err:
-                    logging.error("Error when creating product: %s" % standardize_product.get('name'))
-                    logging.error(err)
+                        try:
+                            exsted_product = Product.objects.get(spid=standardize_product.get('spid'))
+                        except Product.DoesNotExist:
+                            logging.info("Create product %s" % standardize_product.get('name'))
+                            new_product = Product(**standardize_product)
+                            new_product.save()
+                            get_specification(specification, new_product)
+                            get_related_products(related_products, new_product)
+                    except Exception as err:
+                        logging.error("Error when creating product: %s" % standardize_product.get('name'))
+                        logging.error(err)
+            except Exception as err:
+                logging.error("Error when creating product")
+                logging.error(err)
 
     def update_data_product_channel(self, products_data, update_mongo=False):
         from timeseries.models.time_price import TimePrice

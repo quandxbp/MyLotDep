@@ -35,29 +35,34 @@ class TimePrice:
         }
         self.conn.update(search_field=search_field, update_fields=update_fields)
 
-    def get_price_by_id(self, product_id):
-        data = self.conn.find_one({'product_id': product_id}, ['prices'])
+    def get_price_by_spid(self, spid):
+        data = self.conn.find_one({'spid': spid}, ['prices'])
 
         labels, prices = [], []
         if data:
             if data.get('prices', False):
-                old_price, count = 0, 0
+                price_len, count = len(data.get('prices')), 0
+                old_date, old_price = False, 0
                 for date, time_n_price in data.get('prices').items():
+                    count += 1
+                    if '1970' in date or date == old_date:
+                        continue
                     for time, price in time_n_price.items():
-                        if price == old_price and count != 4:
-                            count += 1
+                        if price == old_price and price_len != count:
                             continue
                         format_date = datetime.datetime.strptime(date, '%d-%m-%Y').strftime('%m-%d-%Y')
                         label = "%s" % format_date
+
                         labels.append(label)
                         prices.append(price)
                         old_price = price
-                        count = 0
-        # Reverse two list because data returned in wrong side
+                    old_date = date
+
+        # Reverse two list because data returned in opposite side
         return labels, prices
 
-    def get_price_list_by_id(self, product_id):
-        data = self.conn.find_one({'product_id': product_id}, ['prices'])
+    def get_price_list_by_spid(self, spid):
+        data = self.conn.find_one({'spid': spid}, ['prices'])
 
         res = []
         if data:

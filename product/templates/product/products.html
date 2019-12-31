@@ -31,16 +31,21 @@
                                         <img class="platform-logo logo p-2" src="{% static 'images/tiki.png' %}" >
                                         <img class="thumbnail mt-2" src="{{ product.thumbnail_url }}" />
                                         <div class="text p-2 mt-2">
-                                            <p class="product-name cust-tooltip mb-2">{{ product.name }}</p>
+                                            <h5 class="product-name cust-tooltip mb-2">{{ product.name }}</h5>
                                             <span class="cust-tooltip-text">{{ product.name }}</span>
                                         </div>
-                                        <div class="text d-block">
-                                            <div class="meta p-2 mb-3">
-                                                <p class="display-sale-price">
-                                                    <strong class="sale-price">{{ product.sale_price }}</strong>
-                                                    <span class="discount-percent ml-2">58%</span>
-                                                </p>
-                                                <span class="list-price">{{ product.list_price }}</span>
+
+                                        <div class="text p-2 mt-2">
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <p class="sale-price price red-color font-20">{{ product.sale_price }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <p class="list-price price">{{ product.list_price }} </p>
+                                                    <span class="ml-2">(-{{ product.discount_rate }} %)</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

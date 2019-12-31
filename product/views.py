@@ -96,7 +96,7 @@ def single_product(request, product_id):
                 rlp.diff_val = -diff_val
 
     time_price = TimePrice()
-    labels, prices = time_price.get_price_by_id(product.product_id)
+    labels, prices = time_price.get_price_by_spid(product.spid)
 
     context = {
         'product': product,
@@ -109,7 +109,7 @@ def single_product(request, product_id):
 
 
 def demo_product(request):
-    product = Product.objects.get(spid=32028824)
+    product = Product.objects.get(spid=13481649)
     specifications = Specification.objects.filter(product_id=product.id)
 
     # Get all related product data
@@ -128,7 +128,7 @@ def demo_product(request):
                 rlp.diff_val = -diff_val
 
     time_price = TimePrice()
-    labels, prices = time_price.get_price_by_id(product.product_id)
+    labels, prices = time_price.get_price_by_spid(product.spid)
 
     context = {
         'product': product,

@@ -28,5 +28,6 @@ urlpatterns = [
     path('update-product', views.update_product, name='update product'),
 
     # Api
-    path('api/v1/search_product', apis.search_product, name='search product')
+    path('api/v1/search_product', apis.search_product, name='search product'),
+    path('api/v1/current_product_statistics', apis.current_product_statistics, name='current product statistics')
 ]
