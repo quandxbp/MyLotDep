@@ -23,7 +23,7 @@ class Adayroi(models.Model):
             logging.error(err)
         return data
 
-    def adayroi_get_data(self, max_records=4, limit=250, get_related_flag=True, pagination_flag=True ):
+    def adayroi_get_data(self, max_records=4, limit=250, get_related_flag=True, pagination_flag=True):
         from product.models.product import Product
         products = []
 

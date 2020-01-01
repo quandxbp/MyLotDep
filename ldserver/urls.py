@@ -26,4 +26,5 @@ urlpatterns = [
     path('mongo/', include('timeseries.urls')),
 
     path('forecast/', include('price_forecast.urls')),
+    path('ner/', include('name_entity_recognizer.urls'))
 ]

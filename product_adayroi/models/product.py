@@ -73,7 +73,7 @@ class AdayroiProduct(models.Model):
         if product_data.get('brandName'):
             brand = {
                 'name': product_data.get('brandName'),
-                'slug': ' '
+                'slug': product_data.get('brandName').lower()
             }
 
         categories = self._adayroi_get_category(product_data.get('categoryImpression'))

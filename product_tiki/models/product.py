@@ -106,7 +106,7 @@ class TikiProduct(models.Model):
             'provider': self._tiki_get_provider(product_data.get('current_seller')),
             'images': self._tiki_get_images(product_data.get('configurable_products', [])),
             'related_products': self._tiki_get_related_product(product_data=product_data,
-                                                          related_products=product_data.get('other_sellers'))
+                                                               related_products=product_data.get('other_sellers'))
         })
 
         return product_data

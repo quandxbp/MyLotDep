@@ -14,10 +14,10 @@ def price_forecast(request):
         PF = PriceForecast()
         data = request.POST
         if data:
-            product_id = data.get('product_id')
-            if isinstance(product_id, list):
-                product_id = product_id[0]
-            labels, prices = PF.prophet_forecast(product_id=product_id)
+            spid = data.get('spid')
+            if isinstance(spid, list):
+                spid = spid[0]
+            labels, prices = PF.prophet_forecast(spid=spid)
     data = {
         'labels': labels,
         'prices': prices

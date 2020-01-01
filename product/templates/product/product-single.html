@@ -28,6 +28,9 @@
         </div>
     </section>
     <!-- END slider -->
+    <span class="d-none" id="data-spid" data-spid="{{ product.spid }}">{{ product.spid }}</span>
+    <span class="d-none" id="data-product-id" data-product-id="{{ product.product_id }}">{{ product.product_id }}</span>
+    <span class="d-none" id="data-platform" data-platform="{{ product.channel_id.platform }}">{{ product.channel_id.platform }}</span>
     <div class="my-wrap">
         <div class="container">
             <section id="single-product" class="ftco-section background-white cust-border-top">
@@ -70,7 +73,7 @@
                                         <div class="row">
                                             <div class="col-md-12 p-2">
                                                 <label class="product-vendor-label">Nhà cung cấp: &nbsp;</label>
-                                                <a href="{{ product.provider_id.url }}">
+                                                <a href="{{ product.provider_id.url }}" target="_blank">
                                                     <span class="blue-color" id="product-vendor">{{ product.provider_id.name }}</span>
                                                 </a>
                                                 {% if product.provider_id.is_best_store %}
@@ -110,7 +113,7 @@
                                         <span id="list-price" class="price list-price">{{ product.list_price }}</span>
                                     </div>
                                     <div class="row pl-2">
-                                        <label>Số lượng trên kho <strong class="text-uppercase">{{ product.channel_id.platform }}</strong>: &nbsp;</label>
+                                        <label>Số lượng trên kho <strong class="text-uppercase blue-color">{{ product.channel_id.platform }}</strong>: &nbsp;</label>
                                         <span id="quantity" >{{ product.quantity }} (sản phẩm)</span>
                                     </div>
                                     <div class="row p-2 pt-4 cust-border-top">
@@ -124,10 +127,12 @@
                                 {# Other Sellers #}
                                 {% if related_product_data %}
                                 <div class="col-md-7" >
-                                    <div id="other-seller" class="row ml-1">
-                                        <div id="seller-list">
-                                            <h5 class="pt-3 pl-3">NHÀ CUNG CẤP KHÁC</h5>
-                                            <ul>
+                                    <div id="other-seller" class="row cust-box-shadow ml-1" >
+                                        <div id="seller-list" >
+                                            <div class="row background-blue ">
+                                                <h5 class="pt-2 ml-5 white-color">NHÀ CUNG CẤP KHÁC</h5>
+                                            </div>
+                                            <ul class="mt-3">
                                                 {% for rlp in related_product_data %}
                                                     <li class="small">
                                                         <div class="row">
@@ -156,6 +161,7 @@
                                                     </li>
                                                 {% endfor %}
                                             </ul>
+
                                         </div>
                                         <div class="col-md-12 p-2">
                                             <div class="text-center">
@@ -184,12 +190,16 @@
                             <canvas class="pt-3 pl-3" id="canvas"></canvas>
                         </div>
 
-                        <div class="col-md-4">
-                            <div class="row cust-border-left">
+                        <div class="col-md-4 cust-border-left">
+                            <div class="row mt-3">
                                 <div class="col-md-12" id="price-forecast">
-                                    <h5 class="text-center pt-3 pl-3">DỰ ĐOÁN GIÁ</h5>
+                                    <div class="row text-center background-blue">
+                                        <div class="col-md-12">
+                                            <h5 class="white-color pt-2 pl-2">DỰ ĐOÁN GIÁ</h5>
+                                        </div>
+                                    </div>
                                     <div class="row p-2">
-                                        <table class="table text-center ml-4">
+                                        <table class="table text-center cust-box-shadow mt-2 ml-1">
                                             <thead>
                                                 <tr>
                                                     <th>Thời điểm</th>
@@ -202,11 +212,114 @@
                                         </table>
                                     </div>
                                     <div class="row p-2 pt-4 pl-4">
-                                        <p>
-                                            <strong class="red-color"><i class="fa fa-circle fa-xs"></i>&nbsp; Lưu ý:</strong>
+                                        <p><i class="fa fa-circle fa-xs"></i>
+                                            <strong class="red-color">&nbsp; Lưu ý:</strong>
                                             <em>Giá trên chỉ mang tính chất tham khảo</em>
                                         </p>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="price-history-info" class="ftco-section background-white">
+                <div class="container cust-border-top">
+                    <div class="row">
+                        <div class="col-md-6 cust-box-shadow">
+                            <div class="row">
+                                <div class="col-md-12 text-center background-green-2">
+                                    <h5 class="pt-2 pl-3 white-color">Thống kê sản phẩm hiện tại</h5>
+                                </div>
+                                <div class="col-md-12 pt-2 pb-2 cust-border-bottom">
+                                    <p class="ml-3">
+                                        Sản phẩm: <span class="blue-color">{{ product.name }}</span>
+                                    </p>
+                                    <p class="ml-3">
+                                        Nhà cung cấp: <span class="blue-color">{{ product.provider_id.name }}</span>
+                                    </p>
+                                </div>
+                                <div class="col-md-10 p-2">
+                                    <table class="table text-center cust-box-shadow mt-2 ml-4">
+                                        <thead>
+                                            <tr class="green-color">
+                                                <th>Loại</th>
+                                                <th>Giá</th>
+                                                <th>Thời điểm</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="abc" class="text-center" >
+                                            <tr>
+                                                <td>Hiện tại</td>
+                                                <td id="cur_sale_price" class="price"></td>
+                                                <td id="cur_datetime"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Cao nhất (*)</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Thấp nhất (*)</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Trung bình (+)</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 cust-border-left cust-box-shadow">
+                            <div class="row">
+                                <div class="col-md-12 text-center background-green-2">
+                                    <h5 class="pt-2 pl-3 white-color">Thống kê sản phẩm có giá thấp nhất</h5>
+                                </div>
+                                <div class="col-md-12 pt-2 pb-2 cust-border-bottom">
+                                    <p class="ml-3">
+                                        Sản phẩm: <span class="blue-color"></span>
+                                    </p>
+                                    <p class="ml-3">
+                                        Nhà cung cấp: <span class="blue-color"></span>
+                                    </p>
+                                </div>
+                                <div class="col-md-10 p-2">
+                                    <table class="table text-center cust-box-shadow mt-2 ml-4">
+                                        <thead>
+                                            <tr class="green-color">
+                                                <th>Loại</th>
+                                                <th>Giá</th>
+                                                <th>Thời điểm</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="abc" class="text-center" >
+                                            <tr>
+                                                <td>Hiện tại</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Cao nhất (*)</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Thấp nhất (*)</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Trung bình (+)</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -348,47 +461,6 @@
             </div>
         </div>
     </div>
-
-    <script>
-        function formatPriceValue(price) {
-            let newPrice = price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') + " ₫";
-            return newPrice
-        }
-
-        $.ajax({
-            url: "/forecast/prophet",
-            data: {"product_id": {{product.product_id}}},
-            method: "POST",
-            success: function (result) {
-                let data = JSON.parse(result);
-                let labels = data['labels'];
-                let prices = data['prices'];
-                if (prices.length === 0) {
-                    $("#forecast-data").append("<tr><td colspan='2'><p>Dữ liệu không đủ để dự đoán cho sản phẩm này</p></td></tr>");
-                } else {
-                    let price_forecast_html = "";
-                    for (let i = 0; i < prices.length; i++) {
-                        let price = formatPriceValue(prices[i]);
-                        price_forecast_html += `
-                        <tr>
-                            <td class="date-time">` + labels[i] + `</td>
-                            <td class="forecast-price red-color">` + price + `</td>
-                        </tr>
-                    `;
-                    }
-                    formatPrice(".forecast-price");
-                    $("#forecast-data").append(price_forecast_html);
-                }
-            },
-            error: function (err) {
-                console.log("Error: " + err);
-                $("#forecast-data").append("<tr><td colspan='2'><p>Dữ liệu không đủ để dự đoán cho sản phẩm này</p></td></tr>");
-            },
-            complete:function () {
-                $(".loading").hide();
-            }
-        });
-    </script>
 
     <script>
 

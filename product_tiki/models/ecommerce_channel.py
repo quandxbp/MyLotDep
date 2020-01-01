@@ -5,9 +5,6 @@ from common.constants import *
 import requests
 import logging
 
-_logger = logging.getLogger(__name__)
-
-
 class Tiki(models.Model):
     class Meta:
         abstract = True
@@ -61,8 +58,11 @@ class Tiki(models.Model):
         existed_product_ids = Product.objects.filter(spid__in=product_ids)
         new_products = list(filter(lambda p: p.get('current_seller', {}).get('product_id') not in existed_product_ids,
                                    products))
+
         # Get detail data of a product
+        # new_products = [{'id': 32028822, 'spid': 32028824}]
         for product in new_products:
+            # data = self.tiki_get_detail_data(product.get('id'), product.get('spid'))
             data = self.tiki_get_detail_data(product.get('id'))
             product.update(data)
 
@@ -77,24 +77,27 @@ class Tiki(models.Model):
 
         return new_products
 
-    def tiki_get_top_data(self, max_records=250, limit=250):
+    def tiki_get_top_data(self, max_records=250, limit=250, get_related_flag=True):
         from product.models.product import Product
         top_products = []
 
         try:
             top_products = self.access_trade_id.get_top_products(MERCHANT['tiki']).get('data')
         except Exception as err:
-            print("Error when requesting to Accesstrade")
-            print(err)
+            logging.error("Error when requesting to Accesstrade")
+            logging.error(err)
 
         if top_products:
+            elec_products = []
             for product in top_products:
-                product_id = product.get('aff_link', '').split('-p')[-1].replace('.html', '').strip()
-                product.update({'id': product_id})
+                if product.get('product_category') == '1789':
+                    product_id = product.get('aff_link', '').split('-p')[-1].replace('.html', '').strip()
+                    product.update({'id': product_id})
+                    elec_products.append(product)
 
-            product_ids = [product.get('id') for product in top_products]
+            product_ids = [product.get('id') for product in elec_products]
             existed_product_ids = Product.objects.filter(product_id__in=product_ids)
-            new_products = list(filter(lambda p: p.get('id') not in existed_product_ids, top_products))
+            new_products = list(filter(lambda p: p.get('id') not in existed_product_ids, elec_products))
 
             # Update sequence of top_products
             if existed_product_ids:
@@ -104,9 +107,18 @@ class Tiki(models.Model):
                 data = self.tiki_get_detail_data(product.get('id'))
                 product.update(data)
 
+            if get_related_flag:
+                related_products = []
+                for product in new_products:
+                    if product.get('other_sellers'):
+                        for rlp in product.get('other_sellers'):
+                            data = self.tiki_get_detail_data(product.get('id'), rlp.get('product_id'))
+                            related_products.append(data)
+                new_products += related_products
+
             return new_products
 
-        return top_products
+        return []
 
     def tiki_update_data(self, limit=False):
         from product.models.product import Product

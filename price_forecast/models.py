@@ -6,37 +6,72 @@ from fbprophet import Prophet
 import datetime
 import logging
 
+
 class PriceForecast:
 
-    def prophet_forecast(self, product_id):
+    def prophet_forecast(self, spid):
         tp = TimePrice()
-        data = tp.get_price_list_by_id(product_id)
-        df = pd.DataFrame(data)
-        try:
-            df['Date'] = pd.DatetimeIndex(df['Date'])
-            df = df.rename(columns={'Date': 'ds', 'Price': 'y'})
-            my_model = Prophet(interval_width=0.8, daily_seasonality=True)
-            my_model.fit(df)
-        except ValueError:
-            logging.warning("Not enough data to predict")
+        data = tp.get_price_list_by_spid(spid)
+        if data:
+            try:
+                df = pd.DataFrame(data)
+                df['Date'] = pd.DatetimeIndex(df['Date'])
+                df = df.rename(columns={'Date': 'ds', 'Price': 'y'})
+                my_model = Prophet(interval_width=0.2,
+                                   # growth='linear',
+                                   # seasonality_mode='multiplicative',
+                                   # changepoint_prior_scale=10,
+                                   seasonality_prior_scale=40,
+                                   holidays_prior_scale=20,
+                                   daily_seasonality=True,
+                                   weekly_seasonality=True,
+                                   yearly_seasonality=False)
+                # .add_seasonality(
+                #     name='monthly',
+                #     period='30',
+                #     fourier_order=55
+                # ).add_seasonality(
+                #     name='daily',
+                #     period='1',
+                #     fourier_order=15
+                # ).add_seasonality(
+                #     name='weekly',
+                #     period='7',
+                #     fourier_order=20
+                # ).add_seasonality(
+                #     name='yearly',
+                #     period='365',
+                #     fourier_order=20
+                # ).add_seasonality(
+                #     name='quarterly',
+                #     period='91',
+                #     fourier_order=15
+                # )
+
+                my_model.fit(df)
+            except Exception as err:
+                logging.warning("Failing when forecasting")
+                logging.error(err)
+                return [], []
+            future_dates = my_model.make_future_dataframe(periods=5, freq='D')
+            forecast = my_model.predict(future_dates)
+
+            datetime_stamp = forecast['ds'].tail(5).tolist()
+            yhat = forecast['yhat'].tail(5).tolist()
+            trend = forecast['trend'].tail(10).tolist()
+
+            labels = []
+            for dt in datetime_stamp:
+                format_date = datetime.datetime.strftime(dt, '%d/%m/%Y')
+                labels.append(format_date)
+
+            prices = []
+            for price in yhat:
+                prices.append(self._round_price(price))
+
+            return labels, prices
+        else:
             return [], []
-        future_dates = my_model.make_future_dataframe(periods=5, freq='D')
-        forecast = my_model.predict(future_dates)
-
-        datetime_stamp = forecast['ds'].tail(5).tolist()
-        yhat = forecast['yhat'].tail(5).tolist()
-        trend = forecast['trend'].tail(10).tolist()
-
-        labels = []
-        for dt in datetime_stamp:
-            format_date = datetime.datetime.strftime(dt, '%d/%m/%Y')
-            labels.append(format_date)
-
-        prices = []
-        for price in yhat:
-            prices.append(self._round_price(price))
-
-        return labels, prices
 
     def _round_price(self, price):
         price = round(price)
@@ -48,8 +83,6 @@ class PriceForecast:
             price += 10000 - del_value
 
         return price
-
-
 
     # def train_data(self):
     #     tp = TimePrice()

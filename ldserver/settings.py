@@ -10,7 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
+<<<<<<< HEAD
 import sys, os
+=======
+import os
+>>>>>>> b1a95d2aafda45ce113cb50f99b0b4fc227cc3a3
 # import django_heroku
 
 from common.credentials import DATABASE_CRE
@@ -25,7 +29,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '+16m6_*vx4g71&y^bs&$-5r!eqefzo@s5du1)^*^trc#v^d7!b'
 CSRF_COOKIE_SECURE = False
+<<<<<<< HEAD
 SESSION_COOKIE_SECURE = False
+=======
+>>>>>>> b1a95d2aafda45ce113cb50f99b0b4fc227cc3a3
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -47,7 +54,8 @@ INSTALLED_APPS = [
     'product_tiki.apps.ProductTikiConfig',
     'product_adayroi.apps.ProductAdayroiConfig',
     'timeseries.apps.TimeseriesConfig',
-    'price_forecast.apps.PriceForecastConfig'
+    'price_forecast.apps.PriceForecastConfig',
+    'name_entity_recognizer.apps.NameEntityRecognizerConfig'
 ]
 
 MIDDLEWARE = [
@@ -93,6 +101,7 @@ STATIC_URL = '/static/'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
+        'OPTIONS': {'charset': 'utf8mb4'},
         'NAME': DATABASE_CRE['DB_NAME'],
         'USER': DATABASE_CRE['USER'],
         'PASSWORD': DATABASE_CRE['PASSWORD'],

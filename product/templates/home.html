@@ -4,7 +4,7 @@
     <script src="{% static 'js/main.js' %}" ></script>
     <section id="home-slider" class="home-slider">
         <div class="slider-item">
-            <div class="overlay"></div>
+            <div class="overlay">
                 <div class="container">
                     <div class="row slider-text align-items-center justify-content-center">
                         <div class="col-md-14 ftco-animate text-center">
@@ -16,29 +16,72 @@
     </section>
     <!-- END slider -->
 
+    <section class="ftco-section-featured ftco-animate">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="carousel owl-carousel">
+                        <div class="item">
+                            <a href="#">
+                                <img class="img-fluid" alt=""
+                                     src="https://salt.tikicdn.com/cache/w1838/ts/lp/24/23/69/71bebefd5ec46f1b3492d7889341f574.jpg" >
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a href="#">
+                                <img class="img-fluid" alt=""
+                                     src="https://salt.tikicdn.com/cache/w1838/ts/lp/24/23/69/71bebefd5ec46f1b3492d7889341f574.jpg" >
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a href="#">
+                                <img class="img-fluid" alt=""
+                                     src="https://salt.tikicdn.com/cache/w1838/ts/lp/24/23/69/71bebefd5ec46f1b3492d7889341f574.jpg" >
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Display Top Products section -->
     <section id="top-product" class="ftco-section testimony-section">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-7 text-center heading-section ftco-animate">
-                    <h2>Sản phẩm nổi bật của Tiki.vn</h2>
+            <div class="row">
+                <div class="col-md-7 heading-section ftco-animate">
+                    <h2 class="blue-color">
+                        <img height="50" width="50" src="{% static 'images/tiki.png' %}">
+                        SẢN PHẨM NỔI BẬT
+                    </h2>
                 </div>
             </div>
-            <div class="row ftco-animate">
+            <div class="row ftco-animate mt-2">
                 <div class="col-md-12">
                     <div class="carousel-testimony owl-carousel ftco-owl">
                         {% for product in top_products %}
                             <div class="item">
-                                <div class="testimony-wrap p-4 pb-5">
+                                <div class="testimony-wrap top-product p-4 pb-5">
                                     <div class="product-image mb-4">
                                         <img class="thumbnail" src="{{ product.thumbnail_url }}">
                                     </div>
                                     <div class="text">
-                                        <p class="product-name mb-2">{{ product.name }}</p>
-                                        <p>
-                                            <strong class="sale-price">{{ product.sale_price }}</strong>
-                                            (<span class="list-price">{{ product.list_price }}</span>)
-                                        </p>
+                                        <div class="row">
+                                            <h5 class="product-name mb-2">{{ product.name }}</h5>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <p class="sale-price price red-color font-30">{{ product.sale_price }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <p class="list-price price">{{ product.list_price }} </p>
+                                                    <span class="ml-2">(-{{ product.discount_rate }} %)</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

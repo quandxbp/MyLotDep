@@ -1,7 +1,7 @@
 DATABASE_CRE = {
     'DB_NAME': 'recommender',
     'USER': 'root',
-    'PASSWORD': 'Hungvuong12',
+    'PASSWORD': 'Hungvuong12.',
     'HOST': '127.0.0.1',
     'PORT': '3306'
 }

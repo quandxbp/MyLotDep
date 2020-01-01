@@ -1,3 +1,7 @@
 #top-product .list-price{
     text-decoration: line-through;
 }
+
+#top-product .top-product {
+    min-height: 550px;
+}

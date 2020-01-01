@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound, JsonResponse
 
-from django.views.decorators.csrf import csrf_exempt
 from common.constants import DISPLAY_CATEGORY
 
 from .models.product import Product
@@ -102,8 +101,8 @@ def products(request):
     return render(request, 'product/products.html', context=context)
 
 
-def single_product(request):
-    product = Product.objects.get(pk=3)
+def single_product(request, product_id):
+    product = Product.objects.get(pk=product_id)
     specifications = Specification.objects.filter(product_id=product.id)
 
     # Get all related product data
@@ -122,7 +121,39 @@ def single_product(request):
                 rlp.diff_val = -diff_val
 
     time_price = TimePrice()
-    labels, prices = time_price.get_price_by_id(product.product_id)
+    labels, prices = time_price.get_price_by_spid(product.spid)
+
+    context = {
+        'product': product,
+        'specifications': specifications,
+        'related_product_data': related_product_data,
+        'labels': labels,
+        'prices': prices
+    }
+    return render(request, "product/product-single.html", context=context)
+
+
+def demo_product(request):
+    product = Product.objects.get(spid=13481649)
+    specifications = Specification.objects.filter(product_id=product.id)
+
+    # Get all related product data
+    related_products = RelatedProduct.objects.filter(related_product_id=product.id)
+    related_product_data = []
+    if related_products:
+        url_paths = [p.url_path for p in related_products]
+        related_product_data = Product.objects.filter(url_path__in=url_paths)
+        for rlp in related_product_data:
+            diff_val = product.sale_price - rlp.sale_price
+            if diff_val >= 0:
+                rlp.is_gt = True
+                rlp.diff_val = diff_val
+            else:
+                rlp.is_gt = False
+                rlp.diff_val = -diff_val
+
+    time_price = TimePrice()
+    labels, prices = time_price.get_price_by_spid(product.spid)
 
     context = {
         'product': product,

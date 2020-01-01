@@ -5,6 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/ldserver/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ldserver/settings.py" afterDir="false" />
 <<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/product/migrations/0001_initial.py" beforeDir="false" />
@@ -28,6 +29,15 @@
       <change beforePath="$PROJECT_DIR$/product/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/views.py" afterDir="false" />
 >>>>>>> 418394ad1145d6c0176801cc44d0fcbf94448b53
+=======
+      <change beforePath="$PROJECT_DIR$/product/apis.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/apis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/static/js/custom/single-product.js" beforeDir="false" afterPath="$PROJECT_DIR$/product/static/js/custom/single-product.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/templates/product/product-single.html" beforeDir="false" afterPath="$PROJECT_DIR$/product/templates/product/product-single.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/timeseries/models/time_price.py" beforeDir="false" afterPath="$PROJECT_DIR$/timeseries/models/time_price.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/timeseries/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/timeseries/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/timeseries/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/timeseries/views.py" afterDir="false" />
+>>>>>>> b1a95d2aafda45ce113cb50f99b0b4fc227cc3a3
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +55,23 @@
     <option name="HIDDEN_KINDS">
       <set />
     </option>
-    <expand />
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="MySQL - recommender@localhost" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="MySQL - recommender@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="MySQL - recommender@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="recommender: schema" type="76f4a085:MysqlImplModel$Schema" />
+      </path>
+    </expand>
     <select />
   </component>
   <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
@@ -54,15 +80,22 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="CSS File" />
         <option value="HTML File" />
+        <option value="JavaScript File" />
         <option value="Python Script" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="$PROJECT_DIR$/.idea" />
+      </set>
+    </option>
   </component>
   <component name="ProjectId" id="1RBb5Wnz3gD3Ju8pRrezeF1awrj" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -74,21 +107,15 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../chatbot_service/to_tho" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../venv" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Projects\Python\Thesis\ldserver\product\static\images" />
-      <recent name="D:\Projects\Python\Thesis\ldserver\product\static\css\custom" />
-      <recent name="D:\Projects\Python\Thesis\ldserver\product\templates\partials" />
-      <recent name="D:\Projects\Python\Thesis\ldserver\product\templates" />
-      <recent name="D:\Projects\Python\Thesis\ldserver\static\bootstrap\css" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Projects\Python\Thesis\ldserver\staticfiles" />
       <recent name="D:\Projects\Python\Thesis\ldserver\product\static\images" />
@@ -96,6 +123,16 @@
       <recent name="D:\Projects\Python\Thesis\ldserver\product\static\chart" />
       <recent name="D:\Projects\Python\Thesis\ldserver\product\static" />
     </key>
+<<<<<<< HEAD
+=======
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Projects\Python\Thesis\ldserver\product\static\images" />
+      <recent name="D:\Projects\Python\Thesis\ldserver\product\static\css\custom" />
+      <recent name="D:\Projects\Python\Thesis\ldserver\product\templates\partials" />
+      <recent name="D:\Projects\Python\Thesis\ldserver\product\templates" />
+      <recent name="D:\Projects\Python\Thesis\ldserver\static\bootstrap\css" />
+    </key>
+>>>>>>> b1a95d2aafda45ce113cb50f99b0b4fc227cc3a3
   </component>
   <component name="RunManager">
     <configuration name="ldserver" type="Python.DjangoServer" factoryName="Django server">
@@ -134,7 +171,10 @@
         </serviceView>
       </list>
     </option>
+<<<<<<< HEAD
     <option name="showServicesTree" value="false" />
+=======
+>>>>>>> b1a95d2aafda45ce113cb50f99b0b4fc227cc3a3
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -235,7 +275,23 @@
       <workItem from="1576033294473" duration="21785000" />
       <workItem from="1576082956997" duration="1089000" />
       <workItem from="1576112788057" duration="3560000" />
+<<<<<<< HEAD
 >>>>>>> 418394ad1145d6c0176801cc44d0fcbf94448b53
+=======
+      <workItem from="1576222070088" duration="2238000" />
+      <workItem from="1576224692199" duration="12417000" />
+      <workItem from="1576302853251" duration="4064000" />
+      <workItem from="1576307227104" duration="4308000" />
+      <workItem from="1576989423488" duration="9277000" />
+      <workItem from="1577031301943" duration="7176000" />
+      <workItem from="1577260767636" duration="24000" />
+      <workItem from="1577235692572" duration="539000" />
+      <workItem from="1577367787348" duration="8468000" />
+      <workItem from="1577455258044" duration="15484000" />
+      <workItem from="1577486609343" duration="664000" />
+      <workItem from="1577807676921" duration="8040000" />
+      <workItem from="1577841180267" duration="1279000" />
+>>>>>>> b1a95d2aafda45ce113cb50f99b0b4fc227cc3a3
     </task>
     <servers />
   </component>
@@ -256,6 +312,7 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
+<<<<<<< HEAD
     <state x="657" y="138" width="662" height="828" key="#ldserver" timestamp="1576040471972">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
@@ -264,6 +321,105 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="648" y="380" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1576039579539" />
+=======
+    <state x="2324" y="291" width="800" height="677" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1577466775756">
+      <screen x="1600" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2324" y="291" width="800" height="677" key="#com.intellij.execution.impl.EditConfigurationsDialog/67.27.1533.873/1600.0.1920.1080@1600.0.1920.1080" timestamp="1577466775756" />
+    <state x="451" y="210" key="#com.intellij.execution.impl.EditConfigurationsDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1576223446598" />
+    <state x="288" y="330" width="424" height="484" key="FileChooserDialogImpl" timestamp="1576223217936">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="288" y="330" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053" timestamp="1576223217936" />
+    <state width="1874" height="344" key="GridCell.Tab.0.bottom" timestamp="1577842603938">
+      <screen x="1600" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="344" key="GridCell.Tab.0.bottom/67.27.1533.873/1600.0.1920.1080@1600.0.1920.1080" timestamp="1577842603938" />
+    <state width="1874" height="192" key="GridCell.Tab.0.bottom/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1577236231385" />
+    <state width="1807" height="223" key="GridCell.Tab.0.bottom/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1577004254213" />
+    <state width="1807" height="411" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1576310790306" />
+    <state width="1807" height="411" key="GridCell.Tab.0.bottom/67.27.3773.1053@67.27.3773.1053" timestamp="1576378344433" />
+    <state width="1874" height="344" key="GridCell.Tab.0.center" timestamp="1577842603938">
+      <screen x="1600" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="344" key="GridCell.Tab.0.center/67.27.1533.873/1600.0.1920.1080@1600.0.1920.1080" timestamp="1577842603938" />
+    <state width="1874" height="192" key="GridCell.Tab.0.center/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1577236231385" />
+    <state width="1807" height="223" key="GridCell.Tab.0.center/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1577004254213" />
+    <state width="1807" height="411" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1576310790303" />
+    <state width="1807" height="411" key="GridCell.Tab.0.center/67.27.3773.1053@67.27.3773.1053" timestamp="1576378344433" />
+    <state width="1874" height="344" key="GridCell.Tab.0.left" timestamp="1577842603938">
+      <screen x="1600" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="344" key="GridCell.Tab.0.left/67.27.1533.873/1600.0.1920.1080@1600.0.1920.1080" timestamp="1577842603938" />
+    <state width="1874" height="192" key="GridCell.Tab.0.left/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1577236231385" />
+    <state width="1807" height="223" key="GridCell.Tab.0.left/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1577004254213" />
+    <state width="1807" height="411" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1576310790302" />
+    <state width="1807" height="411" key="GridCell.Tab.0.left/67.27.3773.1053@67.27.3773.1053" timestamp="1576378344433" />
+    <state width="1874" height="344" key="GridCell.Tab.0.right" timestamp="1577842603938">
+      <screen x="1600" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="344" key="GridCell.Tab.0.right/67.27.1533.873/1600.0.1920.1080@1600.0.1920.1080" timestamp="1577842603938" />
+    <state width="1874" height="192" key="GridCell.Tab.0.right/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1577236231385" />
+    <state width="1807" height="223" key="GridCell.Tab.0.right/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1577004254213" />
+    <state width="1807" height="411" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1576310790305" />
+    <state width="1807" height="411" key="GridCell.Tab.0.right/67.27.3773.1053@67.27.3773.1053" timestamp="1576378344433" />
+    <state width="1874" height="344" key="GridCell.Tab.1.bottom" timestamp="1577842603727">
+      <screen x="1600" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="344" key="GridCell.Tab.1.bottom/67.27.1533.873/1600.0.1920.1080@1600.0.1920.1080" timestamp="1577842603727" />
+    <state width="1874" height="192" key="GridCell.Tab.1.bottom/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1577236231386" />
+    <state width="1807" height="223" key="GridCell.Tab.1.bottom/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1577004254213" />
+    <state width="1807" height="411" key="GridCell.Tab.1.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1576310790190" />
+    <state width="1807" height="411" key="GridCell.Tab.1.bottom/67.27.3773.1053@67.27.3773.1053" timestamp="1576378344434" />
+    <state width="1874" height="344" key="GridCell.Tab.1.center" timestamp="1577842603727">
+      <screen x="1600" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="344" key="GridCell.Tab.1.center/67.27.1533.873/1600.0.1920.1080@1600.0.1920.1080" timestamp="1577842603727" />
+    <state width="1874" height="192" key="GridCell.Tab.1.center/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1577236231385" />
+    <state width="1807" height="223" key="GridCell.Tab.1.center/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1577004254213" />
+    <state width="1807" height="411" key="GridCell.Tab.1.center/67.27.1853.1053@67.27.1853.1053" timestamp="1576310790190" />
+    <state width="1807" height="411" key="GridCell.Tab.1.center/67.27.3773.1053@67.27.3773.1053" timestamp="1576378344434" />
+    <state width="1874" height="344" key="GridCell.Tab.1.left" timestamp="1577842603727">
+      <screen x="1600" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="344" key="GridCell.Tab.1.left/67.27.1533.873/1600.0.1920.1080@1600.0.1920.1080" timestamp="1577842603727" />
+    <state width="1874" height="192" key="GridCell.Tab.1.left/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1577236231385" />
+    <state width="1807" height="223" key="GridCell.Tab.1.left/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1577004254213" />
+    <state width="1807" height="411" key="GridCell.Tab.1.left/67.27.1853.1053@67.27.1853.1053" timestamp="1576310790190" />
+    <state width="1807" height="411" key="GridCell.Tab.1.left/67.27.3773.1053@67.27.3773.1053" timestamp="1576378344434" />
+    <state width="1874" height="344" key="GridCell.Tab.1.right" timestamp="1577842603727">
+      <screen x="1600" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="344" key="GridCell.Tab.1.right/67.27.1533.873/1600.0.1920.1080@1600.0.1920.1080" timestamp="1577842603727" />
+    <state width="1874" height="192" key="GridCell.Tab.1.right/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1577236231385" />
+    <state width="1807" height="223" key="GridCell.Tab.1.right/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1577004254213" />
+    <state width="1807" height="411" key="GridCell.Tab.1.right/67.27.1853.1053@67.27.1853.1053" timestamp="1576310790190" />
+    <state width="1807" height="411" key="GridCell.Tab.1.right/67.27.3773.1053@67.27.3773.1053" timestamp="1576378344434" />
+    <state x="482" y="187" key="SettingsEditor" timestamp="1576223226591">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="482" y="187" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1576223226591" />
+    <state x="2202" y="362" key="com.intellij.ide.util.TipDialog" timestamp="1577841183378">
+      <screen x="1600" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2202" y="362" key="com.intellij.ide.util.TipDialog/67.27.1533.873/1600.0.1920.1080@1600.0.1920.1080" timestamp="1577841183378" />
+    <state x="2522" y="362" key="com.intellij.ide.util.TipDialog/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1577235701752" />
+    <state x="648" y="380" key="com.intellij.ide.util.TipDialog/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1577031313045" />
+    <state x="648" y="380" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1576307227601" />
+    <state x="2627" y="218" width="759" height="862" key="find.popup" timestamp="1577815652695">
+      <screen x="1600" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2627" y="218" width="759" height="862" key="find.popup/67.27.1533.873/1600.0.1920.1080@1600.0.1920.1080" timestamp="1577815652695" />
+    <state x="2950" y="218" width="759" height="862" key="find.popup/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1577059593232" />
+    <state x="932" y="110" width="732" height="840" key="find.popup/67.27.1853.1053@67.27.1853.1053" timestamp="1576310259976" />
+    <state x="2179" y="117" width="1491" height="840" key="find.popup/67.27.3773.1053@67.27.3773.1053" timestamp="1576252676627" />
+    <state x="2210" y="236" width="697" height="696" key="search.everywhere.popup" timestamp="1577814357796">
+      <screen x="1600" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2210" y="236" width="697" height="696" key="search.everywhere.popup/67.27.1533.873/1600.0.1920.1080@1600.0.1920.1080" timestamp="1577814357796" />
+    <state x="2530" y="236" width="697" height="696" key="search.everywhere.popup/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1577035340755" />
+    <state x="656" y="257" width="672" height="678" key="search.everywhere.popup/67.27.1853.1053@67.27.1853.1053" timestamp="1576227811536" />
+>>>>>>> b1a95d2aafda45ce113cb50f99b0b4fc227cc3a3
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -275,11 +431,5 @@
         </breakpoint>
       </default-breakpoints>
     </breakpoint-manager>
-    <watches-manager>
-      <configuration name="Python.DjangoServer">
-        <watch expression="[p.get('platform') for p in update_products]" language="Python" />
-        <watch expression="f['name']" language="Python" />
-      </configuration>
-    </watches-manager>
   </component>
 </project>
