@@ -6,9 +6,6 @@ $(document).ready(function() {
     let spid = $("#data-spid").data('spid');
     let product_id = $("#data-product-id").data('product-id');
     let platform = $("#data-platform").data('platform');
-    console.log(spid);
-    console.log(product_id);
-    console.log(platform);
     // Forecasting
     $.ajax({
         url: "/forecast/prophet",
@@ -36,7 +33,7 @@ $(document).ready(function() {
             }
         },
         error: function (err) {
-            console.log("Error: " + err);
+            console.log("Error: " + err.statusText);
             $("#forecast-data").append("<tr><td colspan='2'><p>Dữ liệu không đủ để dự đoán cho sản phẩm này</p></td></tr>");
         },
         complete:function () {
@@ -45,10 +42,9 @@ $(document).ready(function() {
     });
     // End Forecasting
 
-    // Price statistics
-
+    // Current Price statistics
     $.ajax({
-        url: "/api/v1/current_product_statistics",
+        url: "/api/v1/get_current_product_price",
         data: {
             "spid": spid,
             "product_id": product_id,
@@ -63,11 +59,33 @@ $(document).ready(function() {
             $("#cur_datetime").text(curDateTime);
         },
         error: function (err) {
-            console.log("Error: " + err);
+            console.log("Error: " + err.statusText);
         },
         complete:function () {
         }
     });
+    // \ Current Price statistics
 
-    // Price statistics
+    // Current Special Price statistics
+    $.ajax({
+        url: "mongo/api/v1/get_special_price_current_product",
+        data: {
+            "spid": spid,
+        },
+        method: "GET",
+        success: function (result) {
+            console.log(result);
+            // let curSalePrice = result['sale_price'];
+            // let curDateTime = result['cur_datetime'];
+            //
+            // $("#cur_sale_price").text(formatPriceValue(curSalePrice));
+            // $("#cur_datetime").text(curDateTime);
+        },
+        error: function (err) {
+            console.log("Error: " + err.statusText);
+        },
+        complete:function () {
+        }
+    });
+    // \ Current Special Price statistics
 });

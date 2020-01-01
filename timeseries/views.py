@@ -16,6 +16,7 @@ def test(request):
 
     return HttpResponse("Done")
 
+
 def sync_price_view(request):
     if request.method == 'POST':
         form = SyncPriceForm(request.POST)

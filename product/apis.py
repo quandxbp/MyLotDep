@@ -49,8 +49,8 @@ def search_product(request):
 
 
 @csrf_exempt
-def current_product_statistics(request):
-    product = {}
+def get_current_product_price(request):
+    price_info = {}
     if request.method == 'POST':
         data = request.POST
         if data:
@@ -59,8 +59,8 @@ def current_product_statistics(request):
             platform = data.get('platform')
 
             ProductObj = Product()
-            product = ProductObj.get_product_data_by_spid(product_id, spid, platform)
+            price_info = ProductObj.get_product_data_by_spid(product_id, spid, platform)
 
-    return JsonResponse(product)
+    return JsonResponse(price_info)
 
 

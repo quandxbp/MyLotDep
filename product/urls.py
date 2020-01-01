@@ -29,5 +29,5 @@ urlpatterns = [
 
     # Api
     path('api/v1/search_product', apis.search_product, name='search product'),
-    path('api/v1/current_product_statistics', apis.current_product_statistics, name='current product statistics')
+    path('api/v1/get_current_product_price', apis.get_current_product_price, name='current product price')
 ]
