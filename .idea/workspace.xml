@@ -3,41 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7ba35252-ea97-4da7-a9be-43ea22e2335e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-      <change beforePath="$PROJECT_DIR$/ldserver/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ldserver/settings.py" afterDir="false" />
-<<<<<<< HEAD
-      <change beforePath="$PROJECT_DIR$/product/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/migrations/__init__.py" beforeDir="false" />
-=======
-=======
->>>>>>> 2225e78db53b9a3fa98cb77f6fe35ca7676cbdd2
-      <change beforePath="$PROJECT_DIR$/price_forecast/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/price_forecast/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product_adayroi/models/ecommerce_channel.py" beforeDir="false" afterPath="$PROJECT_DIR$/product_adayroi/models/ecommerce_channel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product_adayroi/models/product.py" beforeDir="false" afterPath="$PROJECT_DIR$/product_adayroi/models/product.py" afterDir="false" />
-<<<<<<< HEAD
->>>>>>> de46895713dc41999a2667e191176cd91cdc1a71
-=======
-      <change beforePath="$PROJECT_DIR$/timeseries/models/time_price.py" beforeDir="false" afterPath="$PROJECT_DIR$/timeseries/models/time_price.py" afterDir="false" />
->>>>>>> 2225e78db53b9a3fa98cb77f6fe35ca7676cbdd2
-=======
-      <change beforePath="$PROJECT_DIR$/product/models/product.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models/product.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/views.py" afterDir="false" />
->>>>>>> 418394ad1145d6c0176801cc44d0fcbf94448b53
-=======
-      <change beforePath="$PROJECT_DIR$/product/apis.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/apis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/static/js/custom/single-product.js" beforeDir="false" afterPath="$PROJECT_DIR$/product/static/js/custom/single-product.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/templates/product/product-single.html" beforeDir="false" afterPath="$PROJECT_DIR$/product/templates/product/product-single.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/timeseries/models/time_price.py" beforeDir="false" afterPath="$PROJECT_DIR$/timeseries/models/time_price.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/timeseries/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/timeseries/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/timeseries/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/timeseries/views.py" afterDir="false" />
->>>>>>> b1a95d2aafda45ce113cb50f99b0b4fc227cc3a3
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
