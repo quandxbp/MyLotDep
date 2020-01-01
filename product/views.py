@@ -17,11 +17,35 @@ from .forms import SyncChannelForm
 import logging
 
 
+def adayroi_scheduler_reverse(request):
+    try:
+        adayroi = EcommerceChannel.objects.get(platform='adayroi')
+        adayroi.update_data_channel_mongo(reverse=True)
+        params = {'reverse': True}
+        run_scheduler(period='hour', func=adayroi.update_data_channel_mongo, params=params, amount=3)
+    except Exception as err:
+        logging.error("Error when running scheduler")
+        logging.error(err)
+    return HttpResponse("Job is DONE")
+
+
+def tiki_scheduler_reverse(request):
+    try:
+        tiki = EcommerceChannel.objects.get(platform='tiki')
+        tiki.update_data_channel_mongo(reverse=True)
+        params = {'reverse': True}
+        run_scheduler(period='hour', func=tiki.update_data_channel_mongo, params=params, amount=3)
+    except Exception as err:
+        logging.error("Error when running scheduler")
+        logging.error(err)
+    return HttpResponse("Job is DONE")
+
+
 def adayroi_scheduler(request):
     try:
         adayroi = EcommerceChannel.objects.get(platform='adayroi')
         adayroi.update_data_channel_mongo()
-        run_scheduler(period='hour', func=adayroi.update_data_channel, amount=3)
+        run_scheduler(period='hour', func=adayroi.update_data_channel_mongo, amount=3)
     except Exception as err:
         logging.error("Error when running scheduler")
         logging.error(err)
@@ -31,7 +55,8 @@ def adayroi_scheduler(request):
 def tiki_scheduler(request):
     try:
         tiki = EcommerceChannel.objects.get(platform='tiki')
-        run_scheduler(period='hour', func=tiki.update_data_channel, amount=3)
+        tiki.update_data_channel_mongo()
+        run_scheduler(period='hour', func=tiki.update_data_channel_mongo, amount=3)
     except Exception as err:
         logging.error("Error when running scheduler")
         logging.error(err)

@@ -20,6 +20,8 @@ urlpatterns = [
     path('cron_mongo', views.cron_mongo, name='cron mongo'),
     path('tiki_scheduler', views.tiki_scheduler, name='tiki_scheduler'),
     path('adayroi_scheduler', views.adayroi_scheduler, name='adayroi_scheduler'),
+    path('tiki_scheduler_reverse', views.tiki_scheduler_reverse, name='tiki_scheduler_reverse'),
+    path('adayroi_scheduler_reverse', views.adayroi_scheduler_reverse, name='adayroi_scheduler_reverse'),
 
     # Create Channels and Synchronize products on channels
     path('sync-product-view', views.sync_product_view, name='sync product view'),

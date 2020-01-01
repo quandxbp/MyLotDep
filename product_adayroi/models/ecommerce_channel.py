@@ -97,7 +97,7 @@ class Adayroi(models.Model):
         products = TP.get_all_by_platform(self.platform)
         update_products = [{'id': p.get('product_id'),
                             'spid': p.get('spid'),
-                            'platform': self.platform} for p in products]
+                            'platform': self.platform} for p in products if p.get('spid') not in [1, '1']]
         for product in update_products:
             data = self.adayroi_get_detail_data(product.get('id'), product.get('spid'))
             product.update(data)
