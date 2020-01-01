@@ -10,12 +10,17 @@ import json
 
 @csrf_exempt
 def get_special_price_current_product(request):
-    special_price_info = {}
+    cur_special_price_info = {}
+    lowest_special_price_info = {}
     if request.method == 'GET':
         data = request.GET
         if data:
             spid = data.get('spid')
-            TP = TimePrice()
-            special_price_info = TP.get_special_price_statistics(spid)
+            lowest_price_spid = data.get('lowest_price_spid')
 
-    return JsonResponse(special_price_info)
+            TP = TimePrice()
+            cur_special_price_info = TP.get_special_price_statistics(spid)
+            lowest_special_price_info = TP.get_special_price_statistics(lowest_price_spid)
+
+    return JsonResponse({'cur_special_price_info': cur_special_price_info,
+                         'lowest_special_price_info': lowest_special_price_info})

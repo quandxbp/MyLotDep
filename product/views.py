@@ -17,76 +17,6 @@ from .forms import SyncChannelForm
 import logging
 
 
-def adayroi_scheduler_reverse(request):
-    try:
-        adayroi = EcommerceChannel.objects.get(platform='adayroi')
-        adayroi.update_data_channel_mongo(reverse=True)
-        params = {'reverse': True}
-        run_scheduler(period='hour', func=adayroi.update_data_channel_mongo, params=params, amount=3)
-    except Exception as err:
-        logging.error("Error when running scheduler")
-        logging.error(err)
-    return HttpResponse("Job is DONE")
-
-
-def tiki_scheduler_reverse(request):
-    try:
-        tiki = EcommerceChannel.objects.get(platform='tiki')
-        tiki.update_data_channel_mongo(reverse=True)
-        params = {'reverse': True}
-        run_scheduler(period='hour', func=tiki.update_data_channel_mongo, params=params, amount=3)
-    except Exception as err:
-        logging.error("Error when running scheduler")
-        logging.error(err)
-    return HttpResponse("Job is DONE")
-
-
-def adayroi_scheduler(request):
-    try:
-        adayroi = EcommerceChannel.objects.get(platform='adayroi')
-        adayroi.update_data_channel_mongo()
-        run_scheduler(period='hour', func=adayroi.update_data_channel_mongo, amount=3)
-    except Exception as err:
-        logging.error("Error when running scheduler")
-        logging.error(err)
-    return HttpResponse("Job is DONE")
-
-
-def tiki_scheduler(request):
-    try:
-        tiki = EcommerceChannel.objects.get(platform='tiki')
-        tiki.update_data_channel_mongo()
-        run_scheduler(period='hour', func=tiki.update_data_channel_mongo, amount=3)
-    except Exception as err:
-        logging.error("Error when running scheduler")
-        logging.error(err)
-    return HttpResponse("Job is DONE")
-
-
-def cron(request):
-    all_ecommerce_channels = EcommerceChannel.objects.all()
-    for ec in all_ecommerce_channels:
-        try:
-            run_scheduler(period='hour', func=ec.update_data_channel, amount=3)
-        except Exception as err:
-            logging.error("Error when running scheduler")
-            logging.error(err)
-
-    return HttpResponse("Job is DONE")
-
-
-def cron_mongo(request):
-    all_ecommerce_channels = EcommerceChannel.objects.all()
-    for ec in all_ecommerce_channels:
-        try:
-            run_scheduler(period='hour', func=ec.update_data_channel_mongo, amount=3)
-        except Exception as err:
-            logging.error("Error when running scheduler")
-            logging.error(err)
-
-    return HttpResponse("Job is DONE")
-
-
 def home(request):
     categ_ids = Category.objects.filter(id_on_channel__in=DISPLAY_CATEGORY['tiki'])
     top_products = Product.objects.filter(sequence=1, category_id__in=categ_ids)
@@ -108,9 +38,11 @@ def single_product(request, product_id):
     # Get all related product data
     related_products = RelatedProduct.objects.filter(related_product_id=product.id)
     related_product_data = []
+    lowest_price_spid = False
     if related_products:
         url_paths = [p.url_path for p in related_products]
         related_product_data = Product.objects.filter(url_path__in=url_paths)
+        lowest_price = related_product_data[0].sale_price
         for rlp in related_product_data:
             diff_val = product.sale_price - rlp.sale_price
             if diff_val >= 0:
@@ -120,6 +52,10 @@ def single_product(request, product_id):
                 rlp.is_gt = False
                 rlp.diff_val = -diff_val
 
+            if lowest_price > rlp.sale_price:
+                lowest_price = rlp.sale_price
+                lowest_price_spid = rlp.product_id
+
     time_price = TimePrice()
     labels, prices = time_price.get_price_by_spid(product.spid)
 
@@ -127,6 +63,7 @@ def single_product(request, product_id):
         'product': product,
         'specifications': specifications,
         'related_product_data': related_product_data,
+        'lowest_price_spid': lowest_price_spid,
         'labels': labels,
         'prices': prices
     }
@@ -140,9 +77,11 @@ def demo_product(request):
     # Get all related product data
     related_products = RelatedProduct.objects.filter(related_product_id=product.id)
     related_product_data = []
+    lowest_price_data = {}
     if related_products:
         url_paths = [p.url_path for p in related_products]
         related_product_data = Product.objects.filter(url_path__in=url_paths)
+        lowest_price = related_product_data[0].sale_price
         for rlp in related_product_data:
             diff_val = product.sale_price - rlp.sale_price
             if diff_val >= 0:
@@ -152,6 +91,14 @@ def demo_product(request):
                 rlp.is_gt = False
                 rlp.diff_val = -diff_val
 
+            if lowest_price > rlp.sale_price:
+                lowest_price = rlp.sale_price
+                lowest_price_data = {
+                    'spid': rlp.spid,
+                    'name': rlp.name,
+                    'provider': rlp.provider_id.name
+                }
+
     time_price = TimePrice()
     labels, prices = time_price.get_price_by_spid(product.spid)
 
@@ -159,6 +106,7 @@ def demo_product(request):
         'product': product,
         'specifications': specifications,
         'related_product_data': related_product_data,
+        'lowest_price_data': lowest_price_data,
         'labels': labels,
         'prices': prices
     }

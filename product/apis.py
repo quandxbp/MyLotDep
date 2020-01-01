@@ -50,17 +50,19 @@ def search_product(request):
 
 @csrf_exempt
 def get_current_product_price(request):
-    price_info = {}
-    if request.method == 'POST':
-        data = request.POST
+    current_price_info = {}
+    lowest_price_info = {}
+    if request.method == 'GET':
+        data = request.GET
         if data:
             spid = data.get('spid')
+            lowest_price_spid = data.get('lowest_price_spid')
             product_id = data.get('product_id')
             platform = data.get('platform')
 
             ProductObj = Product()
-            price_info = ProductObj.get_product_data_by_spid(product_id, spid, platform)
+            current_price_info = ProductObj.get_product_data_by_spid(product_id, spid, platform)
+            lowest_price_info = ProductObj.get_product_data_by_spid(product_id, lowest_price_spid, platform)
 
-    return JsonResponse(price_info)
-
-
+    return JsonResponse({'current_price_info': current_price_info,
+                        'lowest_price_info': lowest_price_info})

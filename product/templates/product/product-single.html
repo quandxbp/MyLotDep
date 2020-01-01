@@ -31,6 +31,7 @@
     <span class="d-none" id="data-spid" data-spid="{{ product.spid }}">{{ product.spid }}</span>
     <span class="d-none" id="data-product-id" data-product-id="{{ product.product_id }}">{{ product.product_id }}</span>
     <span class="d-none" id="data-platform" data-platform="{{ product.channel_id.platform }}">{{ product.channel_id.platform }}</span>
+    <span class="d-none" id="data-lowest-price-spid" data-lowest-price-spid="{{ lowest_price_data.spid }}">{{ lowest_price_data.spid }}</span>
     <div class="my-wrap">
         <div class="container">
             <section id="single-product" class="ftco-section background-white cust-border-top">
@@ -240,8 +241,9 @@
                                         Nhà cung cấp: <span class="blue-color">{{ product.provider_id.name }}</span>
                                     </p>
                                 </div>
-                                <div class="col-md-10 p-2">
-                                    <table class="table text-center cust-box-shadow mt-2 ml-4">
+                                <div class="col-md-12 p-2">
+                                    {# Current price provider #}
+                                    <table class="table text-center cust-box-shadow mt-2 ">
                                         <thead>
                                             <tr class="green-color">
                                                 <th>Loại</th>
@@ -249,29 +251,38 @@
                                                 <th>Thời điểm</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="abc" class="text-center" >
+                                        <tbody id="lowest-price-provider" class="text-center" >
                                             <tr>
                                                 <td>Hiện tại</td>
-                                                <td id="cur_sale_price" class="price"></td>
-                                                <td id="cur_datetime"></td>
+                                                <td id="cur_sale_price">0</td>
+                                                <td id="cur_datetime">0</td>
                                             </tr>
                                             <tr>
                                                 <td>Cao nhất (*)</td>
-                                                <td>0</td>
-                                                <td>0</td>
+                                                <td id="cur_highest_sale_price" class="green-color-1">0</td>
+                                                <td id="cur_highest_datetime" class="green-color-1">0</td>
                                             </tr>
                                             <tr>
                                                 <td>Thấp nhất (*)</td>
-                                                <td>0</td>
-                                                <td>0</td>
+                                                <td id="cur_lowest_sale_price" class="red-color">0</td>
+                                                <td id="cur_lowest_datetime" class="red-color">0</td>
                                             </tr>
                                             <tr>
                                                 <td>Trung bình (+)</td>
-                                                <td>0</td>
-                                                <td>0</td>
+                                                <td id="cur_average">0</td>
+                                                <td></td>
                                             </tr>
                                         </tbody>
                                     </table>
+                                    {# Current price provider #}
+                                </div>
+                                <div class="p-2 cust-border-top">
+                                    <p>
+                                        <strong>(*) </strong>: Giá cao nhất và thấp nhất tính trong vòng <span class="cur_period green-color-1"></span> ngày cho đến hiện tại.
+                                    </p>
+                                    <p>
+                                        <strong>(+) </strong>: Giá trung bình tính theo sự thay đổi trong <span class="cur_period green-color-1"></span> ngày cho đến hiện tại.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -282,14 +293,15 @@
                                 </div>
                                 <div class="col-md-12 pt-2 pb-2 cust-border-bottom">
                                     <p class="ml-3">
-                                        Sản phẩm: <span class="blue-color"></span>
+                                        Sản phẩm: <span class="blue-color">{{ lowest_price_data.name }}</span>
                                     </p>
                                     <p class="ml-3">
-                                        Nhà cung cấp: <span class="blue-color"></span>
+                                        Nhà cung cấp: <span class="blue-color">{{ lowest_price_data.provider }}</span>
                                     </p>
                                 </div>
-                                <div class="col-md-10 p-2">
-                                    <table class="table text-center cust-box-shadow mt-2 ml-4">
+                                <div class="col-md-12 p-2">
+                                    {# Lowest price provider #}
+                                    <table class="table text-center cust-box-shadow mt-2 ">
                                         <thead>
                                             <tr class="green-color">
                                                 <th>Loại</th>
@@ -300,26 +312,35 @@
                                         <tbody id="abc" class="text-center" >
                                             <tr>
                                                 <td>Hiện tại</td>
-                                                <td>0</td>
-                                                <td>0</td>
+                                                <td id="lowest_sale_price">0</td>
+                                                <td id="lowest_datetime">0</td>
                                             </tr>
                                             <tr>
                                                 <td>Cao nhất (*)</td>
-                                                <td>0</td>
-                                                <td>0</td>
+                                                <td id="lowest_highest_sale_price" class="green-color-1">0</td>
+                                                <td id="lowest_highest_datetime" class="green-color-1">0</td>
                                             </tr>
                                             <tr>
                                                 <td>Thấp nhất (*)</td>
-                                                <td>0</td>
-                                                <td>0</td>
+                                                <td id="lowest_lowest_sale_price" class="red-color">0</td>
+                                                <td id="lowest_lowest_datetime" class="red-color">0</td>
                                             </tr>
                                             <tr>
                                                 <td>Trung bình (+)</td>
-                                                <td>0</td>
-                                                <td>0</td>
+                                                <td id="lowest_average">0</td>
+                                                <td></td>
                                             </tr>
                                         </tbody>
                                     </table>
+                                    {# Lowest price provider #}
+                                </div>
+                                <div class="p-2 cust-border-top">
+                                    <p>
+                                        <strong>(*) </strong>: Giá cao nhất và thấp nhất tính trong vòng <span class="lowest_period green-color-1"></span> ngày cho đến hiện tại.
+                                    </p>
+                                    <p>
+                                        <strong>(+) </strong>: Giá trung bình tính theo sự thay đổi trong <span class="lowest_period green-color-1"></span> ngày cho đến hiện tại.
+                                    </p>
                                 </div>
                             </div>
                         </div>

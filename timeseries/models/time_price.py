@@ -84,39 +84,50 @@ class TimePrice:
     def get_special_price_statistics(self, spid):
         data = self.conn.find_one({'spid': spid}, ['prices'])
         res = {
-            'highest': False,
-            'lowest': False,
-            'average': False
+            'highest': ('NaN', 0),
+            'lowest': ('NaN', 0),
+            'average': 0,
+            'period': 0,
         }
+
         if data:
             if data.get('prices', False):
                 prices = data.get('prices')
                 limit, highest, lowest = 50, 0, float('inf')
                 average, average_count = 0, 0
+                old_price = 0
 
                 price_lst = [(date, time_n_price) for date, time_n_price in prices.items()]
                 price_lst.reverse()
 
+                today = datetime.datetime.today()
+                last_date = False
                 for price_element in price_lst[:50]:
                     date = price_element[0]
                     time_n_price = price_element[1]
+
+                    # Calculate period
+                    last_date = datetime.datetime.strptime(str(date), "%d-%m-%Y")
                     if '1970' in date:
                         continue
                     for time, price in time_n_price.items():
                         dt_str = "%s %s" % (date, time)
-                        format_dt = datetime.datetime.strptime(dt_str, "%d-%m-%Y %H:%M:%S")
                         # Get highest price
                         if price > highest:
                             highest = price
-                            res['highest'] = (format_dt, price)
+                            res['highest'] = (dt_str, price)
                         # Get lowest price
                         if price < lowest:
                             lowest = price
-                            res['lowest'] = (format_dt, price)
+                            res['lowest'] = (dt_str, price)
+
                         # Calculate average price of the product
-                        average += price
-                        average_count += 1
-                res['average'] = float(average / average_count)
+                        if old_price != price:
+                            average += price
+                            average_count += 1
+                            old_price = price
+                res['average'] = int(average / average_count)
+                res['period'] = (today - last_date).days
 
         return res
 
