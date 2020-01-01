@@ -70,7 +70,7 @@ class EcommerceChannel(Tiki, Adayroi):
             products_data = getattr(self, cust_method_name)()
             PO.update_data_product_channel(products_data, update_mongo=True)
 
-    def update_data_channel_mongo(self):
+    def update_data_channel_mongo(self, reverse=False):
         logging.info("Updating product data from Mongo in %s" % self.platform)
         cust_method_name = '%s_update_data_mongo' % self.platform
         if hasattr(self, cust_method_name):
@@ -78,6 +78,8 @@ class EcommerceChannel(Tiki, Adayroi):
             PO = Product()
 
             products_data = getattr(self, cust_method_name)()
+            if reverse:
+                products_data.reverse()
             PO.update_data_product_channel_mongo(products_data, update_sql=False)
 
     def generate_accesstrade_headers(self):
