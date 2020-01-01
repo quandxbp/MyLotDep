@@ -88,8 +88,6 @@
       <recent name="D:\Projects\Python\Thesis\ldserver\product\static\chart" />
       <recent name="D:\Projects\Python\Thesis\ldserver\product\static" />
     </key>
-<<<<<<< HEAD
-=======
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Projects\Python\Thesis\ldserver\product\static\images" />
       <recent name="D:\Projects\Python\Thesis\ldserver\product\static\css\custom" />
@@ -97,7 +95,6 @@
       <recent name="D:\Projects\Python\Thesis\ldserver\product\templates" />
       <recent name="D:\Projects\Python\Thesis\ldserver\static\bootstrap\css" />
     </key>
->>>>>>> b1a95d2aafda45ce113cb50f99b0b4fc227cc3a3
   </component>
   <component name="RunManager">
     <configuration name="ldserver" type="Python.DjangoServer" factoryName="Django server">
@@ -136,10 +133,7 @@
         </serviceView>
       </list>
     </option>
-<<<<<<< HEAD
     <option name="showServicesTree" value="false" />
-=======
->>>>>>> b1a95d2aafda45ce113cb50f99b0b4fc227cc3a3
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -225,24 +219,13 @@
       <workItem from="1575813218468" duration="959000" />
       <workItem from="1575874544458" duration="19532000" />
       <workItem from="1575948410101" duration="20046000" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
       <workItem from="1576033294473" duration="5194000" />
       <workItem from="1576039577684" duration="1075000" />
-=======
       <workItem from="1576033294473" duration="11503000" />
->>>>>>> de46895713dc41999a2667e191176cd91cdc1a71
-=======
       <workItem from="1576033294473" duration="20311000" />
->>>>>>> 2225e78db53b9a3fa98cb77f6fe35ca7676cbdd2
-=======
       <workItem from="1576033294473" duration="21785000" />
       <workItem from="1576082956997" duration="1089000" />
       <workItem from="1576112788057" duration="3560000" />
-<<<<<<< HEAD
->>>>>>> 418394ad1145d6c0176801cc44d0fcbf94448b53
-=======
       <workItem from="1576222070088" duration="2238000" />
       <workItem from="1576224692199" duration="12417000" />
       <workItem from="1576302853251" duration="4064000" />
@@ -256,7 +239,6 @@
       <workItem from="1577486609343" duration="664000" />
       <workItem from="1577807676921" duration="8040000" />
       <workItem from="1577841180267" duration="1279000" />
->>>>>>> b1a95d2aafda45ce113cb50f99b0b4fc227cc3a3
     </task>
     <servers />
   </component>
@@ -277,7 +259,6 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
-<<<<<<< HEAD
     <state x="657" y="138" width="662" height="828" key="#ldserver" timestamp="1576040471972">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
@@ -286,7 +267,6 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="648" y="380" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1576039579539" />
-=======
     <state x="2324" y="291" width="800" height="677" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1577466775756">
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
@@ -384,7 +364,6 @@
     <state x="2210" y="236" width="697" height="696" key="search.everywhere.popup/67.27.1533.873/1600.0.1920.1080@1600.0.1920.1080" timestamp="1577814357796" />
     <state x="2530" y="236" width="697" height="696" key="search.everywhere.popup/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1577035340755" />
     <state x="656" y="257" width="672" height="678" key="search.everywhere.popup/67.27.1853.1053@67.27.1853.1053" timestamp="1576227811536" />
->>>>>>> b1a95d2aafda45ce113cb50f99b0b4fc227cc3a3
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
