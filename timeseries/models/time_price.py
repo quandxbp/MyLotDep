@@ -84,8 +84,8 @@ class TimePrice:
     def get_special_price_statistics(self, spid):
         data = self.conn.find_one({'spid': spid}, ['prices'])
         res = {
-            'highest': ('NaN', 0),
-            'lowest': ('NaN', 0),
+            'highest': ('Chưa có dữ liệu', 0),
+            'lowest': ('Chưa có dữ liệu', 0),
             'average': 0,
             'period': 0,
         }

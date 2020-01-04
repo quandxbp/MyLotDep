@@ -18,11 +18,66 @@
 
     <section id="product-list" class="ftco-section ftco-degree-bg">
         <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <h1>Categories</h1>
+            <div class="row m-3">
+                <div class="col-md-12 cust-border-bottom">
+                    <h3>
+                        Hiện thị <span class="red-color"> {{ product_count }} </span>kết quả tìm kiếm cho từ khóa
+                        <strong class="blue-color">
+                            {{ search_term }}
+                        </strong>
+                        ở trang
+                        <span class="blue-color">
+                            {{ platform }}
+                        </span>
+                    </h3>
                 </div>
-                <div class="col-md-9">
+            </div>
+            <div class="row">
+                <div class="col-md-3 cus">
+                    <p class="cust-border-bottom font-30">Lọc sản phẩm</p>
+                    <div class="row cust-border-bottom">
+                        <div class="col-md-12 text-center m-2">
+                            <h5 class="font-weight-bolder">Giá sản phẩm</h5>
+                        </div>
+                        <div class="col-md-12 ">
+                            <div class="radio">
+                              <label><input type="radio" name="optradio">&nbsp; Dưới <strong >1 triệu</strong></label>
+                            </div>
+                            <div class="radio">
+                              <label><input type="radio" name="optradio">&nbsp; Từ <strong >1 triệu</strong> đến <strong >5 triệu</strong></label>
+                            </div>
+                            <div class="radio">
+                              <label><input type="radio" name="optradio">&nbsp; Từ <strong >5 triệu</strong> đến <strong >10 triệu</strong></label>
+                            </div>
+                            <div class="radio">
+                              <label><input type="radio" name="optradio">&nbsp; Trên <strong >10 triệu</strong></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row cust-border-bottom">
+                        <div class="col-md-12 text-center m-2">
+                            <h5 class="font-weight-bolder">Cửa hàng</h5>
+                        </div>
+                        <div class="col-md-12 ">
+                            <div class="checkbox">
+                              <label><input type="checkbox" value="">&nbsp; Lazada.vn</label>
+                            </div>
+                            <div class="checkbox">
+                              <label><input type="checkbox" value="" checked>&nbsp; Tiki.vn</label>
+                            </div>
+                            <div class="checkbox">
+                              <label><input type="checkbox" value="">&nbsp; Shopee.vn</label>
+                            </div>
+                            <div class="checkbox">
+                              <label><input type="checkbox" value="">&nbsp; Sendo.vn</label>
+                            </div>
+                            <div class="checkbox">
+                              <label><input type="checkbox" value="">&nbsp; Thegioididong.com</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9 cust-border-left">
                     <div class="row">
                         {% for product in products %}
                             <div class="product col-md-3 ftco-animate">
@@ -31,7 +86,7 @@
                                         <img class="platform-logo logo p-2" src="{% static 'images/tiki.png' %}" >
                                         <img class="thumbnail mt-2" src="{{ product.thumbnail_url }}" />
                                         <div class="text p-2 mt-2">
-                                            <h5 class="product-name cust-tooltip mb-2">{{ product.name }}</h5>
+                                            <h6 class="product-name cust-tooltip mb-2">{{ product.name }}</h6>
                                             <span class="cust-tooltip-text">{{ product.name }}</span>
                                         </div>
 

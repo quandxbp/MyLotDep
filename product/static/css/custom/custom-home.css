@@ -3,5 +3,28 @@
 }
 
 #top-product .top-product {
-    min-height: 550px;
+    min-height: 470px;
+}
+
+#banner img {
+    max-width: 1268px;
+    max-height: 300px;
+    min-width: 1268px;
+    min-height: 300px;
+}
+
+.ftco-section-featured {
+    padding-bottom: 0 !important;
+}
+
+.ftco-degree-bg:after {
+    background: transparent;
+}
+
+@media (min-width: 768px) {
+    .blog-entry {
+        min-height: 408px;
+        min-width: 206px;
+        margin-bottom: 30px;
+    }
 }

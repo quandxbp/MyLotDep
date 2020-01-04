@@ -27,7 +27,24 @@ def home(request):
 def products(request):
     categ_ids = Category.objects.filter(id_on_channel__in=DISPLAY_CATEGORY['tiki'])
     products = Product.objects.filter(category_id__in=categ_ids).order_by('-id')[:50]
-    context = {'products': products}
+    if request.method == 'GET':
+        data = request.GET
+        if data:
+            q = data.get('q', False)
+            platform = data.get('platform', False)
+            query = '%' + str(q) + '%'
+            sql = "SELECT pp.id, min(pp.product_id), pp.name, pp.thumbnail_url, pp.sale_price, pp.list_price, pp.discount_rate, pp.channel_id_id " \
+                  "FROM product_product pp JOIN product_producttemplate pt ON pp.product_tmpl_id_id = pt.id " \
+                  "WHERE pp.active = 1 AND pt.name LIKE %s " \
+                  "AND pp.channel_id_id = (SELECT pe.id FROM product_ecommercechannel pe WHERE pe.platform = %s)" \
+                  "GROUP BY pp.name ORDER BY pp.sale_price ASC"
+            products = Product.objects.raw(sql, [query, platform])
+    context = {
+        'products': products,
+        'product_count': len(products),
+        'search_term': q,
+        'platform': platform,
+    }
     return render(request, 'product/products.html', context=context)
 
 

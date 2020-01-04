@@ -1,8 +1,16 @@
 /*General - apply for all page*/
 {% load static %}
 
+strong{
+    font-weight: 800;
+}
+
 .my-wrap {
     background: #f4f4f4;
+}
+
+.min-height-200 {
+    min-height: 200px !important;
 }
 
 .muted-price {
@@ -37,6 +45,10 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
+}
+
+.product-name {
+    font-size: 18px;
 }
 
 .loading {
@@ -364,6 +376,9 @@ nav .search-icon {
 
 #suggestion-items {
     background: #fff;
+    height: 800px;
+    overflow-y: scroll;
+    overflow-x: hidden;
     margin: 2%;
 }
 
