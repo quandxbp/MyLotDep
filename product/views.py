@@ -8,6 +8,7 @@ from .models.category import Category
 from .models.ecommerce_channel import EcommerceChannel
 from .models.specification import Specification
 from .models.provider import Provider
+from .models.image import Image
 from .models.related_product import RelatedProduct
 from .models.accesstrade import AccessTrade
 from timeseries.models.time_price import TimePrice
@@ -54,6 +55,10 @@ def single_product(request, product_id):
 
     # Get all related product data
     related_products = RelatedProduct.objects.filter(related_product_id=product.id)
+
+    # Get all images
+    images = Image.objects.filter(product_id=product.id)
+
     related_product_data = []
     lowest_price_spid = False
     if related_products:
@@ -81,6 +86,7 @@ def single_product(request, product_id):
         'specifications': specifications,
         'related_product_data': related_product_data,
         'lowest_price_spid': lowest_price_spid,
+        'images': images,
         'labels': labels,
         'prices': prices
     }
@@ -93,6 +99,10 @@ def demo_product(request):
 
     # Get all related product data
     related_products = RelatedProduct.objects.filter(related_product_id=product.id)
+
+    # Get all images
+    images = Image.objects.filter(product_id=product.id)
+
     related_product_data = []
     lowest_price_data = {}
     if related_products:
@@ -124,6 +134,7 @@ def demo_product(request):
         'specifications': specifications,
         'related_product_data': related_product_data,
         'lowest_price_data': lowest_price_data,
+        'images': images,
         'labels': labels,
         'prices': prices
     }

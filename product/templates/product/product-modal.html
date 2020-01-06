@@ -1,0 +1,80 @@
+<!-- The Notification Modal -->
+<div class="modal fade" id="price-notify-modal">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title">Thông báo giá thay đổi qua Email</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <label for="notify-email">Nhập địa chỉ Email:</label>
+                        <input id="notify-email" class="form-control" type="email" placeholder="your-email@example.com">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="radio">
+                            <label><input type="radio" name="optradio" checked>&nbsp; Thông báo khi giá tăng hoặc giảm</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="optradio">&nbsp; Thông báo chỉ khi giá giảm</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Modal footer -->
+            <div class="modal-footer">
+                <button id="confirm-email" type="button" class="btn btn-info" data-dismiss="modal">Xác nhận</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="more-images-modal">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title">Nhiều hình ảnh hơn</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body switcher" >
+                <div class="row cust-border-bottom pb-2">
+                    <div class="col-md-12 text-center">
+                        <button id="google-image-btn" type="button" class="btn btn-primary switch-1">Google</button>
+                        <button id="channel-image-btn" type="button" class="btn btn-primary switch-2 ml-2">{{ product.channel_id.name|title }}</button>
+                    </div>
+                </div>
+                <div class="row text-center" id="images-content">
+                    <div class="col-md-12 google-images switch-res-1">
+                        <div class="gcse-search"></div>
+                    </div>
+                    <div class="col-md-12 channel-images switch-res-2">
+                        {% for i in images %}
+                            <div class="item">
+                                <a href="#">
+                                    <img class="img-fluid" alt="{{ i.alter_text }}"
+                                         src="{{ i.url }}" >
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+             <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>

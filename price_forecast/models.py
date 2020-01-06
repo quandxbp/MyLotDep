@@ -9,6 +9,17 @@ import logging
 
 class PriceForecast:
 
+    def _round_price(self, price):
+        price = round(price)
+        del_value = abs(price) % 10000
+
+        if del_value < 5000:
+            price -= del_value
+        else:
+            price += 10000 - del_value
+
+        return price
+
     def prophet_forecast(self, spid):
         tp = TimePrice()
         data = tp.get_price_list_by_spid(spid)
@@ -59,30 +70,15 @@ class PriceForecast:
             datetime_stamp = forecast['ds'].tail(5).tolist()
             yhat = forecast['yhat'].tail(5).tolist()
             trend = forecast['trend'].tail(10).tolist()
+            round_trend = [self._round_price(p) for p in trend]
 
-            labels = []
-            for dt in datetime_stamp:
-                format_date = datetime.datetime.strftime(dt, '%d/%m/%Y')
-                labels.append(format_date)
+            labels = [datetime.datetime.strftime(dt, '%d/%m/%Y') for dt in datetime_stamp]
 
-            prices = []
-            for price in yhat:
-                prices.append(self._round_price(price))
+            prices = [self._round_price(p) for p in yhat]
 
             return labels, prices
         else:
             return [], []
-
-    def _round_price(self, price):
-        price = round(price)
-        del_value = abs(price) % 10000
-
-        if del_value < 5000:
-            price -= del_value
-        else:
-            price += 10000 - del_value
-
-        return price
 
     # def train_data(self):
     #     tp = TimePrice()

@@ -2,6 +2,7 @@
 {% load  static %}
 
 {% block content %}
+    {% include "product/product-modal.html" %}
 
     <section id="home-slider" class="home-slider min-height-200">
         <div class="slider-item min-height-200">
@@ -15,12 +16,6 @@
                                     <input type="search" placeholder="Tìm theo dường dẫn hoặc tên sản phẩm ..." class="product-search form-control">
                                 </div>
                             </div>
-                            <h5 class="mb-4">Từ khóa nổi bật:
-                                <strong>
-                                    <a>Galaxy Note 10</a>,
-                                    <a>iPhone 11</a>
-                                </strong>
-                            </h5>
                         </div>
                     </div>
                 </div>
@@ -28,6 +23,7 @@
         </div>
     </section>
     <!-- END slider -->
+    <span class="d-none" id="data-product-tmpl-name" data-product-tmpl-name="{{ product.product_tmpl_id.name }}">{{ product.product_tmpl_id.name }}</span>
     <span class="d-none" id="data-spid" data-spid="{{ product.spid }}">{{ product.spid }}</span>
     <span class="d-none" id="data-product-id" data-product-id="{{ product.product_id }}">{{ product.product_id }}</span>
     <span class="d-none" id="data-platform" data-platform="{{ product.channel_id.platform }}">{{ product.channel_id.platform }}</span>
@@ -54,9 +50,10 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="text-center pt-3 blue-color">
-                                        <small>
+                                        <a href="javascript:void(0)" id="open-more-images" class="blue-color"
+                                           data-toggle="modal" data-target="#more-images-modal">
                                             NHIỀU HÌNH ẢNH HƠN NỮA &nbsp; <i class="fa fa-images fa-lg"></i>
-                                        </small>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -114,12 +111,16 @@
                                         <span id="list-price" class="price list-price">{{ product.list_price }}</span>
                                     </div>
                                     <div class="row pl-2">
-                                        <label>Số lượng trên kho <strong class="text-uppercase blue-color">{{ product.channel_id.platform }}</strong>: &nbsp;</label>
+                                        <label>Số lượng trên kho <strong class="blue-color">{{ product.channel_id.platform|title }}</strong>: &nbsp;</label>
                                         <span id="quantity" >{{ product.quantity }} (sản phẩm)</span>
                                     </div>
                                     <div class="row p-2 pt-4 cust-border-top">
                                         <a id="product-link" class="solid-btn p-2 pr-3" href="{{ product.url }}" target="_blank">
                                             <i class="fa fa-shopping-cart fa-2x"></i>&nbsp; ĐẾN NGAY NƠI BÁN
+                                        </a>
+                                        <a href="javascript:void(0)" id="price-notify" data-toggle="modal"
+                                           data-target="#price-notify-modal" class="empty-btn blue-color mt-3 p-2 pr-3">
+                                            <i class="fa fa-bell fa-lg"></i>&nbsp; Thông báo giá khi có thay đổi
                                         </a>
                                     </div>
                                 </div>
@@ -351,20 +352,34 @@
             <section id="product-description" class="ftco-section background-white">
                 <div class="container cust-border-top">
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-8 switcher">
                             <h4 class="text-center pt-3 pl-3">MÔ TẢ VÀ BÀI VIẾT LIÊN QUAN</h4>
 
                             <div class="row p-2">
                                 <div id="description-source" class="col-md-12 text-center pb-2">
-                                    <a href="javascript:void(0)" class="solid-btn detail-btn white-color pt-2 pb-2 pl-2 pr-2">
-                                        TIKI
+                                    <a href="javascript:void(0)" class="solid-btn detail-btn white-color switch-1 p-2">
+                                        {{ product.channel_id.name | title }}
+                                    </a>
+                                    <a href="javascript:void(0)" class="solid-btn detail-btn white-color switch-2 ml-2 p-2">
+                                        VnReview.vn
+                                    </a>
+                                    <a href="javascript:void(0)" class="solid-btn detail-btn white-color switch-3 ml-2 p-2">
+                                        Tinhte.vn
                                     </a>
                                 </div>
                             </div>
                             <div id="description-content" class="row pl-4 pr-4 pt-2 pb-2">
-                                 {% autoescape off %}
-                                     {{ product.description }}
-                                 {% endautoescape %}
+                                <div class="col-md-12 switch-res-1">
+                                    {% autoescape off %}
+                                         {{ product.description }}
+                                     {% endautoescape %}
+                                </div>
+                                <div class="col-md-12 switch-res-2">
+                                    <h1>Ahihi</h1>
+                                </div>
+                                <div class="col-md-12 switch-res-3">
+                                    <h1>Ahuhu</h1>
+                                </div>
                             </div>
                             <div id="detail-btn" class="row text-center mt-3">
                                 <div class="col-md-12">
@@ -431,9 +446,36 @@
                 </div>
             </section>
 
-            <section id="product-description" class="ftco-section background-white">
+            <section id="product-comments" class="ftco-section background-white">
                 <div class="container cust-border-top">
-                    <div class="row" style="height: 400px;">
+                    <div class="row switcher">
+                        <div class="col-md-12">
+                            <h4 class="text-center pt-3 pl-3">Nhận xét từ người dùng</h4>
+                        </div>
+                        <div class="col-md-12 mt-2">
+                            <div id="comment-source" class="col-md-12 text-center pb-2">
+                                <a href="javascript:void(0)" class="solid-btn detail-btn white-color switch-1 p-2">
+                                    {{ product.channel_id.name | title }}
+                                </a>
+                                <a href="javascript:void(0)" class="solid-btn detail-btn white-color switch-2 ml-2 p-2">
+                                    VnReview.vn
+                                </a>
+                                <a href="javascript:void(0)" class="solid-btn detail-btn white-color switch-3 ml-2 p-2">
+                                    Tinhte.vn
+                                </a>
+                            </div>
+                        </div>
+                        <div id="comment-content" class="row pl-4 pr-4 pt-2 pb-2">
+                            <div class="col-md-12 switch-res-1">
+                                <h1>Acac</h1>
+                            </div>
+                            <div class="col-md-12 switch-res-2">
+                                <h1>Ahihi</h1>
+                            </div>
+                            <div class="col-md-12 switch-res-3">
+                                <h1>Ahuhu</h1>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -562,6 +604,10 @@
 		};
 
 	</script>
+
+    <script src="{% static 'js/custom/single-product.js' %}" ></script>
+
+    <script async src="https://cse.google.com/cse.js?cx=000838244566526371716:x8ucrbazq82"></script>
 
 {% endblock %}
 

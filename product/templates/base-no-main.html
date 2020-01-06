@@ -2,6 +2,7 @@
 <html lang="vi">
 <head>
     <title>Lót Dép</title>
+
     {% load static %}
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -36,6 +37,8 @@
     <link href="{% static 'css/style.css' %}" rel="stylesheet" />
     <link href="{% static 'css/custom/custom.css' %}" rel="stylesheet" />
     <link href="{% static 'css/custom/custom-product.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/custom/custom-google-search.css' %}" rel="stylesheet" />
+
     <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
 
 </head>
@@ -74,9 +77,9 @@
     {#    <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false'></script>#}
 
     {# Custom Javascript #}
+    <script src="{% static 'js/custom/utils.js' %}" ></script>
     <script src="{% static 'js/custom/nav-bar.js' %}" ></script>
     <script src="{% static 'js/custom/products.js' %}" ></script>
-    <script src="{% static 'js/custom/single-product.js' %}" ></script>
     <script src="{% static 'js/custom/price.js' %}" ></script>
     <script src="{% static 'js/custom/image.js' %}" ></script>
 </html>

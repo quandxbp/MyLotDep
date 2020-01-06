@@ -1,8 +1,25 @@
-function formatPriceValue(price) {
-    return price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') + " ₫";
+function performSwitcher() {
+    let switchLimit = 10;
+    for (let i = 0; i < switchLimit; i++) {
+        let switchBtn = $('.switch-' + i);
+        $(switchBtn).click(function () {
+            let switchParent = $(this).closest('.switcher');
+            let switchRes = $(switchParent).find('.switch-res-' + i);
+            $(switchRes).show();
+            for (let x = 0 ; x < switchLimit; x++) {
+                if (x !== i) {
+                    let otherSwitcher = $(switchParent).find('.switch-res-' + x);
+                    $(otherSwitcher).hide();
+                }
+            }
+        })
+    }
 }
 
+performSwitcher();
+
 $(document).ready(function () {
+    let product_tmpl_name = $("#data-product-tmpl-name").data('product-tmpl-name');
     let spid = $("#data-spid").data('spid');
     let product_id = $("#data-product-id").data('product-id');
     let platform = $("#data-platform").data('platform');
@@ -141,4 +158,25 @@ $(document).ready(function () {
         }
     });
     // \ Current Special Price statistics
+
+    // Confirm Email
+    $("#confirm-email").click(function () {
+        let email = $('#notify-email').val();
+        alert("Email " + email +" đã được xác nhận");
+    });
+
+    // Zoom thumbnail images
+    imageZoom("product-thumbnail", "product-thumbnail-zoom");
+
+    // Customize Google custom search
+    $("#open-more-images").click(function () {
+
+        $("#gsc-i-id1").val(product_tmpl_name);
+
+        $(".gsc-search-button").click();
+
+        $(".gsc-tabhInactive").click();
+
+    });
+
 });

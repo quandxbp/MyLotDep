@@ -78,4 +78,3 @@ $(function() {
     });
 
 });
-imageZoom("product-thumbnail", "product-thumbnail-zoom");
