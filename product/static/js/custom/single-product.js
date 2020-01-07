@@ -159,6 +159,48 @@ $(document).ready(function () {
     });
     // \ Current Special Price statistics
 
+    $.ajax({
+        url: "/api/v1/get_product_comments",
+        data: {
+            "platform": platform,
+            "product_id": product_id,
+            "product_tmpl_name": product_tmpl_name
+        },
+        method: "GET",
+        success: function (result) {
+            let channel_comments = result['channel_comments'];
+            let review_sources = result['review_sources'];
+
+            if (channel_comments.length !== 0) {
+                $("#channel_comments").append(`<ul class="comment-list">` + addCommentRecord(channel_comments)+ `</ul>`)
+            }
+
+            if (review_sources.length !== 0) {
+                $("#review_sources_comments").append(`<ul class="comment-list">` + addCommentRecord(review_sources)+ `</ul>`)
+            }
+        },
+        error: function (err) {
+            console.log("Error: " + err.statusText);
+        },
+        complete: function () {
+        }
+    });
+
+    $.ajax({
+        url: "/api/v1/get_product_articles",
+        method: "GET",
+        success: function (result) {
+            console.log(result);
+            let genk_article_source = result['genk_article_source'];
+            $("#genk-article-source").append(genk_article_source);
+        },
+        error: function (err) {
+            console.log("Error: " + err.statusText);
+        },
+        complete: function () {
+        },
+    });
+
     // Confirm Email
     $("#confirm-email").click(function () {
         let email = $('#notify-email').val();
@@ -176,7 +218,27 @@ $(document).ready(function () {
         $(".gsc-search-button").click();
 
         $(".gsc-tabhInactive").click();
-
     });
 
 });
+
+function addCommentRecord(data) {
+    let view = '';
+    for (let i = 0;i < data.length; i++) {
+        let comment = data[i];
+        view += `<li class="comment">
+                    <div class="row">
+                        <div class="vcard bio col-md-2 text-center">
+                            <img src="`+ comment['avatar'] +`" >
+                            <h6 class="mt-2">` + comment['author'] + `</h6>
+                        </div>
+                        <div class="col-md-10 comment-body">
+                            <h3>` + comment['title'] + `</h3>
+                            <div class="meta">` + comment['created_at'] + `</div>
+                            <p>` + comment['content'] + `</p>
+                        </div>
+                    </div>
+                </li>`;
+    }
+    return view;
+}

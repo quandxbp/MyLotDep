@@ -27,7 +27,7 @@
                         </strong>
                         ở trang
                         <span class="blue-color">
-                            {{ platform }}
+                            {{ platform | title }}
                         </span>
                     </h3>
                 </div>
@@ -35,44 +35,57 @@
             <div class="row">
                 <div class="col-md-3 cus">
                     <p class="cust-border-bottom font-30">Lọc sản phẩm</p>
-                    <div class="row cust-border-bottom">
+                    <div class="row cust-border-bottom p-2">
                         <div class="col-md-12 text-center m-2">
                             <h5 class="font-weight-bolder">Giá sản phẩm</h5>
                         </div>
                         <div class="col-md-12 ">
-                            <div class="radio">
-                              <label><input type="radio" name="optradio">&nbsp; Dưới <strong >1 triệu</strong></label>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="a" name="optradio">
+                                <label class="custom-control-label" >Dưới <strong >1 triệu</strong></label>
                             </div>
-                            <div class="radio">
-                              <label><input type="radio" name="optradio">&nbsp; Từ <strong >1 triệu</strong> đến <strong >5 triệu</strong></label>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="b" name="optradio">
+                                <label class="custom-control-label" >Từ <strong >1 triệu</strong> đến <strong >5 triệu</strong></label>
                             </div>
-                            <div class="radio">
-                              <label><input type="radio" name="optradio">&nbsp; Từ <strong >5 triệu</strong> đến <strong >10 triệu</strong></label>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="c" name="optradio">
+                                <label class="custom-control-label" >Từ <strong >5 triệu</strong> đến <strong >10 triệu</strong></label>
                             </div>
-                            <div class="radio">
-                              <label><input type="radio" name="optradio">&nbsp; Trên <strong >10 triệu</strong></label>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="d" name="optradio">
+                                <label class="custom-control-label" >Từ <strong >10 triệu</strong> đến <strong >15 triệu</strong></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="e" name="optradio">
+                                <label class="custom-control-label" >Trên <strong >15 triệu</strong></label>
                             </div>
                         </div>
                     </div>
-                    <div class="row cust-border-bottom">
+                    <div class="row cust-border-bottom p-2">
                         <div class="col-md-12 text-center m-2">
                             <h5 class="font-weight-bolder">Cửa hàng</h5>
                         </div>
                         <div class="col-md-12 ">
-                            <div class="checkbox">
-                              <label><input type="checkbox" value="">&nbsp; Lazada.vn</label>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="tiki-checkbox" name="tiki-checkbox" checked>
+                                <label class="custom-control-label" for="tiki-checkbox">Tiki.vn</label>
                             </div>
-                            <div class="checkbox">
-                              <label><input type="checkbox" value="" checked>&nbsp; Tiki.vn</label>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="lazada-checkbox" name="lazada-checkbox">
+                                <label class="custom-control-label" for="lazada-checkbox">Lazada.vn</label>
                             </div>
-                            <div class="checkbox">
-                              <label><input type="checkbox" value="">&nbsp; Shopee.vn</label>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="shopee-checkbox" name="shopee-checkbox">
+                                <label class="custom-control-label" for="shopee-checkbox">Shopee.vn</label>
                             </div>
-                            <div class="checkbox">
-                              <label><input type="checkbox" value="">&nbsp; Sendo.vn</label>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="tiki-checkbox" name="tgdd-checkbox">
+                                <label class="custom-control-label" for="tgdd-checkbox">Thegioididong.com</label>
                             </div>
-                            <div class="checkbox">
-                              <label><input type="checkbox" value="">&nbsp; Thegioididong.com</label>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="sendo-checkbox" name="sendo-checkbox">
+                                <label class="custom-control-label" for="sendo-checkbox">Sendo.vn</label>
                             </div>
                         </div>
                     </div>

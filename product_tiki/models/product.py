@@ -110,3 +110,5 @@ class TikiProduct(models.Model):
         })
 
         return product_data
+
+

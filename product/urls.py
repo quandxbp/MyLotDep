@@ -32,5 +32,7 @@ urlpatterns = [
 
     # Api
     path('api/v1/search_product', apis.search_product, name='search product'),
+    path('api/v1/get_product_comments', apis.get_product_comments, name='get product comments'),
+    path('api/v1/get_product_articles', apis.get_product_articles, name='get product articles'),
     path('api/v1/get_current_product_price', apis.get_current_product_price, name='current product price')
 ]

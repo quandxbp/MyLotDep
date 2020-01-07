@@ -1,3 +1,46 @@
+<!-- The Specification Modal -->
+<div class="modal fade" id="specification-modal">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Cấu hình chi tiết</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul>
+                            {% for sp in specifications %}
+                                <li class="cust-border-bottom">
+                                    <div class="row pt-1 pb-1">
+                                        {% autoescape off %}
+
+                                        <div class="sp-name blue-color col-md-6">
+                                            {{ sp.name }}
+                                        </div>
+                                         <div class="sp-value cust-border-left col-md-6">
+                                             {{ sp.value }}
+                                         </div>
+                                        {% endautoescape %}
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- The Notification Modal -->
 <div class="modal fade" id="price-notify-modal">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">

@@ -1,4 +1,6 @@
 from django.db import models
+from common.utils import get_soup
+
 from product_tiki.models.product import *
 
 from .accesstrade import AccessTrade
@@ -6,10 +8,10 @@ from .accesstrade import AccessTrade
 from product_tiki.models.ecommerce_channel import Tiki
 from product_adayroi.models.ecommerce_channel import Adayroi
 
-from multiprocessing import Queue, Process
-
 import time
 import logging
+import requests
+import json
 
 
 class EcommerceChannel(Tiki, Adayroi):
@@ -69,6 +71,58 @@ class EcommerceChannel(Tiki, Adayroi):
             if reverse:
                 products_data.reverse()
             PO.update_data_product_channel_mongo(products_data, update_sql=False)
+
+    def get_product_comment_channel(self, platform, product_id):
+        cust_method_name = '%s_get_comments' % platform
+        if hasattr(self, cust_method_name):
+            method = getattr(self, cust_method_name)(product_id)
+            return method
+        return []
+
+    def get_product_comment_review_source(self, product_tmpl_name):
+        # Hard code
+        data = []
+        vnreview_endpoint = 'https://vnreview.vn/VnReview/getComment.action'
+        headers = {
+            'Content-Type': 'application/json',
+            'Referer': 'https://vnreview.vn/danh-gia-chi-tiet-di-dong/-/view_content/content/2823988/danh-gia-samsung-galaxy-a70-danh-cho-nhung-cu-dan-mang-thuc-thu'
+        }
+        params = {
+            'articleId': "2823988",
+            "skip": 0,
+            "limit": 15,
+            "sort": 1
+        }
+
+        try:
+            vnreview_res = requests.post(url=vnreview_endpoint, data=json.dumps(params), headers=headers)
+            if vnreview_res.ok:
+                res = vnreview_res.json().get('returnValue')
+                comments = json.loads(res)
+                for comment in comments:
+                    data.append({
+                        'author': comment.get('userComment'),
+                        'avatar': '/static/images/undefined-user.jpg',
+                        'title': 'Không tiêu đề',
+                        'content': comment.get('body'),
+                        'created_at': comment.get('createDate'),
+                    })
+        except Exception as err:
+            logging.error("Error when getting comments from VnReview")
+            logging.error(err)
+        return data
+
+    def get_genk_article(self):
+        url = "https://genk.vn/samsung-galaxy-a70-chiec-smartphone-toan-dien-nhat-trong-phan-khuc-trung-cap-20190523164118506.chn"
+        try:
+            soup = get_soup(url)
+        except Exception as e:
+            raise e
+
+        articlesTag = soup.find("div", {"class": "w640"})
+
+        content = str(articlesTag)
+        return content
 
     def generate_accesstrade_headers(self):
         return {

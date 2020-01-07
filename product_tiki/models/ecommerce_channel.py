@@ -1,9 +1,11 @@
 from django.db import models
 
 from common.constants import *
+from datetime import datetime
 
 import requests
 import logging
+
 
 class Tiki(models.Model):
     class Meta:
@@ -151,3 +153,29 @@ class Tiki(models.Model):
 
         return update_products
 
+    def tiki_get_comments(self, product_id, limit=15):
+        endpoint = "https://tiki.vn/api/v2/reviews?product_id=%s&limit=%s&sort=score|desc,id|desc,stars|all&include=comments&page=1&_=1578324542086" % (
+            product_id, limit)
+        data = []
+        try:
+            response = requests.get(endpoint)
+            if response.ok:
+                result = response.json().get('data')
+                for res in result:
+                    second_created_at = res.get('created_at')
+                    created_at = datetime.fromtimestamp(second_created_at).strftime("%d/%m/%Y %I:%M:%S")
+                    raw_avatar_url = res.get('created_by', {}).get('avatar_url')
+                    avatar_url = "https:%s" % raw_avatar_url if 'http' not in raw_avatar_url else raw_avatar_url
+                    data.append({
+                        'author': res.get('created_by', {}).get('name'),
+                        'avatar': avatar_url,
+                        'title': res.get('title'),
+                        'content': res.get('content'),
+                        'created_at': created_at,
+                        'images': [i.get('full_path') for i in res.get('images')]
+                    })
+        except Exception as err:
+            print("Error when getting Tiki Comments ")
+            print(err)
+
+        return data

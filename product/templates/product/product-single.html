@@ -360,27 +360,20 @@
                                     <a href="javascript:void(0)" class="solid-btn detail-btn white-color switch-1 p-2">
                                         {{ product.channel_id.name | title }}
                                     </a>
-                                    <a href="javascript:void(0)" class="solid-btn detail-btn white-color switch-2 ml-2 p-2">
-                                        VnReview.vn
-                                    </a>
                                     <a href="javascript:void(0)" class="solid-btn detail-btn white-color switch-3 ml-2 p-2">
-                                        Tinhte.vn
+                                        Genk.vn
                                     </a>
                                 </div>
                             </div>
+                            {% autoescape off %}
                             <div id="description-content" class="row pl-4 pr-4 pt-2 pb-2">
                                 <div class="col-md-12 switch-res-1">
-                                    {% autoescape off %}
-                                         {{ product.description }}
-                                     {% endautoescape %}
+                                     {{ product.description }}
                                 </div>
-                                <div class="col-md-12 switch-res-2">
-                                    <h1>Ahihi</h1>
-                                </div>
-                                <div class="col-md-12 switch-res-3">
-                                    <h1>Ahuhu</h1>
+                                <div id="genk-article-source" class="col-md-12 switch-res-2">
                                 </div>
                             </div>
+                            {% endautoescape %}
                             <div id="detail-btn" class="row text-center mt-3">
                                 <div class="col-md-12">
                                     <a href="javascript:void(0)"
@@ -460,68 +453,17 @@
                                 <a href="javascript:void(0)" class="solid-btn detail-btn white-color switch-2 ml-2 p-2">
                                     VnReview.vn
                                 </a>
-                                <a href="javascript:void(0)" class="solid-btn detail-btn white-color switch-3 ml-2 p-2">
-                                    Tinhte.vn
-                                </a>
                             </div>
                         </div>
-                        <div id="comment-content" class="row pl-4 pr-4 pt-2 pb-2">
-                            <div class="col-md-12 switch-res-1">
-                                <h1>Acac</h1>
+                        <div id="comment-content" class="col-md-12 pl-4 pr-4 pt-2 pb-2">
+                            <div id="channel_comments" class="switch-res-1">
                             </div>
-                            <div class="col-md-12 switch-res-2">
-                                <h1>Ahihi</h1>
-                            </div>
-                            <div class="col-md-12 switch-res-3">
-                                <h1>Ahuhu</h1>
+                            <div id="review_sources_comments" class="switch-res-2">
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-        </div>
-    </div>
-
-    <!-- The Specification Modal -->
-    <div class="modal fade" id="specification-modal">
-        <div class="modal-dialog modal-lg modal-dialog-scrollable">
-            <div class="modal-content">
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Cấu hình chi tiết</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <ul>
-                                {% for sp in specifications %}
-                                    <li class="cust-border-bottom">
-                                        <div class="row pt-1 pb-1">
-                                            {% autoescape off %}
-
-                                            <div class="sp-name blue-color col-md-6">
-                                                {{ sp.name }}
-                                            </div>
-                                             <div class="sp-value cust-border-left col-md-6">
-                                                 {{ sp.value }}
-                                             </div>
-                                            {% endautoescape %}
-                                        </div>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
-                </div>
-            </div>
         </div>
     </div>
 
